@@ -24,9 +24,9 @@
   "literature": "deep Opus curation of flux papers",
   "biolog": "phenotype-microarray mining",
   "bacdive": "BacDive (free API 2026): growth conditions + MediaDive-linked media + metabolite-utilization phenotypes",
-  "phenotypes": "BacDive metabolite utilization + literature Biolog/PM (consensus)"
+  "phenotypes": "BacDive metabolite utilization + literature Biolog/PM + PMkbase (P. putida strain-resolved Biolog PM)"
  },
- "n_substrate_phenotypes": 352631,
+ "n_substrate_phenotypes": 352797,
  "n_phenotype_datapoints_raw": 882664,
  "n_bacdive_strains": 99393,
  "n_bacdive_media_linked": 25143,
