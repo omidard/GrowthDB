@@ -1,14 +1,19 @@
 {
  "n_organisms": 124666,
  "n_with_growth": 14613,
- "n_growth_records": 50524,
- "n_with_rate": 1134,
+ "n_growth_records": 51881,
+ "n_literature_records": 1357,
+ "n_with_rate": 2367,
+ "n_with_uptake": 294,
+ "n_with_secretion": 194,
+ "n_media_linked": 664,
  "by_superkingdom": {
   "Bacteria": 114296,
   "Archaea": 10370
  },
  "sources": {
-  "backbone": "GTDB r220 (bac120 + ar53)",
-  "growth": "Madin et al. Sci Data 2020"
+  "backbone": "GTDB r220 (bac120+ar53)",
+  "growth_trait_seed": "Madin et al. Sci Data 2020",
+  "literature": "1,201 papers mined (snippet-verified, rates reported/calculated)"
  }
 }
