@@ -1,0 +1,14 @@
+{
+ "n_organisms": 124666,
+ "n_with_growth": 14613,
+ "n_growth_records": 50524,
+ "n_with_rate": 1134,
+ "by_superkingdom": {
+  "Bacteria": 114296,
+  "Archaea": 10370
+ },
+ "sources": {
+  "backbone": "GTDB r220 (bac120 + ar53)",
+  "growth": "Madin et al. Sci Data 2020"
+ }
+}
