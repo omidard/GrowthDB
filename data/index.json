@@ -1,19 +1,27 @@
 {
  "n_organisms": 124666,
  "n_with_growth": 14613,
- "n_growth_records": 51881,
- "n_literature_records": 1357,
- "n_with_rate": 2367,
- "n_with_uptake": 294,
- "n_with_secretion": 194,
- "n_media_linked": 664,
+ "n_growth_records": 52116,
+ "n_literature_records": 1592,
+ "n_with_rate": 2420,
+ "n_uptake_records": 653,
+ "n_secretion_records": 464,
+ "n_total_rates": 1916,
+ "n_media_linked": 620,
+ "n_biolog_phenotypes": 894,
  "by_superkingdom": {
   "Bacteria": 114296,
   "Archaea": 10370
  },
+ "curation": {
+  "culture_mode": "controlled (10)",
+  "oxygen": "controlled (6)",
+  "media": "canonical + deep-linked to Media"
+ },
  "sources": {
-  "backbone": "GTDB r220 (bac120+ar53)",
-  "growth_trait_seed": "Madin et al. Sci Data 2020",
-  "literature": "1,201 papers mined (snippet-verified, rates reported/calculated)"
+  "backbone": "GTDB r220",
+  "trait_seed": "Madin 2020",
+  "literature": "deep Opus curation of flux papers",
+  "biolog": "phenotype-microarray mining"
  }
 }

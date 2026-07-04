@@ -66,6 +66,15 @@
       <tbody></tbody>
     </table>
   </div>
+  <div class="panel mb-3" id="biolog-panel">
+    <div style="font-weight:700;color:#17223b;margin-bottom:.2rem">Biolog phenotypes <span style="font-weight:400;font-size:.8rem;color:#889">— substrate-utilization (grow / no-grow), each mapped to a BiGG exchange so a model can be tested for growth on it</span></div>
+    <div class="row g-2 align-items-end mb-2">
+      <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.78rem">Phenotype</label><select id="b-ph" class="form-select form-select-sm"><option value="">All</option></select></div>
+      <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.78rem">Category</label><select id="b-cat" class="form-select form-select-sm"><option value="">All</option></select></div>
+    </div>
+    <table id="btbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Organism</th><th>Substrate</th><th>Exchange</th><th>Category</th><th>Phenotype</th><th>Plate</th><th>Citation</th></tr></thead><tbody></tbody></table>
+  </div>
+
   <div class="text-muted mt-2" style="font-size:.82rem">Showing the <b>quantitative</b> records (growth rate and/or uptake/secretion). The full backbone of <b id="s-org2">-</b> prokaryotes and <b>50,524</b> trait records (conditions) are in <a href="data/organisms.json">organisms.json</a> / <a href="data/growth_records.json">growth_records.json</a>. Click a record for full detail. Data: <a href="DESIGN.md">schema &amp; curation rules</a>.</div>
 </div>
 
@@ -83,7 +92,7 @@ const fx=v=>v==null?'':(typeof v==='number'?(Math.abs(v)<0.01?v.toExponential(2)
 function popF(id,vals){const s=document.getElementById(id);[...new Set(vals)].filter(v=>v!=null&&v!=='').sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});}
 function clearF(){['f-src','f-sk','f-mode','f-ox','f-flux'].forEach(id=>document.getElementById(id).value='');table.search('').columns().search('').draw();FLUX='';table.draw();}
 let FLUX='';
-$.fn.dataTable.ext.search.push((s,d,i)=>{if(!FLUX)return true;const r=DATA[i];return FLUX==='up'?r.nu>0:r.ns>0;});
+$.fn.dataTable.ext.search.push((s,d,i)=>{if(s.nTable.id!=='tbl')return true;if(!FLUX)return true;const r=DATA[i];return FLUX==='up'?r.nu>0:r.ns>0;});
 
 fetch('data/records_index.json').then(r=>r.json()).then(idx=>{
   DATA=idx.records;DATA.forEach(r=>RMAP[r.id]=r);
@@ -91,7 +100,7 @@ fetch('data/records_index.json').then(r=>r.json()).then(idx=>{
   document.getElementById('s-org2').textContent=idx.n_organisms.toLocaleString();
   document.getElementById('s-rec').textContent=idx.count.toLocaleString();
   document.getElementById('s-rate').textContent=idx.n_with_rate.toLocaleString();
-  document.getElementById('s-flux').textContent=(idx.n_uptake+idx.n_secretion).toLocaleString();
+  document.getElementById('s-flux').textContent=(idx.n_total_rates||0).toLocaleString();
   document.getElementById('loading').style.display='none';document.getElementById('tbl').style.display='table';
   popF('f-src',DATA.map(d=>d.src));popF('f-sk',DATA.map(d=>d.sk));popF('f-mode',DATA.map(d=>d.mode));popF('f-ox',DATA.map(d=>d.ox));
   table=$('#tbl').DataTable({data:DATA,pageLength:25,deferRender:true,order:[[1,'desc']],
@@ -100,7 +109,7 @@ fetch('data/records_index.json').then(r=>r.json()).then(idx=>{
       {data:'mu',render:d=>d==null?'':fx(d)},{data:'td',render:d=>d==null?'':fx(d)},
       {data:'mode'},{data:'ox',render:d=>esc(d||'')},{data:'T',render:d=>d==null?'':d},{data:'pH',render:d=>d==null?'':d},
       {data:'nu',render:d=>d||''},{data:'ns',render:d=>d||''},
-      {data:'med',render:(d,t,r)=>r.mid?`<a href="https://omidard.github.io/Media/" target="_blank" title="in Media: ${esc(r.mid)}">${esc((d||r.mid).slice(0,26))}</a>`:esc((d||'').slice(0,26))},
+      {data:'med',render:(d,t,r)=>r.mid?`<a href="${esc(r.murl||('https://omidard.github.io/Media/?medium='+r.mid))}" target="_blank" title="open ${esc(r.mid)} in Media">${esc((d||r.mid).slice(0,28))}</a>`:esc((d||'').slice(0,28))},
       {data:'src',render:d=>`<span class="${d==='Literature'?'src-lit':'src-madin'}">${d}</span>`}
     ],language:{search:'Search:',info:'_START_–_END_ of _TOTAL_ records'}});
   const fm={'f-src':10,'f-sk':-1,'f-mode':3,'f-ox':4};
@@ -110,7 +119,7 @@ fetch('data/records_index.json').then(r=>r.json()).then(idx=>{
   document.getElementById('f-flux').addEventListener('change',function(){FLUX=this.value;table.draw();});
   // sk custom filter
   const skSel=document.getElementById('f-sk');
-  $.fn.dataTable.ext.search.push((s,d,i)=>{const v=skSel.value;return !v||DATA[i].sk===v;});
+  $.fn.dataTable.ext.search.push((s,d,i)=>{if(s.nTable.id!=='tbl')return true;const v=skSel.value;return !v||DATA[i].sk===v;});
   skSel.addEventListener('change',()=>table.draw());
   // charts
   new Chart(document.getElementById('ch-sk'),{type:'doughnut',data:{labels:Object.keys(idx.by_superkingdom),
@@ -141,14 +150,35 @@ function openRec(id){
         ${r.pH!=null?`<div class="b"><div class="v">${r.pH}</div><div class="l">pH</div></div>`:''}
         ${r.dil!=null?`<div class="b"><div class="v">${fx(r.dil)}</div><div class="l">dilution (h⁻¹)</div></div>`:''}
       </div>
-      <div style="font-size:.85rem;margin:.4rem 0"><b>Medium:</b> ${r.mid?`<a href="https://omidard.github.io/Media/data/media/${esc(r.mid)}.json" target="_blank">${esc(r.med||r.mid)}</a> <span style="color:#889">(→ Media: ${esc(r.mid)})</span>`:esc(r.med||'not specified')}${r.cs&&r.cs.length?`<br><b>Carbon substrates:</b> ${r.cs.map(esc).join(', ')}`:''}</div>
+      <div style="font-size:.85rem;margin:.4rem 0"><b>Medium:</b> ${r.mid?`<a href="${esc(r.murl||('https://omidard.github.io/Media/?medium='+r.mid))}" target="_blank">${esc(r.med||r.mid)}</a> <span style="color:#889">(→ Media: ${esc(r.mid)})</span>`:esc(r.med||'not specified')}${r.cdet?`<br><span style="color:#889;font-size:.8rem">culture: ${esc(r.cdet)}</span>`:''}${r.cs&&r.cs.length?`<br><b>Carbon substrates:</b> ${r.cs.map(esc).join(', ')}`:''}</div>
       ${fluxRows('up')}${fluxRows('sec')}
+      ${r.yields&&Object.keys(r.yields).length?`<div style="font-size:.8rem;margin-top:.4rem"><b>Yields:</b> <code>${esc(JSON.stringify(r.yields))}</code></div>`:''}
       ${r.notes?`<div style="font-size:.8rem;margin-top:.5rem"><b>Curation:</b> ${esc(r.notes)}</div>`:''}
       <div class="cite mt-2"><b>Source:</b> ${esc(r.cite)} ${r.pmcid?`· <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/${esc(r.pmcid)}/" target="_blank">PMC</a>`:''}${r.doi?` · <a href="https://doi.org/${esc(r.doi)}" target="_blank">DOI</a>`:''}</div>
       ${r.snip?`<div class="snip">“${esc(r.snip)}”</div>`:''}
     </div></div>`;
   div.addEventListener('click',e=>{if(e.target===div)div.remove();});document.body.appendChild(div);
 }
+
+// ---- Biolog phenotypes ----
+let btable;
+fetch('data/biolog_phenotypes.json').then(r=>r.json()).then(bd=>{
+  const rows=bd.phenotypes||[];
+  const phSel=document.getElementById('b-ph'),catSel=document.getElementById('b-cat');
+  [...new Set(rows.map(r=>r.phenotype))].filter(Boolean).sort().forEach(v=>phSel.add(new Option(v,v)));
+  [...new Set(rows.map(r=>r.category))].filter(Boolean).sort().forEach(v=>catSel.add(new Option(v,v)));
+  const phColor={positive:'#1a7f4b',negative:'#c0392b',borderline:'#c77800',variable:'#6b7684'};
+  btable=$('#btbl').DataTable({data:rows,pageLength:10,deferRender:true,
+    columns:[{data:'organism',render:d=>`<i>${esc(d)}</i>`},{data:'substrate',render:d=>esc(d||'')},
+      {data:'exchange',render:d=>d?`<code>${esc(d)}</code>`:'<span style="color:#ccc">—</span>'},
+      {data:'category',render:d=>esc(d||'')},
+      {data:'phenotype',render:(d,t)=>t==='display'?`<span style="color:${phColor[d]||'#555'};font-weight:700">${esc(d||'')}</span>`:(d||'')},
+      {data:'plate',render:d=>esc(d||'')},
+      {data:'citation',render:d=>`<span title="${esc(d)}">${esc((d||'').slice(0,34))}</span>`}],
+    language:{search:'Search:',info:'_START_–_END_ of _TOTAL_ phenotypes'}});
+  phSel.addEventListener('change',function(){btable.column(4).search(this.value?'^'+$.fn.dataTable.util.escapeRegex(this.value)+'$':'',true,false).draw();});
+  catSel.addEventListener('change',function(){btable.column(3).search(this.value?'^'+$.fn.dataTable.util.escapeRegex(this.value)+'$':'',true,false).draw();});
+}).catch(()=>{const p=document.getElementById('biolog-panel');if(p)p.style.display='none';});
 </script>
 </body>
 </html>
