@@ -11,6 +11,12 @@ exchange reaction or check a predicted growth rate — but that data is scattere
 of papers in inconsistent units. GrowthDB collects it once, machine-readable, with the medium
 resolved to BiGG exchanges so a measured uptake rate drops straight onto `EX_glc__D_e`.
 
+## Explore it online
+
+Interactive browser → **https://omidard.github.io/GrowthDB/** — filter the quantitative growth
+records by domain, culture mode, oxygen and flux; open any record for its conditions, uptake /
+secretion rate tables, the medium (linked to the Media library), and the citation + snippet.
+
 ## What's here
 
 ```
@@ -18,7 +24,9 @@ GrowthDB/
 ├── data/
 │   ├── organisms.json        # every prokaryote (backbone), with a has_growth flag
 │   ├── growth_records.json   # growth rate / uptake / secretion records + conditions + medium link
+│   ├── records_index.json    # compact index of the quantitative records (browser)
 │   └── index.json            # summary counts
+├── index.html                # interactive browser (GitHub Pages)
 ├── DESIGN.md                 # schema, curation & referencing rules
 ├── README.md
 └── LICENSE
@@ -27,15 +35,18 @@ GrowthDB/
 ## Current contents
 
 - **Backbone: 124,666 prokaryotes** — every **GTDB r220** species (107,235 bacteria + 10,122
-  archaea) plus 7,309 named species seen in growth data. Listed whether or not growth data
-  exists yet.
-- **50,524 growth records** across **14,613 organisms** from the **Madin *et al.* (Sci Data 2020)**
-  prokaryote-traits synthesis — culture temperature, optimum temperature/pH, oxygen relationship,
-  carbon substrates, and **1,134 measured growth rates** (µ = ln2 / doubling-time), each cited.
+  archaea) plus 7,309 named species seen in growth data. Listed whether or not growth data exists.
+- **51,881 growth records** in total:
+  - **50,524** from the **Madin *et al.* (Sci Data 2020)** prokaryote-traits synthesis — culture
+    temperature, optimum temperature/pH, oxygen relationship, carbon substrates.
+  - **1,357** curated from **1,201 primary papers** (multi-agent mining) — growth rate, specific
+    **uptake** and **secretion** rates, and the exact medium + culture mode (batch/chemostat),
+    aeration, T and pH; each snippet-verified and cited.
+- **2,367 measured growth rates**, **294** records with uptake rates, **194** with secretion rates.
+- **664 records linked to a medium** in the [`Media`](https://github.com/omidard/Media) library
+  (105 new media were added to `Media` from these papers, so it stays exhaustive).
 
-This is the seed. The bulk of quantitative **growth / uptake / secretion rates** under defined
-media come from ongoing curation of the primary literature (see [DESIGN.md](DESIGN.md) roadmap),
-plus DSMZ **BacDive** conditions.
+Still to come: DSMZ **BacDive** conditions (needs an API key) and continued literature curation.
 
 ## Every rate is referenced and method-tagged
 
