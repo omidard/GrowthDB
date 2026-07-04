@@ -39,10 +39,12 @@
 
 <div class="container my-3">
   <div class="row g-3 mb-3">
-    <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="s-org">-</div><div class="label">Prokaryotes catalogued</div></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="s-rec">-</div><div class="label">Growth records</div></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="s-rate">-</div><div class="label">Growth rates measured</div></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="s-flux">-</div><div class="label">Uptake / secretion rates</div></div></div>
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-org">-</div><div class="label">Prokaryotes</div></div></div>
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-rec">-</div><div class="label">Growth records</div></div></div>
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-rate">-</div><div class="label">Growth rates</div></div></div>
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-flux">-</div><div class="label">Uptake/secretion rates</div></div></div>
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-pheno">-</div><div class="label">Substrate phenotypes</div></div></div>
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-bd">-</div><div class="label">BacDive strains</div></div></div>
   </div>
 
   <div class="row g-3 mb-3">
@@ -66,13 +68,15 @@
       <tbody></tbody>
     </table>
   </div>
-  <div class="panel mb-3" id="biolog-panel">
-    <div style="font-weight:700;color:#17223b;margin-bottom:.2rem">Biolog phenotypes <span style="font-weight:400;font-size:.8rem;color:#889">— substrate-utilization (grow / no-grow), each mapped to a BiGG exchange so a model can be tested for growth on it</span></div>
+  <div class="panel mb-3" id="pheno-panel">
+    <div style="font-weight:700;color:#17223b;margin-bottom:.2rem">Substrate phenotypes <span style="font-weight:400;font-size:.8rem;color:#889">— <b id="p-count">–</b> consensus grow/no-grow calls across <b id="p-orgs">–</b> organisms (BacDive metabolite-utilization + literature Biolog/PM), BiGG-mapped so a model can be tested for growth on each substrate. Pick an organism:</span></div>
     <div class="row g-2 align-items-end mb-2">
-      <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.78rem">Phenotype</label><select id="b-ph" class="form-select form-select-sm"><option value="">All</option></select></div>
-      <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.78rem">Category</label><select id="b-cat" class="form-select form-select-sm"><option value="">All</option></select></div>
+      <div class="col-md-4"><input id="p-org" class="form-control form-control-sm" list="p-orglist" placeholder="Search an organism…"><datalist id="p-orglist"></datalist></div>
+      <div class="col-md-2"><select id="p-ph" class="form-select form-select-sm"><option value="">Any call</option><option value="positive">grow (+)</option><option value="negative">no-grow (−)</option><option value="variable">variable</option></select></div>
+      <div class="col-md-3"><select id="p-cat" class="form-select form-select-sm"><option value="">Any category</option></select></div>
     </div>
-    <table id="btbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Organism</th><th>Substrate</th><th>Exchange</th><th>Category</th><th>Phenotype</th><th>Plate</th><th>Citation</th></tr></thead><tbody></tbody></table>
+    <div id="p-status" style="font-size:.8rem;color:#889;margin-bottom:.3rem">Choose an organism to see its substrate-utilization phenotypes.</div>
+    <table id="ptbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Organism</th><th>Substrate</th><th>Exchange</th><th>Category</th><th>Call</th><th>Strains</th></tr></thead><tbody></tbody></table>
   </div>
 
   <div class="text-muted mt-2" style="font-size:.82rem">Showing the <b>quantitative</b> records (growth rate and/or uptake/secretion). The full backbone of <b id="s-org2">-</b> prokaryotes and <b>50,524</b> trait records (conditions) are in <a href="data/organisms.json">organisms.json</a> / <a href="data/growth_records.json">growth_records.json</a>. Click a record for full detail. Data: <a href="DESIGN.md">schema &amp; curation rules</a>.</div>
@@ -160,25 +164,44 @@ function openRec(id){
   div.addEventListener('click',e=>{if(e.target===div)div.remove();});document.body.appendChild(div);
 }
 
-// ---- Biolog phenotypes ----
-let btable;
-fetch('data/biolog_phenotypes.json').then(r=>r.json()).then(bd=>{
-  const rows=bd.phenotypes||[];
-  const phSel=document.getElementById('b-ph'),catSel=document.getElementById('b-cat');
-  [...new Set(rows.map(r=>r.phenotype))].filter(Boolean).sort().forEach(v=>phSel.add(new Option(v,v)));
-  [...new Set(rows.map(r=>r.category))].filter(Boolean).sort().forEach(v=>catSel.add(new Option(v,v)));
-  const phColor={positive:'#1a7f4b',negative:'#c0392b',borderline:'#c77800',variable:'#6b7684'};
-  btable=$('#btbl').DataTable({data:rows,pageLength:10,deferRender:true,
-    columns:[{data:'organism',render:d=>`<i>${esc(d)}</i>`},{data:'substrate',render:d=>esc(d||'')},
-      {data:'exchange',render:d=>d?`<code>${esc(d)}</code>`:'<span style="color:#ccc">—</span>'},
-      {data:'category',render:d=>esc(d||'')},
-      {data:'phenotype',render:(d,t)=>t==='display'?`<span style="color:${phColor[d]||'#555'};font-weight:700">${esc(d||'')}</span>`:(d||'')},
-      {data:'plate',render:d=>esc(d||'')},
-      {data:'citation',render:d=>`<span title="${esc(d)}">${esc((d||'').slice(0,34))}</span>`}],
-    language:{search:'Search:',info:'_START_–_END_ of _TOTAL_ phenotypes'}});
-  phSel.addEventListener('change',function(){btable.column(4).search(this.value?'^'+$.fn.dataTable.util.escapeRegex(this.value)+'$':'',true,false).draw();});
-  catSel.addEventListener('change',function(){btable.column(3).search(this.value?'^'+$.fn.dataTable.util.escapeRegex(this.value)+'$':'',true,false).draw();});
-}).catch(()=>{const p=document.getElementById('biolog-panel');if(p)p.style.display='none';});
+// ---- Substrate phenotypes (BacDive + literature, drill-down by organism) ----
+let PHENO=null, ptable=null;
+fetch('data/phenotypes_summary.json').then(r=>r.json()).then(ps=>{
+  document.getElementById('p-count').textContent=(ps.count||0).toLocaleString();
+  document.getElementById('p-orgs').textContent=(ps.n_organisms||0).toLocaleString();
+  const sc=document.getElementById('s-pheno');if(sc)sc.textContent=(ps.count||0).toLocaleString();
+  const dl=document.getElementById('p-orglist');(ps.top_organisms||[]).forEach(o=>{const opt=document.createElement('option');opt.value=o[0];dl.appendChild(opt);});
+  const catSel=document.getElementById('p-cat');Object.keys(ps.by_category||{}).filter(Boolean).sort().forEach(c=>catSel.add(new Option(c,c)));
+}).catch(()=>{const p=document.getElementById('pheno-panel');if(p)p.style.display='none';});
+fetch('data/bacdive_growth_summary.json').then(r=>r.json()).then(bs=>{const e=document.getElementById('s-bd');if(e)e.textContent=(bs.n_strains||0).toLocaleString();}).catch(()=>{const e=document.getElementById('s-bd');if(e)e.textContent='—';});
+async function loadPheno(){
+  if(PHENO)return PHENO;
+  document.getElementById('p-status').textContent='loading phenotype data (2 MB, one time)…';
+  const res=await fetch('data/phenotypes.json.gz');
+  const text=await new Response(res.body.pipeThrough(new DecompressionStream('gzip'))).text();
+  PHENO=JSON.parse(text); return PHENO;
+}
+async function phenoShow(){
+  const org=document.getElementById('p-org').value.trim(); if(!org){document.getElementById('p-status').textContent='Choose an organism to see its substrate-utilization phenotypes.';return;}
+  const data=await loadPheno();
+  let rows=data.filter(r=>r.o===org);
+  if(!rows.length){rows=data.filter(r=>r.o.toLowerCase().includes(org.toLowerCase())).slice(0,4000);}
+  const ph=document.getElementById('p-ph').value, cat=document.getElementById('p-cat').value;
+  if(ph)rows=rows.filter(r=>r.p===ph); if(cat)rows=rows.filter(r=>r.c===cat);
+  document.getElementById('p-status').textContent=`${rows.length.toLocaleString()} substrate phenotypes`+(org?` for “${org}”`:'');
+  const phc={positive:'#1a7f4b',negative:'#c0392b',variable:'#6b7684'};
+  if(ptable){ptable.destroy();}
+  ptable=$('#ptbl').DataTable({data:rows,pageLength:15,deferRender:true,destroy:true,
+    columns:[{data:'o',render:d=>`<i>${esc(d)}</i>`},{data:'s',render:d=>esc(d||'')},
+      {data:'e',render:d=>d?`<code>${esc(d)}</code>`:'<span style="color:#ccc">—</span>'},
+      {data:'c',render:d=>esc(d||'')},
+      {data:'p',render:d=>`<span style="color:${phc[d]||'#555'};font-weight:700">${d==='positive'?'grow +':d==='negative'?'no-grow −':esc(d||'')}</span>`},
+      {data:'n'}],
+    language:{search:'Search:',info:'_START_–_END_ of _TOTAL_'}});
+}
+document.getElementById('p-org').addEventListener('change',phenoShow);
+document.getElementById('p-ph').addEventListener('change',phenoShow);
+document.getElementById('p-cat').addEventListener('change',phenoShow);
 </script>
 </body>
 </html>

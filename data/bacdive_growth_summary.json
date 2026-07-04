@@ -1,0 +1,9 @@
+{
+ "n_strains": 99393,
+ "n_organisms": 23053,
+ "n_with_media": 40887,
+ "n_media_linked": 25143,
+ "n_with_temp": 49498,
+ "n_with_oxygen": 23253,
+ "citation": "BacDive (Reimer LC et al., Nucleic Acids Res 2022); https://bacdive.dsmz.de"
+}
