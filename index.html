@@ -156,6 +156,7 @@ function openRec(id){
       </div>
       <div style="font-size:.85rem;margin:.4rem 0"><b>Medium:</b> ${r.mid?`<a href="${esc(r.murl||('https://omidard.github.io/Media/?medium='+r.mid))}" target="_blank">${esc(r.med||r.mid)}</a> <span style="color:#889">(→ Media: ${esc(r.mid)})</span>`:esc(r.med||'not specified')}${r.cdet?`<br><span style="color:#889;font-size:.8rem">culture: ${esc(r.cdet)}</span>`:''}${r.cs&&r.cs.length?`<br><b>Carbon substrates:</b> ${r.cs.map(esc).join(', ')}`:''}</div>
       ${fluxRows('up')}${fluxRows('sec')}
+      ${r.mfa&&r.mfa.length?`<h6 style="font-size:.85rem;margin-top:.6rem">¹³C-MFA fluxes</h6><table class="table table-sm" style="font-size:.8rem"><thead><tr><th>Reaction / metabolite</th><th>Flux</th><th>Units</th><th>Note</th></tr></thead><tbody>${r.mfa.map(f=>`<tr><td>${esc(f.reaction_or_metabolite||'')}</td><td>${fx(f.flux)}</td><td>${esc(f.units||'')}</td><td style="font-size:.72rem;color:#667">${esc(f.note||'')}</td></tr>`).join('')}</tbody></table>`:''}
       ${r.yields&&Object.keys(r.yields).length?`<div style="font-size:.8rem;margin-top:.4rem"><b>Yields:</b> <code>${esc(JSON.stringify(r.yields))}</code></div>`:''}
       ${r.notes?`<div style="font-size:.8rem;margin-top:.5rem"><b>Curation:</b> ${esc(r.notes)}</div>`:''}
       <div class="cite mt-2"><b>Source:</b> ${esc(r.cite)} ${r.pmcid?`· <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/${esc(r.pmcid)}/" target="_blank">PMC</a>`:''}${r.doi?` · <a href="https://doi.org/${esc(r.doi)}" target="_blank">DOI</a>`:''}</div>

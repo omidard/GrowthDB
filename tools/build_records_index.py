@@ -17,7 +17,7 @@ for r in recs:
          'src':src(r),'cite':(r.get('provenance',{}).get('citation') or '')[:150],
          'doi':r.get('provenance',{}).get('doi'),'pmcid':r.get('provenance',{}).get('pmcid'),'conf':r.get('confidence')}
     if lit:
-        row['up']=r.get('uptake_rates'); row['sec']=r.get('secretion_rates'); row['yields']=r.get('yields') or {}
+        row['up']=r.get('uptake_rates'); row['sec']=r.get('secretion_rates'); row['yields']=r.get('yields') or {}; row['mfa']=r.get('mfa_fluxes') or []
         row['snip']=r.get('provenance',{}).get('snippet'); row['notes']=r.get('curation_notes')
         row['method']=r.get('provenance',{}).get('method'); row['cs']=r.get('carbon_substrates')
         row['cdet']=c.get('culture_detail'); row['oxdet']=c.get('aeration_detail')

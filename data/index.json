@@ -1,13 +1,13 @@
 {
  "n_organisms": 124666,
  "n_with_growth": 20223,
- "n_growth_records": 52116,
- "n_literature_records": 1592,
- "n_with_rate": 2420,
- "n_uptake_records": 653,
- "n_secretion_records": 464,
- "n_total_rates": 1916,
- "n_media_linked": 620,
+ "n_growth_records": 52427,
+ "n_literature_records": 1903,
+ "n_with_rate": 2492,
+ "n_uptake_records": 919,
+ "n_secretion_records": 690,
+ "n_total_rates": 2765,
+ "n_media_linked": 903,
  "n_biolog_phenotypes": 894,
  "by_superkingdom": {
   "Bacteria": 114296,
@@ -29,5 +29,6 @@
  "n_substrate_phenotypes": 352631,
  "n_phenotype_datapoints_raw": 882664,
  "n_bacdive_strains": 99393,
- "n_bacdive_media_linked": 25143
+ "n_bacdive_media_linked": 25143,
+ "n_mfa_records": 35
 }

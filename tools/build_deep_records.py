@@ -7,7 +7,7 @@ import json, os, re, glob, sys, math
 sys.path.insert(0,"/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
 from map_metabolite import Mapper
 GW="/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/growthdb_work"
-REPO=os.path.join(GW,"repo"); RE=os.path.join(GW,"lit","reextract")
+REPO=os.path.join(GW,"repo"); RE=os.path.join(GW,"lit","reextract"); GEMMINE=os.path.join(GW,"lit","gemmine")
 m=Mapper()
 def num(v):
     try: return float(re.search(r"[-+]?\d*\.?\d+([eE][-+]?\d+)?", str(v)).group(0))
@@ -26,7 +26,7 @@ def mapflux(fl, sign):
     return out
 
 deep=[]; deep_pmcids=set(); add_media=[]
-for f in glob.glob(os.path.join(RE,"batch_*.json")):
+for f in glob.glob(os.path.join(RE,"batch_*.json"))+glob.glob(os.path.join(GEMMINE,"batch_*.json")):
     try: data=json.load(open(f))
     except: continue
     for r in data.get("records",[]):
@@ -52,7 +52,7 @@ for f in glob.glob(os.path.join(RE,"batch_*.json")):
              "medium":{"media_id":None,"description":r.get("medium_name"),
                  "composition":comp,"composition_stated":r.get("medium_composition_stated",bool(comp)),
                  "note":"medium composition extracted from paper"},
-             "uptake_rates":up,"secretion_rates":sec,"yields":r.get("yields") or {},"carbon_substrates":[],
+             "uptake_rates":up,"secretion_rates":sec,"mfa_fluxes":r.get("mfa_fluxes") or [],"yields":r.get("yields") or {},"carbon_substrates":[],
              "provenance":{"source_type":"literature",
                  "citation":f"{au} et al. {r.get('paper_title','')}. {r.get('journal','')} ({yr})."+(f" DOI:{r.get('doi')}." if r.get('doi') else "")+f" [{pmc}]",
                  "doi":r.get("doi"),"pmcid":pmc,"url":f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmc}/",
@@ -63,7 +63,7 @@ json.dump({"pending_media_for_media_repo":add_media}, open(os.path.join(GW,"lit"
 # supersede: drop old lit records from the re-mined (flux) papers; keep Madin + other lit
 cur=json.load(open(os.path.join(REPO,"data","growth_records.json")))
 def oldpmc(r): return (r.get("provenance",{}) or {}).get("pmcid")
-kept=[r for r in cur if not (r["id"].startswith("lit_") and oldpmc(r) in deep_pmcids)]
+kept=[r for r in cur if not (r["id"].startswith("flux_") or (r["id"].startswith("lit_") and oldpmc(r) in deep_pmcids))]
 dropped=len(cur)-len(kept)
 allrec=kept+deep
 json.dump(allrec, open(os.path.join(REPO,"data","growth_records.json"),"w"), separators=(",",":"))
