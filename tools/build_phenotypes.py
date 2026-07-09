@@ -1,8 +1,16 @@
-import json, os, gzip
+import json, os, gzip, sys
 from collections import defaultdict
+sys.path.insert(0,"/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
+from map_metabolite import Mapper
+_m=Mapper(); _remap_cache={}
+def _remap(sub):
+    if sub in _remap_cache: return _remap_cache[sub]
+    h=_m.map(name=sub); ex=h["exchange"] if (h and h["in_biggr"]) else None
+    _remap_cache[sub]=ex; return ex
 REPO="repo"
 agg=defaultdict(lambda:{'pos':0,'neg':0,'other':0,'n':0,'ex':None,'cat':None,'cite':None,'src':set(),'kinds':set()})
 def add(org,sub,ex,cat,ph,cite,src,kind=None):
+    if not ex and sub: ex=_remap(sub)   # fill unmapped via improved mapper
     k=(org.strip(), (sub or '').strip().lower(), ex or '')
     a=agg[k]; a['n']+=1; a['ex']=ex; a['cat']=a['cat'] or cat; a['cite']=a['cite'] or cite; a['src'].add(src)
     if kind: a['kinds'].add(kind)
@@ -16,13 +24,33 @@ for r in json.load(open(os.path.join(REPO,'data','biolog_phenotypes.json')))['ph
 # bacdive
 for l in open('lit/bacdive/bacdive_phenotypes.jsonl'):
     d=json.loads(l); add(d['organism'],d['substrate'],d.get('exchange'),d.get('category'),d.get('phenotype'),d.get('citation'),'bacdive',d.get('kind'))
+# pmkbase (P. putida Biolog PM, strain-resolved)
+import os as _os
+if _os.path.exists('lit/pmkbase/pmkbase_phenotypes.jsonl'):
+    for l in open('lit/pmkbase/pmkbase_phenotypes.jsonl'):
+        d=json.loads(l); add(d['organism'],d['substrate'],d.get('exchange'),d.get('category'),d.get('phenotype'),d.get('citation'),'pmkbase',d.get('kind'))
+def assay_context(kinds, sources):
+    ks=set((k or '').lower() for k in (kinds or [])); src=set(sources or [])
+    def has(*subs): return any(any(s in k for s in subs) for k in ks)
+    if 'pmkbase' in src: return ('defined-minimal','Biolog Phenotype MicroArray — defined minimal medium (IF-0) with the substrate as the sole carbon source; positive = growth')
+    # growth-relevant sole-substrate utilisation takes priority (the meaningful signal for GEMs)
+    if has('assimil','carbon source','energy source','nitrogen source','respiration','oxid','required for growth','sole') or ('growth' in ks) or has('growth'):
+        return ('defined-minimal','Sole-substrate growth / assimilation on a defined minimal medium (substrate as C/N/energy source) — positive = the organism grows on it')
+    if has('acid','gas from','ferment'):
+        return ('complex','Acid/gas-production test: peptone/complex base + substrate + pH indicator — positive = fermentative acid production, NOT growth on the substrate as a sole carbon source (interpret with care for model validation)')
+    if has('hydrol','degrad','reduc','electron'):
+        return ('assay','Enzyme / activity assay (hydrolysis, degradation, reduction, electron transfer) in a test medium — not a sole-substrate growth test')
+    if 'paper' in src: return ('defined-minimal','Phenotype-microarray / substrate-utilisation assay (defined minimal + sole substrate)')
+    return ('unknown','Substrate-utilisation assay; base medium per the original source')
+
 rows=[]
 for (org,sub,ex),a in agg.items():
     tot=a['pos']+a['neg']+a['other']
     cons='positive' if a['pos']>a['neg'] and a['pos']>0 else ('negative' if a['neg']>a['pos'] else 'variable')
+    bt,bd=assay_context(a['kinds'],a['src'])
     rows.append({'organism':a['_org'],'substrate':a['_sub'],'exchange':a['ex'] or None,'category':a['cat'],
         'phenotype':cons,'n_strains':a['n'],'n_positive':a['pos'],'n_negative':a['neg'],
-        'sources':sorted(a['src']),'kinds':sorted(a['kinds']),'citation':a['cite']})
+        'sources':sorted(a['src']),'kinds':sorted(a['kinds']),'base_medium_type':bt,'base_medium':bd,'citation':a['cite']})
 # browser index: mapped-to-BiGG subset (most useful), sorted
 from collections import Counter
 # compact rows for drill-down (gzipped): {o,s,e,c,p,n}

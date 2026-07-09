@@ -9,9 +9,20 @@
 <style>
   :root{ --primary:#3f5aa6; --accent:#eef1f9; --ink:#17223b; }
   body{ font-family:'Segoe UI',system-ui,sans-serif; background:#f3f5fb; color:#17223b; }
-  .hero{ background:linear-gradient(135deg,#1a2444 0%,#3f5aa6 62%,#5b7fd4 100%); color:#fff; padding:1.6rem 0; }
-  .hero h1{ font-size:1.8rem; font-weight:750; margin:0 0 .25rem; letter-spacing:-.5px; }
-  .hero p{ opacity:.93; margin:0; max-width:920px; font-size:.94rem; }
+  .hero{ background:radial-gradient(1200px 300px at 15% -20%,rgba(120,160,255,.35),transparent),linear-gradient(135deg,#141c38 0%,#31489a 55%,#4f74d6 100%); color:#fff; padding:2rem 0 2.2rem; position:relative; overflow:hidden; }
+  .hero:after{ content:""; position:absolute; right:-60px; top:-40px; width:280px; height:280px; background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%); }
+  .hero-badge{ display:inline-block; font-size:.68rem; letter-spacing:1.5px; font-weight:700; background:rgba(255,255,255,.14); padding:.28rem .7rem; border-radius:20px; margin-bottom:.6rem; }
+  .hero h1{ font-size:2.4rem; font-weight:800; margin:0 0 .35rem; letter-spacing:-1px; }
+  .hero p{ opacity:.94; margin:0; max-width:880px; font-size:.98rem; line-height:1.5; }
+  .hero-search{ margin-top:1.2rem; max-width:620px; background:#fff; border-radius:12px; display:flex; align-items:center; padding:.15rem .4rem .15rem .9rem; box-shadow:0 10px 30px rgba(10,20,50,.35); }
+  .hero-search .hs-ic{ color:#8a94a3; font-size:1rem; } .hero-search input{ border:0; outline:0; flex:1; font-size:1.02rem; padding:.7rem .6rem; color:#17223b; background:transparent; }
+  .hero-search .hs-hint{ color:#98a; font-size:.78rem; padding-right:.6rem; white-space:nowrap; }
+  .feat-card{ background:#fff; border:1px solid #e6eaf5; border-radius:12px; padding:.8rem .95rem; cursor:pointer; transition:.15s; height:100%; }
+  .feat-card:hover{ transform:translateY(-3px); box-shadow:0 8px 22px rgba(40,60,120,.15); border-color:#c7d2f0; }
+  .feat-card .fn{ font-style:italic; font-weight:700; color:var(--primary); font-size:.95rem; } .feat-card .fk{ font-size:.68rem; color:#8a94a3; text-transform:uppercase; letter-spacing:.3px; }
+  .feat-card .fm{ display:flex; gap:.6rem; margin-top:.45rem; flex-wrap:wrap; } .feat-card .fm span{ font-size:.74rem; color:#556; } .feat-card .fm b{ color:var(--primary); }
+  .prov{ display:flex; gap:.4rem; flex-wrap:wrap; font-size:.74rem; color:#667; align-items:center; }
+  .prov .p{ background:#fff; border:1px solid #e6eaf5; border-radius:16px; padding:.2rem .65rem; }
   .stat-card{ background:#fff; border-radius:10px; padding:.75rem 1rem; box-shadow:0 1px 3px rgba(0,0,0,.07); text-align:center; }
   .stat-card .num{ font-size:1.4rem; font-weight:750; color:var(--primary); } .stat-card .label{ font-size:.7rem; color:#667; text-transform:uppercase; letter-spacing:.4px; }
   .panel{ background:#fff; border-radius:12px; padding:1.05rem 1.2rem; box-shadow:0 1px 4px rgba(0,0,0,.08); margin-bottom:1rem; }
@@ -42,8 +53,10 @@
 </head>
 <body>
 <div class="hero"><div class="container">
+  <div class="hero-badge">GENOME-SCALE METABOLIC MODELLING · DATA RESOURCE</div>
   <h1>GrowthDB</h1>
-  <p>Prokaryote growth physiology for genome-scale metabolic modelling, <b>organised by species</b>. Each species page derives the parameters a modeller needs — µ<sub>max</sub>, biomass yield &amp; maintenance (NGAM) from the qS–µ relation, overflow byproducts, cardinal temperature, and the substrate-utilisation spectrum — with every value linked to its medium (in <a href="https://omidard.github.io/Media/" style="color:#cfe0f5">Media</a>), condition and reference, and a copy-ready COBRApy constraint.</p>
+  <p>Prokaryote growth physiology, <b>organised by species</b> — every growth rate, uptake &amp; secretion flux, culture condition, substrate phenotype and derived modelling parameter (µ<sub>max</sub>, biomass yield, maintenance NGAM, overflow byproducts), each referenced and export-ready for COBRApy.</p>
+  <div class="hero-search"><span class="hs-ic">🔍</span><input id="hero-search" placeholder="Search 17,397 species — Escherichia coli, Pseudomonas, Clostridium…" autocomplete="off"><span class="hs-hint" id="hs-hint"></span></div>
 </div></div>
 
 <div class="container my-3">
@@ -57,6 +70,8 @@
   </div>
 
   <div id="view-list">
+    <div class="d-flex justify-content-between align-items-end flex-wrap mb-2"><div style="font-weight:750;font-size:1.1rem">Featured model organisms</div><div class="prov"><span>Sources:</span><span class="p">GTDB backbone</span><span class="p">literature (Opus-curated)</span><span class="p">BacDive</span><span class="p">Madin traits</span><span class="p">PMkbase</span></div></div>
+    <div id="featured" class="row g-2 mb-3"></div>
     <div class="panel">
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
         <div style="font-weight:700;font-size:1.05rem">Browse by species</div>
@@ -100,7 +115,7 @@
 
     <div class="panel" id="ph-panel">
       <div class="d-flex justify-content-between align-items-center mb-2"><div style="font-weight:700">Substrate phenotypes <span class="note">— click a row for all strains &amp; sources</span></div><button class="btn btn-outline-secondary btn-dl" onclick="dlPhenos()">⬇ CSV</button></div>
-      <table id="phtbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Substrate</th><th>Exchange</th><th>Category</th><th>Call</th><th>Strains(n)</th><th>Sources</th></tr></thead><tbody></tbody></table>
+      <table id="phtbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Substrate</th><th>Exchange</th><th>Category</th><th>Call</th><th>Base medium</th><th>Strains(n)</th><th>Sources</th></tr></thead><tbody></tbody></table>
     </div>
   </div>
 </div>
@@ -135,6 +150,19 @@ fetch('data/species_index.json').then(r=>r.json()).then(idx=>{
     if(skSel.value&&r.sk!==skSel.value)return false;
     const f=dSel.value; if(f==='mu'&&!r.nmu)return false; if(f==='flux'&&!r.nu)return false; if(f==='gem'&&!r.yxs)return false; if(f==='ph'&&!r.np)return false; return true;});
   skSel.onchange=dSel.onchange=()=>sptable.draw();
+  // featured model organisms
+  const FEAT=['Escherichia coli','Bacillus subtilis','Pseudomonas putida','Pseudomonas aeruginosa','Corynebacterium glutamicum','Vibrio natriegens','Klebsiella pneumoniae','Salmonella enterica','Lactococcus lactis','Clostridium ljungdahlii','Mycobacterium smegmatis','Halomonas elongata'];
+  const bySpec={}; SPIDX.forEach(x=>bySpec[x.s]=x);
+  const fc=document.getElementById('featured');
+  FEAT.map(n=>bySpec[n]).filter(Boolean).slice(0,12).forEach(x=>{
+    const c=document.createElement('div');c.className='col-6 col-md-3 col-lg-2';
+    c.innerHTML=`<div class="feat-card" onclick="openSpecies('${x.slug}')"><div class="fn">${esc(x.s)}</div><div class="fk">${esc(x.sk||'')} · ${x.nmu||0} µ</div>
+      <div class="fm"><span>µmax <b>${x.mumax!=null?(+x.mumax).toFixed(2):'—'}</b></span>${x.yxs!=null?`<span>Yxs <b>${x.yxs}</b></span>`:''}<span><b>${x.nsub||0}</b> subs</span></div></div>`;
+    fc.appendChild(c);
+  });
+  const hs=document.getElementById('hero-search');
+  if(hs)hs.addEventListener('input',function(){showList();sptable.search(this.value).draw();
+    document.getElementById('hs-hint').textContent=this.value?(sptable.rows({search:'applied'}).count()+' matches'):'';});
 });
 fetch('data/index.json').then(r=>r.json()).then(d=>{
   document.getElementById('s-org').textContent=(d.n_organisms||0).toLocaleString();
@@ -224,6 +252,7 @@ function buildPhTable(sp){
     createdRow:(row,d)=>{row.classList.add('rowlink');row.onclick=()=>openPheno(d);},
     columns:[{data:'substrate',render:d=>esc(d||'')},{data:'exchange',render:d=>d?`<code>${esc(d)}</code>`:'<span style="color:#ccc">—</span>'},{data:'category',render:d=>esc(d||'')},
       {data:'phenotype',render:(d,t)=>t==='display'?`<span style="color:${phc[d]||'#555'};font-weight:700">${d==='positive'?'grow +':d==='negative'?'no-grow −':esc(d||'')}</span>`:(d||'')},
+      {data:'base_type',render:d=>{const c=d==='defined-minimal'?'#1a7f4b':d==='complex'?'#c77800':'#8a94a3';return `<span style="color:${c};font-size:.78rem" title="click row for detail">${esc(d||'—')}</span>`;}},
       {data:'n_strains',render:d=>d||''},{data:'sources',render:d=>esc((d||[]).join(', '))}],language:{search:'Search:',info:'_START_–_END_ of _TOTAL_'}});
 }
 function dlRecs(){if(!CUR)return;csv(CUR.growth_records,[['species',_=>CUR.species],['strain',r=>r.strain],['medium',r=>r.medium],['media_id',r=>r.media_id],['culture_mode',r=>r.mode],['oxygen',r=>r.ox],['temperature_C',r=>r.T],['pH',r=>r.pH],['growth_rate_per_h',r=>r.mu],['doubling_time_h',r=>r.td],['dilution_rate_per_h',r=>r.dil],['n_uptake',r=>(r.up||[]).length],['n_secretion',r=>(r.sec||[]).length],['source',r=>r.src],['citation',r=>r.cite],['doi',r=>r.doi],['pmcid',r=>r.pmcid]],CUR.species.replace(/\W+/g,'_')+'_growth.csv');}
@@ -279,7 +308,8 @@ function openPheno(p){
         <div class="b"><div class="v" style="color:#1a7f4b">${p.n_positive||0}</div><div class="l">positive</div></div>
         <div class="b"><div class="v" style="color:#c0392b">${p.n_negative||0}</div><div class="l">negative</div></div></div>
       <div style="font-size:.85rem"><b>Sources:</b> ${esc((p.sources||[]).join(', '))}${p.kinds&&p.kinds.length?` · <b>assay:</b> ${esc(p.kinds.join(', '))}`:''}</div>
-      ${p.exchange?`<div class="note mt-2">Model check: allow <code>${esc(p.exchange)}</code> as sole carbon source and confirm the model ${p.phenotype==='positive'?'grows':'does NOT grow'} — a direct validation of this ${p.n_strains||0}-strain consensus.</div>`:''}
+      ${p.base_medium?`<div class="cite mt-2" style="border-left-color:${p.base_type==='defined-minimal'?'#1a7f4b':p.base_type==='complex'?'#c77800':'#8a94a3'}"><b>Base medium (${esc(p.base_type||'')}):</b> ${esc(p.base_medium)}</div>`:''}
+      ${p.exchange&&p.base_type==='defined-minimal'?`<div class="note mt-2">Model check: allow <code>${esc(p.exchange)}</code> as sole carbon source on a minimal medium and confirm the model ${p.phenotype==='positive'?'grows':'does NOT grow'} — a direct validation of this ${p.n_strains||0}-strain consensus.</div>`:(p.base_type==='complex'?`<div class="note mt-2" style="color:#c77800">⚠ This is a fermentation/complex-base test (acid production), <b>not</b> growth on the substrate as sole carbon source — treat with care for model validation.</div>`:'')}
       <div class="cite mt-2"><b>Reference:</b> ${esc(p.citation||'')}</div>
     </div></div>`;
   div.addEventListener('click',e=>{if(e.target===div)div.remove();});document.body.appendChild(div);

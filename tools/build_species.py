@@ -46,6 +46,7 @@ def comp_rec(r):
     return {"id":r["id"],"strain":r.get("strain"),"mu":r.get("growth_rate_per_h"),"td":r.get("doubling_time_h"),
         "mode":c.get("culture_mode"),"cdet":c.get("culture_detail"),"ox":c.get("oxygen"),"T":c.get("temperature_C"),
         "pH":c.get("pH"),"optT":c.get("optimum_temperature_C"),"optpH":c.get("optimum_pH"),"dil":c.get("dilution_rate_per_h"),
+        "oxdet":c.get("aeration_detail"),"agit":c.get("agitation"),"meta_methods":(r.get("provenance") or {}).get("metadata_from_methods"),
         "medium":med.get("canonical_name") or med.get("description"),"media_id":med.get("media_id"),"media_url":med.get("media_url"),
         "up":r.get("uptake_rates"),"sec":r.get("secretion_rates"),"mfa":r.get("mfa_fluxes"),"yields":r.get("yields"),
         "cs":r.get("carbon_substrates"),"src":("Literature" if r["id"].startswith(("lit_","flux_")) else "Madin traits"),
@@ -54,7 +55,8 @@ def comp_rec(r):
 def comp_ph(r):
     return {"substrate":r["substrate"],"exchange":r.get("exchange"),"category":r.get("category"),
         "phenotype":r.get("phenotype"),"n_strains":r.get("n_strains"),"n_positive":r.get("n_positive"),
-        "n_negative":r.get("n_negative"),"sources":r.get("sources"),"kinds":r.get("kinds"),"citation":r.get("citation")}
+        "n_negative":r.get("n_negative"),"sources":r.get("sources"),"kinds":r.get("kinds"),
+        "base_type":r.get("base_medium_type"),"base_medium":r.get("base_medium"),"citation":r.get("citation")}
 
 index=[]; used=set()
 for sp in sorted(set(bysp_rec)|set(bysp_ph)):

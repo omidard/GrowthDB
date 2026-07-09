@@ -44,5 +44,12 @@
  "n_with_maintenance": 6,
  "n_with_overflow": 9,
  "n_with_cardinalT": 32,
- "derived_metrics": "per-species: mu_max, biomass yield Yxs + maintenance NGAM (qS-vs-mu fit, r2>=0.6), overflow byproducts, cardinal/optimum temperature, oxygen preference, substrate spectrum; COBRApy constraint export per record"
+ "derived_metrics": "per-species: mu_max, biomass yield Yxs + maintenance NGAM (qS-vs-mu fit, r2>=0.6), overflow byproducts, cardinal/optimum temperature, oxygen preference, substrate spectrum; COBRApy constraint export per record",
+ "n_phenotypes_bigg_mapped": 265157,
+ "phenotype_base_medium": {
+  "complex": 140831,
+  "defined-minimal": 154432,
+  "assay": 50479,
+  "unknown": 7048
+ }
 }
