@@ -3,16 +3,24 @@ from collections import defaultdict
 sys.path.insert(0,"/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
 from map_metabolite import Mapper
 _m=Mapper(); _remap_cache={}
-def _remap(sub):
-    if sub in _remap_cache: return _remap_cache[sub]
-    h=_m.map(name=sub); ex=h["exchange"] if (h and h["in_biggr"]) else None
-    _remap_cache[sub]=ex; return ex
+def _resolve(sub, chebi=None, kegg=None):
+    key=(sub,chebi,kegg)
+    if key in _remap_cache: return _remap_cache[key]
+    h=_m.map(name=sub)
+    if h: r=(h["exchange"],"bigg")   # accept ANY valid BiGG exchange (not only local-reactome subset)
+    else:
+        fb=_m.fallback_exchange(chebi=chebi,kegg=kegg)
+        r=(fb["exchange"],fb["namespace"]) if fb else (None,None)
+    _remap_cache[key]=r; return r
 REPO="repo"
-agg=defaultdict(lambda:{'pos':0,'neg':0,'other':0,'n':0,'ex':None,'cat':None,'cite':None,'src':set(),'kinds':set()})
-def add(org,sub,ex,cat,ph,cite,src,kind=None):
-    if not ex and sub: ex=_remap(sub)   # fill unmapped via improved mapper
+try: _ASSAY=json.load(open("/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools/assay_base_media.json"))
+except Exception: _ASSAY={}
+agg=defaultdict(lambda:{'pos':0,'neg':0,'other':0,'n':0,'ex':None,'ns':None,'cat':None,'cite':None,'src':set(),'kinds':set()})
+def add(org,sub,ex,cat,ph,cite,src,kind=None,chebi=None,kegg=None):
+    ns='bigg' if ex else None
+    if not ex and sub: ex,ns=_resolve(sub,chebi,kegg)   # BiGG, else ModelSEED/KEGG fallback id
     k=(org.strip(), (sub or '').strip().lower(), ex or '')
-    a=agg[k]; a['n']+=1; a['ex']=ex; a['cat']=a['cat'] or cat; a['cite']=a['cite'] or cite; a['src'].add(src)
+    a=agg[k]; a['n']+=1; a['ex']=ex; a['ns']=a['ns'] or ns; a['cat']=a['cat'] or cat; a['cite']=a['cite'] or cite; a['src'].add(src)
     if kind: a['kinds'].add(kind)
     if ph=='positive': a['pos']+=1
     elif ph=='negative': a['neg']+=1
@@ -21,14 +29,14 @@ def add(org,sub,ex,cat,ph,cite,src,kind=None):
 # paper biolog
 for r in json.load(open(os.path.join(REPO,'data','biolog_phenotypes.json')))['phenotypes']:
     add(r['organism'],r['substrate'],r.get('exchange'),r.get('category'),r.get('phenotype'),r.get('citation'),'paper')
-# bacdive
+# bacdive (has ChEBI -> ModelSEED fallback for non-BiGG substrates)
 for l in open('lit/bacdive/bacdive_phenotypes.jsonl'):
-    d=json.loads(l); add(d['organism'],d['substrate'],d.get('exchange'),d.get('category'),d.get('phenotype'),d.get('citation'),'bacdive',d.get('kind'))
-# pmkbase (P. putida Biolog PM, strain-resolved)
+    d=json.loads(l); add(d['organism'],d['substrate'],d.get('exchange'),d.get('category'),d.get('phenotype'),d.get('citation'),'bacdive',d.get('kind'),chebi=d.get('chebi'))
+# pmkbase (P. putida Biolog PM; has KEGG)
 import os as _os
 if _os.path.exists('lit/pmkbase/pmkbase_phenotypes.jsonl'):
     for l in open('lit/pmkbase/pmkbase_phenotypes.jsonl'):
-        d=json.loads(l); add(d['organism'],d['substrate'],d.get('exchange'),d.get('category'),d.get('phenotype'),d.get('citation'),'pmkbase',d.get('kind'))
+        d=json.loads(l); add(d['organism'],d['substrate'],d.get('exchange'),d.get('category'),d.get('phenotype'),d.get('citation'),'pmkbase',d.get('kind'),kegg=d.get('kegg'))
 def assay_context(kinds, sources):
     ks=set((k or '').lower() for k in (kinds or [])); src=set(sources or [])
     def has(*subs): return any(any(s in k for s in subs) for k in ks)
@@ -48,7 +56,9 @@ for (org,sub,ex),a in agg.items():
     tot=a['pos']+a['neg']+a['other']
     cons='positive' if a['pos']>a['neg'] and a['pos']>0 else ('negative' if a['neg']>a['pos'] else 'variable')
     bt,bd=assay_context(a['kinds'],a['src'])
-    rows.append({'organism':a['_org'],'substrate':a['_sub'],'exchange':a['ex'] or None,'category':a['cat'],
+    bmid=_ASSAY.get(bt); bmurl=(f"https://omidard.github.io/Media/?medium={bmid}" if bmid else None)
+    rows.append({'organism':a['_org'],'substrate':a['_sub'],'exchange':a['ex'] or None,'exchange_ns':a.get('ns'),'category':a['cat'],
+        'base_media_id':bmid,'base_media_url':bmurl,
         'phenotype':cons,'n_strains':a['n'],'n_positive':a['pos'],'n_negative':a['neg'],
         'sources':sorted(a['src']),'kinds':sorted(a['kinds']),'base_medium_type':bt,'base_medium':bd,'citation':a['cite']})
 # browser index: mapped-to-BiGG subset (most useful), sorted
