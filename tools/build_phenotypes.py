@@ -57,8 +57,9 @@ for (org,sub,ex),a in agg.items():
     cons='positive' if a['pos']>a['neg'] and a['pos']>0 else ('negative' if a['neg']>a['pos'] else 'variable')
     bt,bd=assay_context(a['kinds'],a['src'])
     bmid=_ASSAY.get(bt); bmurl=(f"https://omidard.github.io/Media/?medium={bmid}" if bmid else None)
+    platform=('Biolog PM' if 'pmkbase' in a['src'] else ('Biolog/PM (literature)' if 'paper' in a['src'] else 'BacDive metabolite utilization'))
     rows.append({'organism':a['_org'],'substrate':a['_sub'],'exchange':a['ex'] or None,'exchange_ns':a.get('ns'),'category':a['cat'],
-        'base_media_id':bmid,'base_media_url':bmurl,
+        'platform':platform,'base_media_id':bmid,'base_media_url':bmurl,
         'phenotype':cons,'n_strains':a['n'],'n_positive':a['pos'],'n_negative':a['neg'],
         'sources':sorted(a['src']),'kinds':sorted(a['kinds']),'base_medium_type':bt,'base_medium':bd,'citation':a['cite']})
 # browser index: mapped-to-BiGG subset (most useful), sorted

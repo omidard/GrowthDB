@@ -159,7 +159,7 @@
 
     <div class="panel" id="ph-panel">
       <div class="d-flex justify-content-between align-items-center mb-2"><div style="font-weight:700">Substrate phenotypes <span class="note">— packaged by assay medium; pick a medium to see every substrate tested on it</span></div><button class="btn btn-outline-secondary btn-dl" onclick="dlPhenos()">⬇ CSV</button></div>
-      <div class="d-flex gap-2 align-items-center mb-2 flex-wrap"><label class="note mb-0">Medium / assay:</label><select id="ph-med" class="form-select form-select-sm" style="width:auto;max-width:520px"></select><span id="ph-gsum" class="note"></span></div>
+      <div class="d-flex gap-2 align-items-center mb-2 flex-wrap"><label class="note mb-0">Platform:</label><select id="ph-plat" class="form-select form-select-sm" style="width:auto"><option value="">All assays</option><option value="Biolog PM">Biolog PM only</option><option value="Biolog/PM (literature)">Biolog (literature)</option><option value="BacDive metabolite utilization">BacDive</option></select><label class="note mb-0 ms-2">Medium / assay:</label><select id="ph-med" class="form-select form-select-sm" style="width:auto;max-width:480px"></select><span id="ph-gsum" class="note"></span></div>
       <table id="phtbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Substrate</th><th>Exchange</th><th>Category</th><th>Call</th><th>Strains(n)</th><th>Sources</th></tr></thead><tbody></tbody></table>
     </div>
   </div>
@@ -307,14 +307,17 @@ function buildPhTable(sp){
   const sel=document.getElementById('ph-med');
   sel.innerHTML=groups.map((g,i)=>`<option value="${i}">${esc(g.label)} — ${g.n} substrates (${g.n_pos}+ / ${g.n_neg}−)</option>`).join('');
   sel.onchange=()=>renderPhGroup(sp,+sel.value);
+  const plat=document.getElementById('ph-plat'); plat.onchange=()=>renderPhGroup(sp,+sel.value);
   renderPhGroup(sp,0);
 }
 function renderPhGroup(sp,i){
   const g=(sp.phenotype_groups||[])[i]||{calls:sp.phenotypes,base_medium:''};
-  document.getElementById('ph-gsum').innerHTML=g.base_medium?`<b>base medium:</b> ${esc(g.base_medium)}`:'';
+  const pf=document.getElementById('ph-plat').value;
+  let calls=pf?g.calls.filter(c=>c.platform===pf):g.calls;
+  document.getElementById('ph-gsum').innerHTML=(g.base_medium?`<b>base medium:</b> ${esc(g.base_medium)}`:'')+(pf?` · <b>${calls.length}</b> ${esc(pf)} calls`:'');
   if(phtable){phtable.destroy();$('#phtbl tbody').empty();}
   const phc={positive:'#1a7f4b',negative:'#c0392b',variable:'#6b7684'};
-  phtable=$('#phtbl').DataTable({data:g.calls,pageLength:15,deferRender:true,order:[[4,'desc']],
+  phtable=$('#phtbl').DataTable({data:calls,pageLength:15,deferRender:true,order:[[4,'desc']],
     createdRow:(row,d)=>{row.classList.add('rowlink');row.onclick=()=>openPheno(d);},
     columns:[{data:'substrate',render:d=>esc(d||'')},{data:'exchange',render:(d,t,r)=>d?`<code>${esc(d)}</code>${r.exchange_ns&&r.exchange_ns!=='bigg'?` <span style="font-size:.62rem;color:#8a6d3b;background:#fcf3d9;padding:0 4px;border-radius:6px" title="no BiGG exchange — id formulated from ${esc(r.exchange_ns)} via MetaNetX">${esc(r.exchange_ns)}</span>`:''}`:'<span style="color:#ccc">—</span>'},{data:'category',render:d=>esc(d||'')},
       {data:'phenotype',render:(d,t)=>t==='display'?`<span style="color:${phc[d]||'#555'};font-weight:700">${d==='positive'?'grow +':d==='negative'?'no-grow −':esc(d||'')}</span>`:(d||'')},
@@ -323,7 +326,7 @@ function renderPhGroup(sp,i){
 function dlRecs(){if(!CUR)return;csv(CUR.growth_records,[['species',_=>CUR.species],['strain',r=>r.strain],['medium',r=>r.medium],['media_id',r=>r.media_id],['culture_mode',r=>r.mode],['oxygen',r=>r.ox],['temperature_C',r=>r.T],['pH',r=>r.pH],['growth_rate_per_h',r=>r.mu],['doubling_time_h',r=>r.td],['dilution_rate_per_h',r=>r.dil],['n_uptake',r=>(r.up||[]).length],['n_secretion',r=>(r.sec||[]).length],['source',r=>r.src],['citation',r=>r.cite],['doi',r=>r.doi],['pmcid',r=>r.pmcid]],CUR.species.replace(/\W+/g,'_')+'_growth.csv');}
 function dlPhenos(){if(!CUR)return;csv(CUR.phenotypes,[['species',_=>CUR.species],['substrate',r=>r.substrate],['exchange',r=>r.exchange],['category',r=>r.category],['call',r=>r.phenotype],['n_strains',r=>r.n_strains],['n_positive',r=>r.n_positive],['n_negative',r=>r.n_negative],['sources',r=>(r.sources||[]).join(';')],['citation',r=>r.citation]],CUR.species.replace(/\W+/g,'_')+'_phenotypes.csv');}
 
-function fluxTable(arr,title){if(!arr||!arr.length)return '';return `<h6 style="font-size:.85rem;margin-top:.6rem">${title}</h6><table class="table table-sm" style="font-size:.8rem"><thead><tr><th>Compound</th><th>Exchange</th><th>Rate</th><th>Units</th><th>Method</th></tr></thead><tbody>`+arr.map(f=>`<tr><td>${esc(f.compound)}</td><td>${f.exchange?'<code>'+esc(f.exchange)+'</code>':'<span style=color:#bbb>unmapped</span>'}</td><td>${fx(f.rate)}</td><td>${esc(f.units||'')}</td><td>${esc(f.method||'')}</td></tr>`).join('')+'</tbody></table>';}
+function fluxTable(arr,title){if(!arr||!arr.length)return '';return `<h6 style="font-size:.85rem;margin-top:.6rem">${title}</h6><table class="table table-sm" style="font-size:.8rem"><thead><tr><th>Compound</th><th>Exchange</th><th>Rate</th><th>Units</th><th>Method</th></tr></thead><tbody>`+arr.map(f=>`<tr><td>${esc(f.compound)}</td><td>${f.exchange?'<code>'+esc(f.exchange)+'</code>'+(f.exchange_ns&&f.exchange_ns!=='bigg'?' <span style="font-size:.6rem;color:#8a6d3b;background:#fcf3d9;padding:0 4px;border-radius:5px">'+esc(f.exchange_ns)+'</span>':''):'<span style=color:#bbb>unmapped</span>'}</td><td>${fx(f.rate)}</td><td>${esc(f.units||'')}</td><td>${esc(f.method||'')}</td></tr>`).join('')+'</tbody></table>';}
 function cobraStr(r){
   const up=(r.up||[]).filter(f=>f.exchange&&f.rate!=null),sec=(r.sec||[]).filter(f=>f.exchange&&f.rate!=null);
   let s=`# GrowthDB · ${CUR?CUR.species:''}${r.strain?' '+r.strain:''}\n# medium: ${r.medium||'n/a'} · ${r.mode||''} ${r.ox||''} ${r.T!=null?r.T+'°C':''} ${r.pH!=null?'pH'+r.pH:''}\n# µ = ${r.mu!=null?fx(r.mu)+' /h':'n/a'}\n`;

@@ -11,7 +11,11 @@ for r in recs:
             if f.get('exchange'): after+=1; continue
             before+=1
             hit=m.map(name=f.get('compound'))
-            if hit and hit['in_biggr']:
-                f['exchange']=hit['exchange']; f['bigg_metabolite']=hit['bigg_metabolite']; n+=1; after+=1
+            if hit:
+                f['exchange']=hit['exchange']; f['bigg_metabolite']=hit['bigg_metabolite']; f['exchange_ns']='bigg'; n+=1; after+=1
+            else:
+                fb=m.fallback_exchange(name=f.get('compound'))
+                if fb:
+                    f['exchange']=fb['exchange']; f['bigg_metabolite']=fb.get('ref_id'); f['exchange_ns']=fb['namespace']; n+=1; after+=1
 json.dump(recs,open('repo/data/growth_records.json','w'),separators=(',',':'))
-print(f'rates re-mapped: newly mapped {n} | now mapped {after} of {before+after-n+n} total')
+print(f'rates re-mapped: newly mapped {n} | now mapped {after} of {before+after} total')

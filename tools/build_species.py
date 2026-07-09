@@ -57,7 +57,7 @@ def comp_ph(r):
         "phenotype":r.get("phenotype"),"n_strains":r.get("n_strains"),"n_positive":r.get("n_positive"),
         "n_negative":r.get("n_negative"),"sources":r.get("sources"),"kinds":r.get("kinds"),
         "base_type":r.get("base_medium_type"),"base_medium":r.get("base_medium"),
-        "base_media_id":r.get("base_media_id"),"base_media_url":r.get("base_media_url"),"citation":r.get("citation")}
+        "platform":r.get("platform"),"base_media_id":r.get("base_media_id"),"base_media_url":r.get("base_media_url"),"citation":r.get("citation")}
 
 index=[]; used=set()
 for sp in sorted(set(bysp_rec)|set(bysp_ph)):
