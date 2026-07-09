@@ -94,6 +94,10 @@
         <div><h3 style="margin:0"><i id="sp-name"></i></h3><div id="sp-tax" class="note"></div></div>
       </div>
       <div id="sp-metrics" class="row g-2 mt-1"></div>
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-2" id="strain-bar" style="border-top:1px solid #eef1f9;padding-top:.6rem">
+        <div class="note"><b id="n-strains">0</b> strains — showing <b id="strain-scope">all strains (species overview)</b></div>
+        <div class="d-flex align-items-center gap-2"><label class="note mb-0">Strain:</label><select id="strain-sel" class="form-select form-select-sm" style="width:auto;max-width:460px"></select></div>
+      </div>
     </div>
 
     <div class="row g-2">
@@ -132,7 +136,9 @@
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const fx=v=>v==null?'':(typeof v==='number'?(Math.abs(v)!==0&&Math.abs(v)<0.01?v.toExponential(2):(+v.toFixed(3)+'')):esc(v));
 const OXC={aerobic:'#2c7fb8',anaerobic:'#c0392b',facultative:'#8e44ad',microaerophilic:'#d68910',not_stated:'#95a5a6'};
-let SPIDX=[], sptable, CUR=null, rectable, phtable, charts={};
+let SPIDX=[], sptable, CUR=null, rectable, phtable, charts={}, CUR_STRAIN='';
+function _recs(){return (CUR&&CUR.growth_records||[]).filter(r=>!CUR_STRAIN||r.strain===CUR_STRAIN);}
+function setStrain(v){CUR_STRAIN=v;document.getElementById('strain-scope').textContent=v||'all strains (species overview)';drawMuT(CUR);buildRecTable(CUR);}
 
 fetch('data/species_index.json').then(r=>r.json()).then(idx=>{
   SPIDX=idx.species;
@@ -186,6 +192,16 @@ async function openSpecies(slug){
   document.getElementById('sp-name').textContent=sp.species;
   document.getElementById('sp-tax').textContent=(sp.superkingdom||'')+' · '+sp.n_records+' growth records · '+sp.n_mu+' measured growth rates · '+sp.n_phenotypes+' substrate phenotypes';
   window.scrollTo(0,0);
+  // strains
+  CUR_STRAIN='';
+  const strainCounts={}; sp.growth_records.forEach(r=>{if(r.strain)strainCounts[r.strain]=(strainCounts[r.strain]||0)+1;});
+  const strains=Object.entries(strainCounts).sort((a,b)=>b[1]-a[1]);
+  const ssel=document.getElementById('strain-sel');
+  ssel.innerHTML='<option value="">All strains (species overview)</option>'+strains.map(([s,n])=>`<option value="${esc(s)}">${esc(s.slice(0,70))} (${n})</option>`).join('');
+  ssel.onchange=()=>setStrain(ssel.value);
+  document.getElementById('n-strains').textContent=strains.length;
+  document.getElementById('strain-scope').textContent='all strains (species overview)';
+  document.getElementById('strain-bar').style.display=strains.length?'flex':'none';
   const d=sp.derived||{}; let m='';
   if(d.mu_max!=null)m+=M(fx(d.mu_max),'µmax','h⁻¹');
   if(d.td_min_h!=null)m+=M(fx(d.td_min_h),'min doubling','h');
@@ -201,7 +217,7 @@ async function openSpecies(slug){
 }
 function killc(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
 function drawMuT(sp){
-  const pts=sp.growth_records.filter(r=>r.mu!=null);
+  const pts=_recs().filter(r=>r.mu!=null);
   killc('mut'); if(!pts.length){document.getElementById('p-mut').style.display='none';return;}document.getElementById('p-mut').style.display='block';
   const temps=pts.map(o=>o.T).filter(t=>t!=null); const naX=(temps.length?Math.min(...temps):20)-8;
   const g={}; pts.forEach(r=>{const ox=r.ox||'not_stated';(g[ox]=g[ox]||[]).push({x:r.T==null?naX+(Math.random()*3-1.5):r.T,y:r.mu,rec:r});});
@@ -238,7 +254,7 @@ function renderSpectrum(sp){
 function copyExch(){const ex=(CUR.derived||{}).utilizable_exchanges||[];navigator.clipboard.writeText(JSON.stringify(ex)).then(()=>{const b=document.getElementById('btn-ex');b.textContent='Copied '+ex.length+' exchanges!';setTimeout(()=>b.textContent='⧉ Copy utilizable BiGG exchanges',1600);});}
 function buildRecTable(sp){
   if(rectable){rectable.destroy();$('#rectbl tbody').empty();}
-  rectable=$('#rectbl').DataTable({data:sp.growth_records,pageLength:10,deferRender:true,order:[[5,'desc']],
+  rectable=$('#rectbl').DataTable({data:_recs(),pageLength:10,deferRender:true,order:[[5,'desc']],
     createdRow:(row,d)=>{row.classList.add('rowlink');row.onclick=()=>openRec(d);},
     columns:[{data:'medium',render:(d,t,r)=>r.media_url?`<a href="${esc(r.media_url)}" target="_blank" onclick="event.stopPropagation()">${esc((d||r.media_id||'').slice(0,30))}</a>`:esc((d||'n/a').slice(0,30))},
       {data:'mode',render:d=>esc(d||'')},{data:'ox',render:d=>esc(d||'')},{data:'T',render:d=>d==null?'':d},{data:'pH',render:d=>d==null?'':d},
