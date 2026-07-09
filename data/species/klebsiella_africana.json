@@ -1,0 +1,1 @@
+{"species":"Klebsiella africana","superkingdom":"Bacteria","n_records":0,"n_mu":0,"n_phenotypes":1,"growth_records":[],"phenotypes":[{"substrate":"sn-glycero-3-phosphocholine","exchange":"EX_g3pc_e","category":"carbon","phenotype":"negative","n_strains":1,"n_positive":0,"n_negative":1,"sources":["paper"],"kinds":[],"citation":"Hawkey J et al. (2022) [PMC9104693]"}]}

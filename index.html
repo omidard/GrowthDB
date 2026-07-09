@@ -3,83 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GrowthDB — experimental prokaryote growth data for metabolic modelling</title>
+<title>GrowthDB — experimental prokaryote growth data, by species</title>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 <style>
-  :root{ --primary:#3f5aa6; --accent:#e9edf8; --ink:#17223b; }
-  body{ font-family:'Segoe UI',system-ui,sans-serif; background:#f4f6fb; color:#17223b; }
-  .hero{ background:linear-gradient(135deg,#1e2a52 0%,#3f5aa6 65%,#5b7fd4 100%); color:#fff; padding:2rem 0; }
-  .hero h1{ font-size:1.9rem; font-weight:750; margin:0 0 .3rem; }
-  .hero p{ opacity:.93; margin:0; max-width:860px; }
-  .stat-card{ background:#fff; border-radius:10px; padding:1rem 1.1rem; box-shadow:0 1px 3px rgba(0,0,0,.08); text-align:center; }
-  .stat-card .num{ font-size:1.55rem; font-weight:750; color:var(--primary); } .stat-card .label{ font-size:.76rem; color:#667; text-transform:uppercase; letter-spacing:.4px; }
-  .panel{ background:#fff; border-radius:10px; padding:1rem 1.1rem; box-shadow:0 1px 3px rgba(0,0,0,.08); }
-  .filter-row,.table-wrap{ background:#fff; border-radius:10px; padding:1rem; box-shadow:0 1px 3px rgba(0,0,0,.08); margin-bottom:1rem; }
-  table.dataTable{ font-size:.84rem; } table.dataTable thead th{ background:var(--accent); font-size:.74rem; letter-spacing:.2px; }
-  .chart-box{ position:relative; height:230px; }
-  a.rec-link{ font-weight:600; color:var(--primary); cursor:pointer; font-style:italic; }
+  :root{ --primary:#3f5aa6; --accent:#eef1f9; --ink:#17223b; --aer:#2c7fb8; --ana:#c0392b; --fac:#8e44ad; --mic:#d68910; }
+  body{ font-family:'Segoe UI',system-ui,sans-serif; background:#f3f5fb; color:#17223b; }
+  .hero{ background:linear-gradient(135deg,#1a2444 0%,#3f5aa6 62%,#5b7fd4 100%); color:#fff; padding:1.7rem 0; }
+  .hero h1{ font-size:1.8rem; font-weight:750; margin:0 0 .25rem; letter-spacing:-.5px; }
+  .hero p{ opacity:.93; margin:0; max-width:900px; font-size:.95rem; }
+  .stat-card{ background:#fff; border-radius:10px; padding:.8rem 1rem; box-shadow:0 1px 3px rgba(0,0,0,.07); text-align:center; }
+  .stat-card .num{ font-size:1.45rem; font-weight:750; color:var(--primary); } .stat-card .label{ font-size:.72rem; color:#667; text-transform:uppercase; letter-spacing:.4px; }
+  .panel{ background:#fff; border-radius:12px; padding:1.1rem 1.2rem; box-shadow:0 1px 4px rgba(0,0,0,.08); margin-bottom:1rem; }
+  table.dataTable{ font-size:.84rem; } table.dataTable thead th{ background:var(--accent); font-size:.73rem; letter-spacing:.2px; }
+  .sp-link{ font-weight:600; color:var(--primary); cursor:pointer; font-style:italic; } .sp-link:hover{ text-decoration:underline; }
+  .rowlink{ cursor:pointer; } .rowlink:hover{ background:#eef3ff!important; }
+  .chip{ display:inline-block; font-size:.7rem; padding:2px 8px; border-radius:20px; font-weight:600; }
   .src-lit{ color:#c77800; font-weight:600; } .src-madin{ color:#3f5aa6; }
-  .ov{ position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9999; overflow-y:auto; }
-  .modal-card{ background:#fff; border-radius:12px; max-width:960px; width:95vw; margin:2rem auto; box-shadow:0 8px 32px rgba(0,0,0,.3); }
-  .modal-head{ padding:1.1rem 1.4rem; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
-  .modal-body{ padding:1rem 1.4rem; max-height:74vh; overflow-y:auto; }
-  .cite{ font-size:.82rem; color:#556; background:#f5f7fc; border-left:3px solid var(--primary); padding:.6rem .8rem; border-radius:6px; }
-  .kv{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.6rem; margin:.6rem 0; }
-  .kv .b{ background:var(--accent); border-radius:8px; padding:.5rem .7rem; } .kv .b .v{ font-weight:700; color:var(--primary); } .kv .b .l{ font-size:.7rem; color:#667; text-transform:uppercase; }
-  .snip{ font-size:.8rem; color:#555; font-style:italic; background:#fbfbe8; border-left:3px solid #d9c94a; padding:.5rem .7rem; border-radius:6px; margin-top:.5rem; }
-  footer{ text-align:center; padding:1.4rem; color:#889; font-size:.8rem; }
+  .btn-dl{ font-size:.74rem; padding:.2rem .6rem; }
+  .ov{ position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:9999; overflow-y:auto; }
+  .modal-card{ background:#fff; border-radius:12px; max-width:920px; width:95vw; margin:2rem auto; box-shadow:0 10px 40px rgba(0,0,0,.3); }
+  .modal-head{ padding:1rem 1.3rem; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
+  .modal-body{ padding:1rem 1.3rem; max-height:76vh; overflow-y:auto; }
+  .cite{ font-size:.82rem; color:#556; background:#f5f7fc; border-left:3px solid var(--primary); padding:.55rem .8rem; border-radius:6px; }
+  .kv{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:.5rem; margin:.5rem 0; }
+  .kv .b{ background:var(--accent); border-radius:8px; padding:.45rem .65rem; } .kv .b .v{ font-weight:700; color:var(--primary); } .kv .b .l{ font-size:.68rem; color:#667; text-transform:uppercase; }
+  .snip{ font-size:.8rem; color:#555; font-style:italic; background:#fbfbe8; border-left:3px solid #d9c94a; padding:.45rem .7rem; border-radius:6px; margin-top:.5rem; }
+  #plot-wrap{ position:relative; height:340px; }
+  .leg{ font-size:.74rem; color:#556; } .leg b{ font-weight:700; }
+  .backbtn{ cursor:pointer; color:var(--primary); font-weight:600; font-size:.85rem; }
+  footer{ text-align:center; padding:1.3rem; color:#889; font-size:.8rem; }
 </style>
 </head>
 <body>
 <div class="hero"><div class="container">
   <h1>GrowthDB</h1>
-  <p>Experimental prokaryote growth data for constraint-based metabolic modelling — growth rates, substrate uptake &amp; product secretion rates, with the exact medium (linked to the <a href="https://omidard.github.io/Media/" style="color:#cfe0f5">Media</a> library) and culture conditions, every value referenced.</p>
+  <p>Experimental prokaryote growth data for constraint-based metabolic modelling — organised <b>by species</b>. Pick a species to see every growth rate, uptake &amp; secretion rate, culture condition, medium (linked to <a href="https://omidard.github.io/Media/" style="color:#cfe0f5">Media</a>) and substrate phenotype, each referenced.</p>
 </div></div>
 
 <div class="container my-3">
-  <div class="row g-3 mb-3">
-    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-org">-</div><div class="label">Prokaryotes</div></div></div>
+  <div class="row g-2 mb-3">
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-sp">-</div><div class="label">Species w/ data</div></div></div>
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-org">-</div><div class="label">Prokaryotes catalogued</div></div></div>
     <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-rec">-</div><div class="label">Growth records</div></div></div>
     <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-rate">-</div><div class="label">Growth rates</div></div></div>
-    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-flux">-</div><div class="label">Uptake/secretion rates</div></div></div>
-    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-pheno">-</div><div class="label">Substrate phenotypes</div></div></div>
-    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-bd">-</div><div class="label">BacDive strains</div></div></div>
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-flux">-</div><div class="label">Uptake/secretion</div></div></div>
+    <div class="col-6 col-md-2"><div class="stat-card"><div class="num" id="s-ph">-</div><div class="label">Phenotypes</div></div></div>
   </div>
 
-  <div class="row g-3 mb-3">
-    <div class="col-md-4"><div class="panel"><div style="font-weight:700;margin-bottom:.3rem">Records by domain</div><div class="chart-box"><canvas id="ch-sk"></canvas></div></div></div>
-    <div class="col-md-8"><div class="panel"><div style="font-weight:700;margin-bottom:.3rem">Growth-rate distribution (µ, h⁻¹)</div><div class="chart-box"><canvas id="ch-mu"></canvas></div></div></div>
-  </div>
-
-  <div class="filter-row"><div class="row g-2 align-items-end">
-    <div class="col-md-2"><label class="form-label fw-semibold" style="font-size:.8rem">Source</label><select id="f-src" class="form-select form-select-sm"><option value="">All</option></select></div>
-    <div class="col-md-2"><label class="form-label fw-semibold" style="font-size:.8rem">Domain</label><select id="f-sk" class="form-select form-select-sm"><option value="">All</option></select></div>
-    <div class="col-md-2"><label class="form-label fw-semibold" style="font-size:.8rem">Culture mode</label><select id="f-mode" class="form-select form-select-sm"><option value="">All</option></select></div>
-    <div class="col-md-2"><label class="form-label fw-semibold" style="font-size:.8rem">Oxygen</label><select id="f-ox" class="form-select form-select-sm"><option value="">All</option></select></div>
-    <div class="col-md-2"><label class="form-label fw-semibold" style="font-size:.8rem">Has flux</label><select id="f-flux" class="form-select form-select-sm"><option value="">All</option><option value="up">Uptake</option><option value="sec">Secretion</option></select></div>
-    <div class="col-md-2 d-flex align-items-end"><button class="btn btn-sm btn-outline-secondary w-100" onclick="clearF()">Clear</button></div>
-  </div></div>
-
-  <div class="table-wrap">
-    <div id="loading" class="text-center text-muted py-4"><div class="spinner-border" style="color:var(--primary)"></div><p class="mt-2">Loading growth records…</p></div>
-    <table id="tbl" class="table table-striped table-hover" style="width:100%;display:none">
-      <thead><tr><th>Organism</th><th>µ (h⁻¹)</th><th>Doubling (h)</th><th>Mode</th><th>O₂</th><th>T (°C)</th><th>pH</th><th>Uptake</th><th>Secretion</th><th>Medium</th><th>Source</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  <div class="panel mb-3" id="pheno-panel">
-    <div style="font-weight:700;color:#17223b;margin-bottom:.2rem">Substrate phenotypes <span style="font-weight:400;font-size:.8rem;color:#889">— <b id="p-count">–</b> consensus grow/no-grow calls across <b id="p-orgs">–</b> organisms (BacDive metabolite-utilization + literature Biolog/PM), BiGG-mapped so a model can be tested for growth on each substrate. Pick an organism:</span></div>
-    <div class="row g-2 align-items-end mb-2">
-      <div class="col-md-4"><input id="p-org" class="form-control form-control-sm" list="p-orglist" placeholder="Search an organism…"><datalist id="p-orglist"></datalist></div>
-      <div class="col-md-2"><select id="p-ph" class="form-select form-select-sm"><option value="">Any call</option><option value="positive">grow (+)</option><option value="negative">no-grow (−)</option><option value="variable">variable</option></select></div>
-      <div class="col-md-3"><select id="p-cat" class="form-select form-select-sm"><option value="">Any category</option></select></div>
+  <!-- SPECIES LIST -->
+  <div id="view-list">
+    <div class="panel">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+        <div style="font-weight:700;font-size:1.05rem">Browse by species</div>
+        <div class="d-flex gap-2 align-items-center">
+          <select id="f-sk" class="form-select form-select-sm" style="width:auto"><option value="">All domains</option></select>
+          <select id="f-data" class="form-select form-select-sm" style="width:auto"><option value="">All species</option><option value="mu">With growth rates</option><option value="flux">With uptake/secretion</option><option value="ph">With phenotypes</option></select>
+          <button class="btn btn-outline-secondary btn-dl" onclick="dlSpecies()">⬇ CSV</button>
+        </div>
+      </div>
+      <table id="sptbl" class="table table-striped table-hover" style="width:100%">
+        <thead><tr><th>Species</th><th>Domain</th><th>Growth records</th><th>Growth rates</th><th>Max µ (h⁻¹)</th><th>Uptake recs</th><th>Phenotypes</th></tr></thead><tbody></tbody>
+      </table>
     </div>
-    <div id="p-status" style="font-size:.8rem;color:#889;margin-bottom:.3rem">Choose an organism to see its substrate-utilization phenotypes.</div>
-    <table id="ptbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Organism</th><th>Substrate</th><th>Exchange</th><th>Category</th><th>Call</th><th>Strains</th></tr></thead><tbody></tbody></table>
   </div>
 
-  <div class="text-muted mt-2" style="font-size:.82rem">Showing the <b>quantitative</b> records (growth rate and/or uptake/secretion). The full backbone of <b id="s-org2">-</b> prokaryotes and <b>50,524</b> trait records (conditions) are in <a href="data/organisms.json">organisms.json</a> / <a href="data/growth_records.json">growth_records.json</a>. Click a record for full detail. Data: <a href="DESIGN.md">schema &amp; curation rules</a>.</div>
+  <!-- SPECIES DETAIL -->
+  <div id="view-sp" style="display:none">
+    <div class="mb-2"><span class="backbtn" onclick="showList()">← All species</span></div>
+    <div class="panel">
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+        <div><h3 style="margin:0"><i id="sp-name"></i></h3><div id="sp-tax" style="font-size:.82rem;color:#778"></div></div>
+        <div class="kv" style="min-width:280px;margin:0"><div class="b"><div class="v" id="sp-nr">-</div><div class="l">records</div></div><div class="b"><div class="v" id="sp-nmu">-</div><div class="l">growth rates</div></div><div class="b"><div class="v" id="sp-nph">-</div><div class="l">phenotypes</div></div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="plot-panel">
+      <div class="d-flex justify-content-between align-items-center mb-1"><div style="font-weight:700">Growth rates <span style="font-weight:400;font-size:.8rem;color:#889">— every µ for this species vs temperature; click a point to open its condition &amp; data</span></div><div class="leg" id="plot-leg"></div></div>
+      <div id="plot-wrap"><canvas id="mu-plot"></canvas></div>
+    </div>
+
+    <div class="panel">
+      <div class="d-flex justify-content-between align-items-center mb-2"><div style="font-weight:700">Growth records <span style="font-weight:400;font-size:.8rem;color:#889">— click a row for full detail</span></div><button class="btn btn-outline-secondary btn-dl" onclick="dlRecs()">⬇ CSV</button></div>
+      <table id="rectbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Medium</th><th>Mode</th><th>O₂</th><th>T(°C)</th><th>pH</th><th>µ(h⁻¹)</th><th>t_d(h)</th><th>Uptake</th><th>Secretion</th><th>Source</th></tr></thead><tbody></tbody></table>
+    </div>
+
+    <div class="panel" id="ph-panel">
+      <div class="d-flex justify-content-between align-items-center mb-2"><div style="font-weight:700">Substrate phenotypes <span style="font-weight:400;font-size:.8rem;color:#889">— click a row for all strains &amp; sources</span></div><button class="btn btn-outline-secondary btn-dl" onclick="dlPhenos()">⬇ CSV</button></div>
+      <table id="phtbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Substrate</th><th>Exchange</th><th>Category</th><th>Call</th><th>Strains(n)</th><th>Sources</th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
 </div>
 
 <footer>GrowthDB &middot; <a href="https://github.com/omidard/GrowthDB" target="_blank">github.com/omidard/GrowthDB</a> &middot; media linked to <a href="https://omidard.github.io/Media/">Media</a> &middot; data CC-BY-4.0 (cite each record's source)</footer>
@@ -90,119 +103,146 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
-let DATA=[], table, RMAP={};
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-const fx=v=>v==null?'':(typeof v==='number'?(Math.abs(v)<0.01?v.toExponential(2):v.toFixed(2)):esc(v));
-function popF(id,vals){const s=document.getElementById(id);[...new Set(vals)].filter(v=>v!=null&&v!=='').sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});}
-function clearF(){['f-src','f-sk','f-mode','f-ox','f-flux'].forEach(id=>document.getElementById(id).value='');table.search('').columns().search('').draw();FLUX='';table.draw();}
-let FLUX='';
-$.fn.dataTable.ext.search.push((s,d,i)=>{if(s.nTable.id!=='tbl')return true;if(!FLUX)return true;const r=DATA[i];return FLUX==='up'?r.nu>0:r.ns>0;});
+const fx=v=>v==null?'':(typeof v==='number'?(Math.abs(v)!==0&&Math.abs(v)<0.01?v.toExponential(2):(+v.toFixed(3)+'')):esc(v));
+const OXC={aerobic:'#2c7fb8',anaerobic:'#c0392b',facultative:'#8e44ad',microaerophilic:'#d68910',not_stated:'#95a5a6'};
+let SPIDX=[], sptable, CUR=null, rectable, phtable, muChart;
 
-fetch('data/records_index.json').then(r=>r.json()).then(idx=>{
-  DATA=idx.records;DATA.forEach(r=>RMAP[r.id]=r);
-  document.getElementById('s-org').textContent=idx.n_organisms.toLocaleString();
-  document.getElementById('s-org2').textContent=idx.n_organisms.toLocaleString();
-  document.getElementById('s-rec').textContent=idx.count.toLocaleString();
-  document.getElementById('s-rate').textContent=idx.n_with_rate.toLocaleString();
-  document.getElementById('s-flux').textContent=(idx.n_total_rates||0).toLocaleString();
-  document.getElementById('loading').style.display='none';document.getElementById('tbl').style.display='table';
-  popF('f-src',DATA.map(d=>d.src));popF('f-sk',DATA.map(d=>d.sk));popF('f-mode',DATA.map(d=>d.mode));popF('f-ox',DATA.map(d=>d.ox));
-  table=$('#tbl').DataTable({data:DATA,pageLength:25,deferRender:true,order:[[1,'desc']],
+fetch('data/species_index.json').then(r=>r.json()).then(idx=>{
+  SPIDX=idx.species;
+  document.getElementById('s-sp').textContent=idx.count.toLocaleString();
+  [...new Set(SPIDX.map(x=>x.sk))].filter(Boolean).sort().forEach(v=>document.getElementById('f-sk').add(new Option(v,v)));
+  sptable=$('#sptbl').DataTable({data:SPIDX,pageLength:25,deferRender:true,order:[[3,'desc']],
     columns:[
-      {data:'org',render:(d,t,r)=>`<a class="rec-link" onclick="openRec('${r.id}')">${esc(d)}${r.strain?' <span style="color:#889;font-style:normal">'+esc(r.strain)+'</span>':''}</a>`},
-      {data:'mu',render:d=>d==null?'':fx(d)},{data:'td',render:d=>d==null?'':fx(d)},
-      {data:'mode'},{data:'ox',render:d=>esc(d||'')},{data:'T',render:d=>d==null?'':d},{data:'pH',render:d=>d==null?'':d},
-      {data:'nu',render:d=>d||''},{data:'ns',render:d=>d||''},
-      {data:'med',render:(d,t,r)=>r.mid?`<a href="${esc(r.murl||('https://omidard.github.io/Media/?medium='+r.mid))}" target="_blank" title="open ${esc(r.mid)} in Media">${esc((d||r.mid).slice(0,28))}</a>`:esc((d||'').slice(0,28))},
-      {data:'src',render:d=>`<span class="${d==='Literature'?'src-lit':'src-madin'}">${d}</span>`}
-    ],language:{search:'Search:',info:'_START_–_END_ of _TOTAL_ records'}});
-  const fm={'f-src':10,'f-sk':-1,'f-mode':3,'f-ox':4};
-  document.getElementById('f-src').addEventListener('change',function(){table.column(10).search(this.value?'^'+$.fn.dataTable.util.escapeRegex(this.value)+'$':'',true,false).draw();});
-  document.getElementById('f-mode').addEventListener('change',function(){table.column(3).search(this.value?'^'+$.fn.dataTable.util.escapeRegex(this.value)+'$':'',true,false).draw();});
-  document.getElementById('f-ox').addEventListener('change',function(){table.column(4).search(this.value?'^'+$.fn.dataTable.util.escapeRegex(this.value)+'$':'',true,false).draw();});
-  document.getElementById('f-flux').addEventListener('change',function(){FLUX=this.value;table.draw();});
-  // sk custom filter
-  const skSel=document.getElementById('f-sk');
-  $.fn.dataTable.ext.search.push((s,d,i)=>{if(s.nTable.id!=='tbl')return true;const v=skSel.value;return !v||DATA[i].sk===v;});
-  skSel.addEventListener('change',()=>table.draw());
-  // charts
-  new Chart(document.getElementById('ch-sk'),{type:'doughnut',data:{labels:Object.keys(idx.by_superkingdom),
-    datasets:[{data:Object.values(idx.by_superkingdom),backgroundColor:['#3f5aa6','#c77800','#889']}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:11},boxWidth:12}}}}});
-  const mus=DATA.map(d=>d.mu).filter(v=>v!=null&&v>0&&v<3);
-  const bins=Array(15).fill(0);mus.forEach(v=>bins[Math.min(14,Math.floor(v/0.2))]++);
-  new Chart(document.getElementById('ch-mu'),{type:'bar',data:{labels:bins.map((_,i)=>(i*0.2).toFixed(1)),
-    datasets:[{data:bins,backgroundColor:'#3f5aa6cc'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-    scales:{x:{title:{display:true,text:'µ (h⁻¹)',font:{size:10}}},y:{title:{display:true,text:'records',font:{size:10}}}}}});
-}).catch(e=>{document.getElementById('loading').innerHTML='<p class="text-danger">Failed to load.</p>';console.error(e);});
+      {data:'s',render:(d,t,r)=>`<a class="sp-link" onclick="openSpecies('${r.slug}')">${esc(d)}</a>`},
+      {data:'sk',render:d=>esc(d||'')},{data:'ng'},{data:'nmu'},
+      {data:'mumax',render:d=>d==null?'':fx(d)},{data:'nu'},{data:'np'}],
+    language:{search:'Search species:',info:'_START_–_END_ of _TOTAL_ species'}});
+  const skSel=document.getElementById('f-sk'),dSel=document.getElementById('f-data');
+  $.fn.dataTable.ext.search.push((s,dat,i)=>{if(s.nTable.id!=='sptbl')return true;const r=SPIDX[i];
+    if(skSel.value&&r.sk!==skSel.value)return false;
+    const f=dSel.value; if(f==='mu'&&!r.nmu)return false; if(f==='flux'&&!r.nu)return false; if(f==='ph'&&!r.np)return false; return true;});
+  skSel.onchange=dSel.onchange=()=>sptable.draw();
+});
+// header stats from index.json
+fetch('data/index.json').then(r=>r.json()).then(d=>{
+  document.getElementById('s-org').textContent=(d.n_organisms||0).toLocaleString();
+  document.getElementById('s-rec').textContent=(d.n_growth_records||0).toLocaleString();
+  document.getElementById('s-rate').textContent=(d.n_with_rate||0).toLocaleString();
+  document.getElementById('s-flux').textContent=(d.n_total_rates||0).toLocaleString();
+  document.getElementById('s-ph').textContent=(d.n_substrate_phenotypes||0).toLocaleString();
+}).catch(()=>{});
 
-function openRec(id){
-  const r=RMAP[id];if(!r)return;
-  const fluxRows=(kind)=>{const arr=(kind==='up'?r.up:r.sec)||[];if(!arr.length)return '';
-    return `<h6 style="font-size:.85rem;margin-top:.6rem">${kind==='up'?'Uptake':'Secretion'} rates</h6><table class="table table-sm" style="font-size:.8rem"><thead><tr><th>Compound</th><th>Exchange</th><th>Rate</th><th>Units</th><th>Method</th></tr></thead><tbody>`+
-    arr.map(f=>`<tr><td>${esc(f.compound)}</td><td>${f.exchange?'<code>'+esc(f.exchange)+'</code>':'<span style=color:#aaa>unmapped</span>'}</td><td>${fx(f.rate)}</td><td>${esc(f.units||'')}</td><td>${esc(f.method||'')}</td></tr>`).join('')+'</tbody></table>';};
-  const div=document.createElement('div');div.className='ov';div.id='rec-ov';
+function showList(){document.getElementById('view-sp').style.display='none';document.getElementById('view-list').style.display='block';history.replaceState(null,'','#');}
+function csv(rows,cols,fname){
+  const head=cols.map(c=>c[0]).join(',');
+  const body=rows.map(r=>cols.map(c=>{let v=c[1](r);v=v==null?'':String(v);return '"'+v.replace(/"/g,'""')+'"';}).join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([head+'\n'+body],{type:'text/csv'}));a.download=fname;a.click();
+}
+function dlSpecies(){csv(SPIDX,[['species',r=>r.s],['domain',r=>r.sk],['growth_records',r=>r.ng],['growth_rates',r=>r.nmu],['max_mu_per_h',r=>r.mumax],['uptake_records',r=>r.nu],['phenotypes',r=>r.np]],'growthdb_species.csv');}
+
+async function openSpecies(slug){
+  const sp=await fetch('data/species/'+slug+'.json').then(r=>r.json());
+  CUR=sp; history.replaceState(null,'','#'+slug);
+  document.getElementById('view-list').style.display='none';
+  document.getElementById('view-sp').style.display='block';
+  document.getElementById('sp-name').textContent=sp.species;
+  document.getElementById('sp-tax').textContent=(sp.superkingdom||'')+' · '+sp.n_records+' growth records · '+sp.n_mu+' measured growth rates · '+sp.n_phenotypes+' phenotypes';
+  document.getElementById('sp-nr').textContent=sp.n_records;document.getElementById('sp-nmu').textContent=sp.n_mu;document.getElementById('sp-nph').textContent=sp.n_phenotypes;
+  window.scrollTo(0,0);
+  drawPlot(sp); buildRecTable(sp); buildPhTable(sp);
+}
+function drawPlot(sp){
+  const pts=sp.growth_records.map((r,i)=>({r,i})).filter(o=>o.r.mu!=null);
+  const panel=document.getElementById('plot-panel');
+  if(!pts.length){panel.style.display='none';return;} panel.style.display='block';
+  // x = temperature; nulls jittered to the left band
+  const temps=pts.map(o=>o.r.T).filter(t=>t!=null); const tmin=temps.length?Math.min(...temps):20;
+  const naX=(temps.length?Math.min(...temps):20)-8;
+  const groups={};
+  pts.forEach(o=>{const ox=o.r.ox||'not_stated';(groups[ox]=groups[ox]||[]).push({x:o.r.T==null?naX+(Math.random()*3-1.5):o.r.T,y:o.r.mu,rec:o.r});});
+  const ds=Object.entries(groups).map(([ox,d])=>({label:ox,data:d,backgroundColor:(OXC[ox]||'#777')+'cc',borderColor:OXC[ox]||'#777',pointRadius:5,pointHoverRadius:8}));
+  if(muChart)muChart.destroy();
+  muChart=new Chart(document.getElementById('mu-plot'),{type:'scatter',data:{datasets:ds},
+    options:{responsive:true,maintainAspectRatio:false,onClick:(e,els)=>{if(els.length){const p=ds[els[0].datasetIndex].data[els[0].index];openRec(p.rec);}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const r=c.raw.rec;return [`µ = ${fx(r.mu)} h⁻¹`,`medium: ${(r.medium||'n/a').slice(0,40)}`,`${r.mode||''} ${r.ox||''} ${r.T!=null?r.T+'°C':''}`,'(click to open)'];}}}},
+      scales:{x:{title:{display:true,text:'temperature (°C)  — leftmost band = not reported'}},y:{title:{display:true,text:'growth rate µ (h⁻¹)'},beginAtZero:true}}}});
+  document.getElementById('plot-leg').innerHTML=Object.keys(groups).map(ox=>`<b style="color:${OXC[ox]||'#777'}">■</b> ${ox}`).join(' &nbsp; ');
+}
+function buildRecTable(sp){
+  if(rectable){rectable.destroy();$('#rectbl tbody').empty();}
+  rectable=$('#rectbl').DataTable({data:sp.growth_records,pageLength:10,deferRender:true,order:[[5,'desc']],
+    createdRow:(row,d)=>{row.classList.add('rowlink');row.onclick=()=>openRec(d);},
+    columns:[
+      {data:'medium',render:(d,t,r)=>r.media_url?`<a href="${esc(r.media_url)}" target="_blank" onclick="event.stopPropagation()">${esc((d||r.media_id||'').slice(0,30))}</a>`:esc((d||'n/a').slice(0,30))},
+      {data:'mode',render:d=>esc(d||'')},{data:'ox',render:d=>esc(d||'')},{data:'T',render:d=>d==null?'':d},{data:'pH',render:d=>d==null?'':d},
+      {data:'mu',render:d=>d==null?'':fx(d)},{data:'td',render:d=>d==null?'':fx(d)},
+      {data:'up',render:d=>(d&&d.length)||''},{data:'sec',render:d=>(d&&d.length)||''},
+      {data:'src',render:d=>`<span class="${d==='Literature'?'src-lit':'src-madin'}">${d}</span>`}],
+    language:{search:'Search:',info:'_START_–_END_ of _TOTAL_'}});
+}
+function buildPhTable(sp){
+  const panel=document.getElementById('ph-panel');
+  if(!sp.phenotypes.length){panel.style.display='none';return;} panel.style.display='block';
+  if(phtable){phtable.destroy();$('#phtbl tbody').empty();}
+  const phc={positive:'#1a7f4b',negative:'#c0392b',variable:'#6b7684'};
+  phtable=$('#phtbl').DataTable({data:sp.phenotypes,pageLength:10,deferRender:true,order:[[4,'desc']],
+    createdRow:(row,d)=>{row.classList.add('rowlink');row.onclick=()=>openPheno(d);},
+    columns:[
+      {data:'substrate',render:d=>esc(d||'')},{data:'exchange',render:d=>d?`<code>${esc(d)}</code>`:'<span style="color:#ccc">—</span>'},
+      {data:'category',render:d=>esc(d||'')},
+      {data:'phenotype',render:(d,t)=>t==='display'?`<span style="color:${phc[d]||'#555'};font-weight:700">${d==='positive'?'grow +':d==='negative'?'no-grow −':esc(d||'')}</span>`:(d||'')},
+      {data:'n_strains',render:d=>d||''},{data:'sources',render:d=>esc((d||[]).join(', '))}],
+    language:{search:'Search:',info:'_START_–_END_ of _TOTAL_'}});
+}
+function dlRecs(){if(!CUR)return;csv(CUR.growth_records,[['species',_=>CUR.species],['strain',r=>r.strain],['medium',r=>r.medium],['media_id',r=>r.media_id],['culture_mode',r=>r.mode],['oxygen',r=>r.ox],['temperature_C',r=>r.T],['pH',r=>r.pH],['growth_rate_per_h',r=>r.mu],['doubling_time_h',r=>r.td],['dilution_rate_per_h',r=>r.dil],['n_uptake',r=>(r.up||[]).length],['n_secretion',r=>(r.sec||[]).length],['source',r=>r.src],['citation',r=>r.cite],['doi',r=>r.doi],['pmcid',r=>r.pmcid]],CUR.species.replace(/\W+/g,'_')+'_growth.csv');}
+function dlPhenos(){if(!CUR)return;csv(CUR.phenotypes,[['species',_=>CUR.species],['substrate',r=>r.substrate],['exchange',r=>r.exchange],['category',r=>r.category],['call',r=>r.phenotype],['n_strains',r=>r.n_strains],['n_positive',r=>r.n_positive],['n_negative',r=>r.n_negative],['sources',r=>(r.sources||[]).join(';')],['citation',r=>r.citation]],CUR.species.replace(/\W+/g,'_')+'_phenotypes.csv');}
+
+function fluxTable(arr,title){if(!arr||!arr.length)return '';return `<h6 style="font-size:.85rem;margin-top:.6rem">${title}</h6><table class="table table-sm" style="font-size:.8rem"><thead><tr><th>Compound</th><th>Exchange</th><th>Rate</th><th>Units</th><th>Method</th></tr></thead><tbody>`+arr.map(f=>`<tr><td>${esc(f.compound)}</td><td>${f.exchange?'<code>'+esc(f.exchange)+'</code>':'<span style=color:#bbb>unmapped</span>'}</td><td>${fx(f.rate)}</td><td>${esc(f.units||'')}</td><td>${esc(f.method||'')}</td></tr>`).join('')+'</tbody></table>';}
+function openRec(r){
+  const div=document.createElement('div');div.className='ov';div.id='ov';
   div.innerHTML=`<div class="modal-card"><div class="modal-head">
-    <div><h4 style="margin:0"><i>${esc(r.org)}</i> ${r.strain?esc(r.strain):''}</h4>
-    <div style="font-size:.8rem;color:#778"><span class="${r.src==='Literature'?'src-lit':'src-madin'}">${r.src}</span> · ${esc(r.sk||'')} · ${esc(r.mode||'')}${r.ox?' · '+esc(r.ox):''}</div></div>
-    <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('rec-ov').remove()">Close</button></div>
+    <div><h4 style="margin:0"><i>${esc(CUR?CUR.species:'')}</i> ${esc(r.strain||'')}</h4>
+    <div style="font-size:.8rem;color:#778"><span class="${r.src==='Literature'?'src-lit':'src-madin'}">${r.src}</span> · ${esc(r.mode||'')}${r.ox?' · '+esc(r.ox):''}</div></div>
+    <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('ov').remove()">Close</button></div>
     <div class="modal-body">
       <div class="kv">
         ${r.mu!=null?`<div class="b"><div class="v">${fx(r.mu)}</div><div class="l">µ (h⁻¹)</div></div>`:''}
         ${r.td!=null?`<div class="b"><div class="v">${fx(r.td)}</div><div class="l">doubling (h)</div></div>`:''}
-        ${r.T!=null?`<div class="b"><div class="v">${r.T}</div><div class="l">temp (°C)</div></div>`:''}
+        ${r.T!=null?`<div class="b"><div class="v">${r.T}</div><div class="l">temp °C</div></div>`:''}
         ${r.pH!=null?`<div class="b"><div class="v">${r.pH}</div><div class="l">pH</div></div>`:''}
-        ${r.dil!=null?`<div class="b"><div class="v">${fx(r.dil)}</div><div class="l">dilution (h⁻¹)</div></div>`:''}
-      </div>
-      <div style="font-size:.85rem;margin:.4rem 0"><b>Medium:</b> ${r.mid?`<a href="${esc(r.murl||('https://omidard.github.io/Media/?medium='+r.mid))}" target="_blank">${esc(r.med||r.mid)}</a> <span style="color:#889">(→ Media: ${esc(r.mid)})</span>`:esc(r.med||'not specified')}${r.cdet?`<br><span style="color:#889;font-size:.8rem">culture: ${esc(r.cdet)}</span>`:''}${r.cs&&r.cs.length?`<br><b>Carbon substrates:</b> ${r.cs.map(esc).join(', ')}`:''}</div>
-      ${fluxRows('up')}${fluxRows('sec')}
-      ${r.mfa&&r.mfa.length?`<h6 style="font-size:.85rem;margin-top:.6rem">¹³C-MFA fluxes</h6><table class="table table-sm" style="font-size:.8rem"><thead><tr><th>Reaction / metabolite</th><th>Flux</th><th>Units</th><th>Note</th></tr></thead><tbody>${r.mfa.map(f=>`<tr><td>${esc(f.reaction_or_metabolite||'')}</td><td>${fx(f.flux)}</td><td>${esc(f.units||'')}</td><td style="font-size:.72rem;color:#667">${esc(f.note||'')}</td></tr>`).join('')}</tbody></table>`:''}
-      ${r.yields&&Object.keys(r.yields).length?`<div style="font-size:.8rem;margin-top:.4rem"><b>Yields:</b> <code>${esc(JSON.stringify(r.yields))}</code></div>`:''}
+        ${r.dil!=null?`<div class="b"><div class="v">${fx(r.dil)}</div><div class="l">dilution h⁻¹</div></div>`:''}</div>
+      <div style="font-size:.85rem;margin:.4rem 0"><b>Medium:</b> ${r.media_url?`<a href="${esc(r.media_url)}" target="_blank">${esc(r.medium||r.media_id)}</a> <span style="color:#889">(→ Media: ${esc(r.media_id)})</span>`:esc(r.medium||'not specified')}${r.cdet?`<br><span style="color:#889;font-size:.8rem">culture: ${esc(r.cdet)}</span>`:''}${r.cs&&r.cs.length?`<br><b>Carbon substrates:</b> ${r.cs.map(esc).join(', ')}`:''}</div>
+      ${fluxTable(r.up,'Uptake rates')}${fluxTable(r.sec,'Secretion rates')}
+      ${r.mfa&&r.mfa.length?`<h6 style="font-size:.85rem;margin-top:.6rem">¹³C-MFA fluxes</h6><table class="table table-sm" style="font-size:.8rem"><thead><tr><th>Reaction/metabolite</th><th>Flux</th><th>Units</th></tr></thead><tbody>${r.mfa.map(f=>`<tr><td>${esc(f.reaction_or_metabolite||'')}</td><td>${fx(f.flux)}</td><td>${esc(f.units||'')}</td></tr>`).join('')}</tbody></table>`:''}
+      ${r.yields&&Object.keys(r.yields||{}).length?`<div style="font-size:.8rem;margin-top:.4rem"><b>Yields:</b> <code>${esc(JSON.stringify(r.yields))}</code></div>`:''}
       ${r.notes?`<div style="font-size:.8rem;margin-top:.5rem"><b>Curation:</b> ${esc(r.notes)}</div>`:''}
-      <div class="cite mt-2"><b>Source:</b> ${esc(r.cite)} ${r.pmcid?`· <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/${esc(r.pmcid)}/" target="_blank">PMC</a>`:''}${r.doi?` · <a href="https://doi.org/${esc(r.doi)}" target="_blank">DOI</a>`:''}</div>
-      ${r.snip?`<div class="snip">“${esc(r.snip)}”</div>`:''}
+      <div class="cite mt-2"><b>Source:</b> ${esc(r.cite||'')} ${r.pmcid?`· <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/${esc(r.pmcid)}/" target="_blank">PMC</a>`:''}${r.doi?` · <a href="https://doi.org/${esc(r.doi)}" target="_blank">DOI</a>`:''}</div>
+      ${r.snippet?`<div class="snip">“${esc(r.snippet)}”</div>`:''}
     </div></div>`;
   div.addEventListener('click',e=>{if(e.target===div)div.remove();});document.body.appendChild(div);
 }
-
-// ---- Substrate phenotypes (BacDive + literature, drill-down by organism) ----
-let PHENO=null, ptable=null;
-fetch('data/phenotypes_summary.json').then(r=>r.json()).then(ps=>{
-  document.getElementById('p-count').textContent=(ps.count||0).toLocaleString();
-  document.getElementById('p-orgs').textContent=(ps.n_organisms||0).toLocaleString();
-  const sc=document.getElementById('s-pheno');if(sc)sc.textContent=(ps.count||0).toLocaleString();
-  const dl=document.getElementById('p-orglist');(ps.top_organisms||[]).forEach(o=>{const opt=document.createElement('option');opt.value=o[0];dl.appendChild(opt);});
-  const catSel=document.getElementById('p-cat');Object.keys(ps.by_category||{}).filter(Boolean).sort().forEach(c=>catSel.add(new Option(c,c)));
-}).catch(()=>{const p=document.getElementById('pheno-panel');if(p)p.style.display='none';});
-fetch('data/bacdive_growth_summary.json').then(r=>r.json()).then(bs=>{const e=document.getElementById('s-bd');if(e)e.textContent=(bs.n_strains||0).toLocaleString();}).catch(()=>{const e=document.getElementById('s-bd');if(e)e.textContent='—';});
-async function loadPheno(){
-  if(PHENO)return PHENO;
-  document.getElementById('p-status').textContent='loading phenotype data (2 MB, one time)…';
-  const res=await fetch('data/phenotypes.json.gz');
-  const text=await new Response(res.body.pipeThrough(new DecompressionStream('gzip'))).text();
-  PHENO=JSON.parse(text); return PHENO;
+function openPheno(p){
+  const tot=(p.n_positive||0)+(p.n_negative||0);
+  const div=document.createElement('div');div.className='ov';div.id='ov';
+  div.innerHTML=`<div class="modal-card"><div class="modal-head">
+    <div><h4 style="margin:0">${esc(p.substrate)}</h4><div style="font-size:.8rem;color:#778"><i>${esc(CUR?CUR.species:'')}</i> · ${esc(p.category||'')} substrate</div></div>
+    <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('ov').remove()">Close</button></div>
+    <div class="modal-body">
+      <div class="kv">
+        <div class="b"><div class="v" style="color:${p.phenotype==='positive'?'#1a7f4b':p.phenotype==='negative'?'#c0392b':'#6b7684'}">${p.phenotype==='positive'?'grows +':p.phenotype==='negative'?'no growth −':esc(p.phenotype)}</div><div class="l">consensus call</div></div>
+        <div class="b"><div class="v">${p.exchange?esc(p.exchange):'—'}</div><div class="l">BiGG exchange</div></div>
+        <div class="b"><div class="v">${p.n_strains||0}</div><div class="l">strains tested</div></div>
+        <div class="b"><div class="v" style="color:#1a7f4b">${p.n_positive||0}</div><div class="l">positive</div></div>
+        <div class="b"><div class="v" style="color:#c0392b">${p.n_negative||0}</div><div class="l">negative</div></div></div>
+      <div style="font-size:.85rem"><b>Sources:</b> ${esc((p.sources||[]).join(', '))}${p.kinds&&p.kinds.length?` · <b>assay:</b> ${esc(p.kinds.join(', '))}`:''}</div>
+      ${p.exchange?`<div style="font-size:.82rem;margin-top:.4rem;color:#556">Use in a model: constrain <code>${esc(p.exchange)}</code> as a sole substrate to test whether the model reproduces this ${p.phenotype==='positive'?'growth':'no-growth'} call.</div>`:''}
+      <div class="cite mt-2"><b>Reference:</b> ${esc(p.citation||'')}</div>
+    </div></div>`;
+  div.addEventListener('click',e=>{if(e.target===div)div.remove();});document.body.appendChild(div);
 }
-async function phenoShow(){
-  const org=document.getElementById('p-org').value.trim(); if(!org){document.getElementById('p-status').textContent='Choose an organism to see its substrate-utilization phenotypes.';return;}
-  const data=await loadPheno();
-  let rows=data.filter(r=>r.o===org);
-  if(!rows.length){rows=data.filter(r=>r.o.toLowerCase().includes(org.toLowerCase())).slice(0,4000);}
-  const ph=document.getElementById('p-ph').value, cat=document.getElementById('p-cat').value;
-  if(ph)rows=rows.filter(r=>r.p===ph); if(cat)rows=rows.filter(r=>r.c===cat);
-  document.getElementById('p-status').textContent=`${rows.length.toLocaleString()} substrate phenotypes`+(org?` for “${org}”`:'');
-  const phc={positive:'#1a7f4b',negative:'#c0392b',variable:'#6b7684'};
-  if(ptable){ptable.destroy();}
-  ptable=$('#ptbl').DataTable({data:rows,pageLength:15,deferRender:true,destroy:true,
-    columns:[{data:'o',render:d=>`<i>${esc(d)}</i>`},{data:'s',render:d=>esc(d||'')},
-      {data:'e',render:d=>d?`<code>${esc(d)}</code>`:'<span style="color:#ccc">—</span>'},
-      {data:'c',render:d=>esc(d||'')},
-      {data:'p',render:d=>`<span style="color:${phc[d]||'#555'};font-weight:700">${d==='positive'?'grow +':d==='negative'?'no-grow −':esc(d||'')}</span>`},
-      {data:'n'}],
-    language:{search:'Search:',info:'_START_–_END_ of _TOTAL_'}});
-}
-document.getElementById('p-org').addEventListener('change',phenoShow);
-document.getElementById('p-ph').addEventListener('change',phenoShow);
-document.getElementById('p-cat').addEventListener('change',phenoShow);
+// deep link: #slug opens a species
+window.addEventListener('load',()=>{const h=location.hash.slice(1);if(h&&h!=='')setTimeout(()=>openSpecies(h).catch(()=>{}),400);});
 </script>
 </body>
 </html>
