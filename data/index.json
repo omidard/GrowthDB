@@ -7,7 +7,7 @@
  "n_uptake_records": 919,
  "n_secretion_records": 690,
  "n_total_rates": 3465,
- "n_media_linked": 903,
+ "n_media_linked": 1165,
  "n_biolog_phenotypes": 894,
  "by_superkingdom": {
   "Bacteria": 114296,
@@ -34,5 +34,11 @@
  "n_rates_bigg_mapped": 1715,
  "n_species_with_data": 17397,
  "n_species_with_rate": 1132,
- "design": "species-first: per-species shards (data/species/<slug>.json), clickable growth-rate plot, drill-down records + phenotypes, all tables downloadable"
+ "design": "species-first: per-species shards (data/species/<slug>.json), clickable growth-rate plot, drill-down records + phenotypes, all tables downloadable",
+ "metadata_coverage_literature": {
+  "temperature_pct": 90,
+  "pH_pct": 42,
+  "oxygen_pct": 100,
+  "medium_pct": 100
+ }
 }
