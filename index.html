@@ -114,8 +114,9 @@
     </div>
 
     <div class="panel" id="ph-panel">
-      <div class="d-flex justify-content-between align-items-center mb-2"><div style="font-weight:700">Substrate phenotypes <span class="note">— click a row for all strains &amp; sources</span></div><button class="btn btn-outline-secondary btn-dl" onclick="dlPhenos()">⬇ CSV</button></div>
-      <table id="phtbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Substrate</th><th>Exchange</th><th>Category</th><th>Call</th><th>Base medium</th><th>Strains(n)</th><th>Sources</th></tr></thead><tbody></tbody></table>
+      <div class="d-flex justify-content-between align-items-center mb-2"><div style="font-weight:700">Substrate phenotypes <span class="note">— packaged by assay medium; pick a medium to see every substrate tested on it</span></div><button class="btn btn-outline-secondary btn-dl" onclick="dlPhenos()">⬇ CSV</button></div>
+      <div class="d-flex gap-2 align-items-center mb-2 flex-wrap"><label class="note mb-0">Medium / assay:</label><select id="ph-med" class="form-select form-select-sm" style="width:auto;max-width:520px"></select><span id="ph-gsum" class="note"></span></div>
+      <table id="phtbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Substrate</th><th>Exchange</th><th>Category</th><th>Call</th><th>Strains(n)</th><th>Sources</th></tr></thead><tbody></tbody></table>
     </div>
   </div>
 </div>
@@ -246,13 +247,21 @@ function buildRecTable(sp){
 }
 function buildPhTable(sp){
   const panel=document.getElementById('ph-panel'); if(!sp.phenotypes.length){panel.style.display='none';return;} panel.style.display='block';
+  const groups=sp.phenotype_groups||[{label:'All',base_medium:'',calls:sp.phenotypes,n:sp.phenotypes.length,n_pos:0,n_neg:0}];
+  const sel=document.getElementById('ph-med');
+  sel.innerHTML=groups.map((g,i)=>`<option value="${i}">${esc(g.label)} — ${g.n} substrates (${g.n_pos}+ / ${g.n_neg}−)</option>`).join('');
+  sel.onchange=()=>renderPhGroup(sp,+sel.value);
+  renderPhGroup(sp,0);
+}
+function renderPhGroup(sp,i){
+  const g=(sp.phenotype_groups||[])[i]||{calls:sp.phenotypes,base_medium:''};
+  document.getElementById('ph-gsum').innerHTML=g.base_medium?`<b>base medium:</b> ${esc(g.base_medium)}`:'';
   if(phtable){phtable.destroy();$('#phtbl tbody').empty();}
   const phc={positive:'#1a7f4b',negative:'#c0392b',variable:'#6b7684'};
-  phtable=$('#phtbl').DataTable({data:sp.phenotypes,pageLength:10,deferRender:true,order:[[4,'desc']],
+  phtable=$('#phtbl').DataTable({data:g.calls,pageLength:15,deferRender:true,order:[[4,'desc']],
     createdRow:(row,d)=>{row.classList.add('rowlink');row.onclick=()=>openPheno(d);},
     columns:[{data:'substrate',render:d=>esc(d||'')},{data:'exchange',render:d=>d?`<code>${esc(d)}</code>`:'<span style="color:#ccc">—</span>'},{data:'category',render:d=>esc(d||'')},
       {data:'phenotype',render:(d,t)=>t==='display'?`<span style="color:${phc[d]||'#555'};font-weight:700">${d==='positive'?'grow +':d==='negative'?'no-grow −':esc(d||'')}</span>`:(d||'')},
-      {data:'base_type',render:d=>{const c=d==='defined-minimal'?'#1a7f4b':d==='complex'?'#c77800':'#8a94a3';return `<span style="color:${c};font-size:.78rem" title="click row for detail">${esc(d||'—')}</span>`;}},
       {data:'n_strains',render:d=>d||''},{data:'sources',render:d=>esc((d||[]).join(', '))}],language:{search:'Search:',info:'_START_–_END_ of _TOTAL_'}});
 }
 function dlRecs(){if(!CUR)return;csv(CUR.growth_records,[['species',_=>CUR.species],['strain',r=>r.strain],['medium',r=>r.medium],['media_id',r=>r.media_id],['culture_mode',r=>r.mode],['oxygen',r=>r.ox],['temperature_C',r=>r.T],['pH',r=>r.pH],['growth_rate_per_h',r=>r.mu],['doubling_time_h',r=>r.td],['dilution_rate_per_h',r=>r.dil],['n_uptake',r=>(r.up||[]).length],['n_secretion',r=>(r.sec||[]).length],['source',r=>r.src],['citation',r=>r.cite],['doi',r=>r.doi],['pmcid',r=>r.pmcid]],CUR.species.replace(/\W+/g,'_')+'_growth.csv');}

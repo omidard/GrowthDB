@@ -65,9 +65,21 @@ for sp in sorted(set(bysp_rec)|set(bysp_ph)):
     sl=slug(sp); base=sl; k=2
     while sl in used: sl=f"{base}_{k}"; k+=1
     used.add(sl)
+    phc=[comp_ph(r) for r in phs]
+    # package phenotypes BY assay medium (all substrate calls tested on the same base medium)
+    from collections import defaultdict as _dd
+    _g=_dd(list)
+    for p in phc: _g[(p.get("base_type") or "unknown", p.get("base_medium") or "")].append(p)
+    def _lab(bt):
+        return {"defined-minimal":"Defined minimal medium (sole-substrate growth)","complex":"Complex/peptone base (acid-production test)",
+                "assay":"Enzyme/activity assay medium","unknown":"Unspecified base medium"}.get(bt,bt)
+    pheno_groups=[{"base_type":k[0],"label":_lab(k[0]),"base_medium":k[1],"n":len(v),
+                   "n_pos":sum(1 for x in v if x["phenotype"]=="positive"),"n_neg":sum(1 for x in v if x["phenotype"]=="negative"),
+                   "calls":sorted(v,key=lambda x:(x["phenotype"]!="positive",x["substrate"]))}
+                  for k,v in sorted(_g.items(),key=lambda kv:-len(kv[1]))]
     shard={"species":sp,"superkingdom":skmap.get(sp,grecs[0].get("superkingdom") if grecs else ""),
            "n_records":len(grecs),"n_mu":len(mus),"n_phenotypes":len(phs),
-           "growth_records":[comp_rec(r) for r in grecs],"phenotypes":[comp_ph(r) for r in phs]}
+           "growth_records":[comp_rec(r) for r in grecs],"phenotypes":phc,"phenotype_groups":pheno_groups}
     json.dump(shard,open(os.path.join(REPO,"data","species",sl+".json"),"w"),separators=(",",":"))
     index.append({"s":sp,"sk":shard["superkingdom"],"ng":len(grecs),"nmu":len(mus),
                   "mumax":(round(max(mus),3) if mus else None),"nu":sum(1 for r in grecs if r.get("uptake_rates")),

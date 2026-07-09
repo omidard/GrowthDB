@@ -1,12 +1,12 @@
 {
  "n_organisms": 124666,
  "n_with_growth": 20223,
- "n_growth_records": 52668,
+ "n_growth_records": 53726,
  "n_literature_records": 2144,
- "n_with_rate": 2726,
+ "n_with_rate": 3549,
  "n_uptake_records": 919,
  "n_secretion_records": 690,
- "n_total_rates": 3465,
+ "n_total_rates": 6136,
  "n_media_linked": 1165,
  "n_biolog_phenotypes": 894,
  "by_superkingdom": {
@@ -41,8 +41,8 @@
   "oxygen_pct": 100,
   "medium_pct": 100
  },
- "n_with_maintenance": 6,
- "n_with_overflow": 9,
+ "n_with_maintenance": 10,
+ "n_with_overflow": 22,
  "n_with_cardinalT": 32,
  "derived_metrics": "per-species: mu_max, biomass yield Yxs + maintenance NGAM (qS-vs-mu fit, r2>=0.6), overflow byproducts, cardinal/optimum temperature, oxygen preference, substrate spectrum; COBRApy constraint export per record",
  "n_phenotypes_bigg_mapped": 265157,
