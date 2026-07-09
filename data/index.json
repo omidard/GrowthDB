@@ -1,12 +1,12 @@
 {
  "n_organisms": 124666,
  "n_with_growth": 20223,
- "n_growth_records": 53726,
+ "n_growth_records": 55085,
  "n_literature_records": 2144,
- "n_with_rate": 3549,
- "n_uptake_records": 919,
- "n_secretion_records": 690,
- "n_total_rates": 6136,
+ "n_with_rate": 4563,
+ "n_uptake_records": 2941,
+ "n_secretion_records": 2390,
+ "n_total_rates": 9706,
  "n_media_linked": 1165,
  "n_biolog_phenotypes": 894,
  "by_superkingdom": {
