@@ -51,5 +51,12 @@
   "defined-minimal": 154432,
   "assay": 50479,
   "unknown": 7048
+ },
+ "n_phenotypes_with_exchange": 344068,
+ "exchange_namespaces": {
+  "bigg": 265157,
+  "modelseed": 54758,
+  "metanetx": 22473,
+  "kegg": 1680
  }
 }

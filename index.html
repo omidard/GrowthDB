@@ -260,7 +260,7 @@ function renderPhGroup(sp,i){
   const phc={positive:'#1a7f4b',negative:'#c0392b',variable:'#6b7684'};
   phtable=$('#phtbl').DataTable({data:g.calls,pageLength:15,deferRender:true,order:[[4,'desc']],
     createdRow:(row,d)=>{row.classList.add('rowlink');row.onclick=()=>openPheno(d);},
-    columns:[{data:'substrate',render:d=>esc(d||'')},{data:'exchange',render:d=>d?`<code>${esc(d)}</code>`:'<span style="color:#ccc">—</span>'},{data:'category',render:d=>esc(d||'')},
+    columns:[{data:'substrate',render:d=>esc(d||'')},{data:'exchange',render:(d,t,r)=>d?`<code>${esc(d)}</code>${r.exchange_ns&&r.exchange_ns!=='bigg'?` <span style="font-size:.62rem;color:#8a6d3b;background:#fcf3d9;padding:0 4px;border-radius:6px" title="no BiGG exchange — id formulated from ${esc(r.exchange_ns)} via MetaNetX">${esc(r.exchange_ns)}</span>`:''}`:'<span style="color:#ccc">—</span>'},{data:'category',render:d=>esc(d||'')},
       {data:'phenotype',render:(d,t)=>t==='display'?`<span style="color:${phc[d]||'#555'};font-weight:700">${d==='positive'?'grow +':d==='negative'?'no-grow −':esc(d||'')}</span>`:(d||'')},
       {data:'n_strains',render:d=>d||''},{data:'sources',render:d=>esc((d||[]).join(', '))}],language:{search:'Search:',info:'_START_–_END_ of _TOTAL_'}});
 }
