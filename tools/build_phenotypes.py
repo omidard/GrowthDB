@@ -37,6 +37,10 @@ import os as _os
 if _os.path.exists('lit/pmkbase/pmkbase_phenotypes.jsonl'):
     for l in open('lit/pmkbase/pmkbase_phenotypes.jsonl'):
         d=json.loads(l); add(d['organism'],d['substrate'],d.get('exchange'),d.get('category'),d.get('phenotype'),d.get('citation'),'pmkbase',d.get('kind'),kegg=d.get('kegg'))
+# all-paper Biolog / substrate-utilisation mine (825 papers)
+if _os.path.exists('lit/biolog_all_phenotypes.jsonl'):
+    for l in open('lit/biolog_all_phenotypes.jsonl'):
+        d=json.loads(l); add(d['organism'],d['substrate'],d.get('exchange'),d.get('category'),d.get('phenotype'),d.get('citation'),d.get('source','sub_util'),d.get('kind'))
 def assay_context(kinds, sources):
     ks=set((k or '').lower() for k in (kinds or [])); src=set(sources or [])
     def has(*subs): return any(any(s in k for s in subs) for k in ks)
@@ -57,7 +61,8 @@ for (org,sub,ex),a in agg.items():
     cons='positive' if a['pos']>a['neg'] and a['pos']>0 else ('negative' if a['neg']>a['pos'] else 'variable')
     bt,bd=assay_context(a['kinds'],a['src'])
     bmid=_ASSAY.get(bt); bmurl=(f"https://omidard.github.io/Media/?medium={bmid}" if bmid else None)
-    platform=('Biolog PM' if 'pmkbase' in a['src'] else ('Biolog/PM (literature)' if 'paper' in a['src'] else 'BacDive metabolite utilization'))
+    _s=a['src']
+    platform=('Biolog PM' if ('pmkbase' in _s or 'biolog_pm' in _s) else ('Biolog/PM (literature)' if 'paper' in _s else ('Substrate utilisation (literature)' if 'sub_util' in _s else 'BacDive metabolite utilization')))
     rows.append({'organism':a['_org'],'substrate':a['_sub'],'exchange':a['ex'] or None,'exchange_ns':a.get('ns'),'category':a['cat'],
         'platform':platform,'base_media_id':bmid,'base_media_url':bmurl,
         'phenotype':cons,'n_strains':a['n'],'n_positive':a['pos'],'n_negative':a['neg'],
