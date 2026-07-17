@@ -25,6 +25,7 @@ GrowthDB/
 │   ├── organisms.json        # every prokaryote (backbone), with a has_growth flag
 │   ├── growth_records.json   # growth rate / uptake / secretion records + conditions + medium link
 │   ├── records_index.json    # compact index of the quantitative records (browser)
+│   ├── strains.json          # standard strain-id catalog (token -> record/species counts)
 │   └── index.json            # summary counts
 ├── index.html                # interactive browser (GitHub Pages)
 ├── DESIGN.md                 # schema, curation & referencing rules
@@ -54,6 +55,17 @@ Each rate records whether it was **`reported`** (stated in the paper) or **`calc
 by curation from the paper's data — e.g. µ from an OD/CFU time-course; specific uptake from
 yield × µ; secretion from product yield), with the derivation in `curation_notes`. Media are
 pointers into the `Media` repo; a medium not yet there is **added to `Media`** first, then linked.
+
+## Standard strain ids — track data to the strain, not just the species
+
+Growth phenotypes are strain-specific, so every record carries a **`strain_std`** field: a
+normalised, comparable strain token derived from the free-text `strain` (or the organism name).
+Extraction priority is culture-collection accession (ATCC/DSM/NCTC/…) → `str.`/`substr.`
+designation → lab designation (MG1655, BW25113, N16961, …) → K-12. `data/strains.json` is the
+catalog (token → record/species counts). This lets a consumer (e.g. the GEM Autocurator's lab
+validation) match an uploaded model — identified by strain name, GCF/GCA accession or BV-BRC id —
+to records **for that exact strain**, and say so honestly when only other-strain data exists.
+Regenerate with `python3 tools/standardize_strains.py` (idempotent).
 
 ## Related
 
