@@ -152,6 +152,11 @@
       <div class="col-md-6"><div class="note mb-1" style="color:#c0392b;font-weight:600">Does not grow on (<span id="np-neg">0</span>)</div><div id="spec-neg" style="max-height:170px;overflow:auto"></div></div></div>
     </div>
 
+    <div class="panel" id="p-cgrow" style="display:none">
+      <div class="d-flex justify-content-between align-items-center mb-2"><div style="font-weight:700">Growth on defined media <span class="note">— direct evidence the organism grows on a specific substrate as the sole C/energy source, each on a fully-formulatable defined medium (e.g. maltose on M9). Distinct from Biolog plates and from rate measurements; the exact medium is linked for GEM validation.</span></div><button class="btn btn-outline-secondary btn-dl" onclick="dlCgrow()">⬇ CSV</button></div>
+      <table id="cgtbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Grows on</th><th>BiGG exchange</th><th>Defined base</th><th>Exact medium</th><th>µ(h⁻¹)</th><th>O₂</th><th>Evidence</th><th>Source</th></tr></thead><tbody></tbody></table>
+    </div>
+
     <div class="panel">
       <div class="d-flex justify-content-between align-items-center mb-2"><div style="font-weight:700">Growth records <span class="note">— click a row for full detail + COBRApy constraint</span></div><button class="btn btn-outline-secondary btn-dl" onclick="dlRecs()">⬇ CSV</button></div>
       <table id="rectbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Medium</th><th>Mode</th><th>O₂</th><th>T(°C)</th><th>pH</th><th>µ(h⁻¹)</th><th>t_d(h)</th><th>Uptake</th><th>Secretion</th><th>Source</th></tr></thead><tbody></tbody></table>
@@ -176,7 +181,7 @@
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const fx=v=>v==null?'':(typeof v==='number'?(Math.abs(v)!==0&&Math.abs(v)<0.01?v.toExponential(2):(+v.toFixed(3)+'')):esc(v));
 const OXC={aerobic:'#2c7fb8',anaerobic:'#c0392b',facultative:'#8e44ad',microaerophilic:'#d68910',not_stated:'#95a5a6'};
-let SPIDX=[], sptable, CUR=null, rectable, phtable, charts={}, CUR_STRAIN='';
+let SPIDX=[], sptable, CUR=null, rectable, phtable, cgtable, charts={}, CUR_STRAIN='';
 function _recs(){return (CUR&&CUR.growth_records||[]).filter(r=>!CUR_STRAIN||r.strain===CUR_STRAIN);}
 function setStrain(v){CUR_STRAIN=v;document.getElementById('strain-scope').textContent=v||'all strains (species overview)';drawMuT(CUR);buildRecTable(CUR);}
 
@@ -253,8 +258,24 @@ async function openSpecies(slug){
   if(d.biomass_yield_gDW_per_mmol!=null)m+=M(fx(d.biomass_yield_gDW_per_mmol),'biomass yield','gDW/mmol',1);
   if(d.maintenance_NGAM_mmol_gDW_h!=null)m+=M(fx(d.maintenance_NGAM_mmol_gDW_h),'NGAM','mmol/gDW/h',1);
   document.getElementById('sp-metrics').innerHTML=m;
-  drawMuT(sp); drawQsMu(sp); drawOverflow(sp); renderSpectrum(sp); buildRecTable(sp); buildPhTable(sp);
+  drawMuT(sp); drawQsMu(sp); drawOverflow(sp); renderSpectrum(sp); buildRecTable(sp); buildCarbonGrowth(sp); buildPhTable(sp);
 }
+function buildCarbonGrowth(sp){
+  const cg=sp.carbon_growth||[]; const panel=document.getElementById('p-cgrow');
+  if(cgtable){cgtable.destroy();$('#cgtbl tbody').empty();}
+  if(!cg.length){panel.style.display='none';return;} panel.style.display='block';
+  const CONF={named:'stated as C-source',dominant:'bulk C-source',listed:'defined-medium component',trait:'reported substrate'};
+  cgtable=$('#cgtbl').DataTable({data:cg,pageLength:10,deferRender:true,order:[[4,'desc']],
+    columns:[{data:'substrate',render:d=>`<b>${esc(d||'')}</b>`},
+      {data:'exchange',render:d=>d?`<code>${esc(d)}</code>`:''},
+      {data:'base',render:d=>esc(d||'')},
+      {data:'media_id',render:(d,t,r)=>d?`<a href="${esc(r.media_url||('https://omidard.github.io/Media/?medium='+d))}" target="_blank">${esc((r.medium||d).slice(0,40))}</a>`:`<span class="note" style="color:#c0392b">${esc((r.medium||'').slice(0,36))} — not yet formulated</span>`},
+      {data:'mu',render:d=>d==null?'—':fx(d)},{data:'oxygen',render:d=>esc(d||'')},
+      {data:'confidence',render:d=>`<span class="note">${esc(CONF[d]||d||'')}</span>`},
+      {data:'citation',render:d=>`<span class="note">${esc((d||'').slice(0,50))}</span>`}],
+    language:{search:'Search:',info:'_START_–_END_ of _TOTAL_'}});
+}
+function dlCgrow(){if(!CUR)return;csv(CUR.carbon_growth||[],[['species',_=>CUR.species],['grows_on',r=>r.substrate],['bigg',r=>r.bigg],['exchange',r=>r.exchange],['defined_base',r=>r.base],['medium',r=>r.medium],['media_id',r=>r.media_id],['growth_rate_per_h',r=>r.mu],['oxygen',r=>r.oxygen],['evidence',r=>r.confidence],['citation',r=>r.citation],['doi',r=>r.doi]],CUR.species.replace(/\W+/g,'_')+'_defined_growth.csv');}
 function killc(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
 function drawMuT(sp){
   const pts=_recs().filter(r=>r.mu!=null);
