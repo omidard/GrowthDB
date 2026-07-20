@@ -1,0 +1,1120 @@
+{
+ "n_media": 265,
+ "n_batches": 27,
+ "batches": [
+  [
+   {
+    "medium": "defined C. autoethanogenum minimal medium (composition per cited source; not tabulated in review)",
+    "n_records": 37
+   },
+   {
+    "medium": "casitone yeast extract (CYE)",
+    "n_records": 20
+   },
+   {
+    "medium": "Hv-YPC broth",
+    "n_records": 8
+   },
+   {
+    "medium": "modified WC medium",
+    "n_records": 8
+   },
+   {
+    "medium": "NMS2",
+    "n_records": 8
+   },
+   {
+    "medium": "Ammonium Mineral Salts (AMS) / mineral medium (per cited source)",
+    "n_records": 7
+   },
+   {
+    "medium": "V4 mineral medium (pH 2.5) with added lanthanum and cerium (0.2 uM)",
+    "n_records": 6
+   },
+   {
+    "medium": "AM1 defined medium",
+    "n_records": 6
+   },
+   {
+    "medium": "nutrient-rich medium",
+    "n_records": 6
+   },
+   {
+    "medium": "Modified Payne's medium supplemented with NaCl (Payne et al. 1960)",
+    "n_records": 5
+   }
+  ],
+  [
+   {
+    "medium": "Minimal medium, glucose-limited",
+    "n_records": 5
+   },
+   {
+    "medium": "Gas fermentation medium (syngas substrate)",
+    "n_records": 5
+   },
+   {
+    "medium": "chemically defined medium without yeast extract",
+    "n_records": 5
+   },
+   {
+    "medium": "glucose-limited minimal medium, aerobic chemostat (per Ishii et al. 2007)",
+    "n_records": 5
+   },
+   {
+    "medium": "glucose + yeast extract",
+    "n_records": 5
+   },
+   {
+    "medium": "RDM (rich defined medium, Teknova)",
+    "n_records": 4
+   },
+   {
+    "medium": "Minimal defined medium with glucose as sole carbon source (phosphate-buffered, pH 7)",
+    "n_records": 4
+   },
+   {
+    "medium": "Anaerobic defined bicarbonate-buffered mineral salts medium (composition per ref 24)",
+    "n_records": 4
+   },
+   {
+    "medium": "carbon-limited defined medium (chemostat)",
+    "n_records": 4
+   },
+   {
+    "medium": "CSBK medium",
+    "n_records": 4
+   }
+  ],
+  [
+   {
+    "medium": "glucose-limited defined minimal medium (continuous culture)",
+    "n_records": 4
+   },
+   {
+    "medium": "LSM (low-salt mineral) medium",
+    "n_records": 3
+   },
+   {
+    "medium": "Synthetic Cystic Fibrosis Medium (SCFM)",
+    "n_records": 3
+   },
+   {
+    "medium": "Chopped meat carbohydrate broth (BD BBL)",
+    "n_records": 3
+   },
+   {
+    "medium": "glucose-limited minimal medium (pH 7)",
+    "n_records": 3
+   },
+   {
+    "medium": "Anaerobic defined mineral medium (ref 15), DCM-fed (Mode 3 mineralization)",
+    "n_records": 3
+   },
+   {
+    "medium": "chemically defined medium (without yeast extract)",
+    "n_records": 3
+   },
+   {
+    "medium": "R2A",
+    "n_records": 3
+   },
+   {
+    "medium": "Mineral salts nitrifier medium (chemostat feed, as previously described, ref 56)",
+    "n_records": 3
+   },
+   {
+    "medium": "MSpitz9 defined medium",
+    "n_records": 3
+   }
+  ],
+  [
+   {
+    "medium": "OBGM (oral bacterial growth medium)",
+    "n_records": 3
+   },
+   {
+    "medium": "Nitrate mineral salt (NMS) medium",
+    "n_records": 3
+   },
+   {
+    "medium": "RRNCO medium + acetate",
+    "n_records": 3
+   },
+   {
+    "medium": "Sodium carbonate/bicarbonate soda mineral medium with thiosulfate",
+    "n_records": 3
+   },
+   {
+    "medium": "stoichiometrically defined medium (fed-batch, induction phase)",
+    "n_records": 3
+   },
+   {
+    "medium": "MCGC minimal medium",
+    "n_records": 3
+   },
+   {
+    "medium": "Defined chemostat medium (glycerol-limited, from Ramirez-Malule et al. 2018, ref 20)",
+    "n_records": 3
+   },
+   {
+    "medium": "modified V4 medium (acidic mineral medium)",
+    "n_records": 3
+   },
+   {
+    "medium": "modified Balch medium",
+    "n_records": 2
+   },
+   {
+    "medium": "liquid mineral medium (composition detailed in supplementary information, not in main text)",
+    "n_records": 2
+   }
+  ],
+  [
+   {
+    "medium": "Tomato (cv. Moneymaker) xylem sap",
+    "n_records": 2
+   },
+   {
+    "medium": "JW1 (isolation medium)",
+    "n_records": 2
+   },
+   {
+    "medium": "Minimal malate medium",
+    "n_records": 2
+   },
+   {
+    "medium": "YEP (yeast extract peptone) medium",
+    "n_records": 2
+   },
+   {
+    "medium": "Middlebrook 7H9 broth",
+    "n_records": 2
+   },
+   {
+    "medium": "Chemostat defined medium (as detailed in Bacon et al. 2004)",
+    "n_records": 2
+   },
+   {
+    "medium": "Sistrom's minimal medium (SMM)",
+    "n_records": 2
+   },
+   {
+    "medium": "In silico nutrient-rich minimal medium, fructose sole carbon source",
+    "n_records": 2
+   },
+   {
+    "medium": "Synthetic wastewater medium for EBPR sequencing batch reactor (per Garcia Martin et al. 2006)",
+    "n_records": 2
+   },
+   {
+    "medium": "Gas fermentation medium (high-H2 CO substrate)",
+    "n_records": 2
+   }
+  ],
+  [
+   {
+    "medium": "Anaerobic batch medium with lactate and glucose as main electron donors (composition not stated in main text)",
+    "n_records": 2
+   },
+   {
+    "medium": "Lactate coculture medium (sulfate-free, CCMA-based), with Resazurin anaerobic indicator",
+    "n_records": 2
+   },
+   {
+    "medium": "autotrophic H2/CO2 medium (composition in SI Appendix)",
+    "n_records": 2
+   },
+   {
+    "medium": "McF medium (pre-reduced)",
+    "n_records": 2
+   },
+   {
+    "medium": "Anoxic synthetic medium (as in ref. 10)",
+    "n_records": 2
+   },
+   {
+    "medium": "GG medium (Schatz medium; glutamate + gluconate as sole carbon sources)",
+    "n_records": 2
+   },
+   {
+    "medium": "CMM Mod2 (Centre for Applied Microbiology Research mycobacterium medium Mod2), glycerol growth-limited",
+    "n_records": 2
+   },
+   {
+    "medium": "Modified MR-1 defined medium",
+    "n_records": 2
+   },
+   {
+    "medium": "C+Y medium, pH 7.8",
+    "n_records": 2
+   },
+   {
+    "medium": "Antibiotic Medium 3",
+    "n_records": 2
+   }
+  ],
+  [
+   {
+    "medium": "Evans medium with glucose (composition not stated; cited from ref. 41)",
+    "n_records": 2
+   },
+   {
+    "medium": "Chemically defined growth medium (Baart et al., ref 27)",
+    "n_records": 2
+   },
+   {
+    "medium": "glucose-limited minimal medium",
+    "n_records": 2
+   },
+   {
+    "medium": "Minimal medium with formic acid (sodium formate) and CO2 as sole carbon sources",
+    "n_records": 2
+   },
+   {
+    "medium": "Glucose-based medium (composition not stated in review)",
+    "n_records": 2
+   },
+   {
+    "medium": "Defined anaerobic gas-fermentation medium (composition per refs 19,20; not restated)",
+    "n_records": 2
+   },
+   {
+    "medium": "Second stage fed with effluent from first-stage chemostat",
+    "n_records": 2
+   },
+   {
+    "medium": "succinate-based photosynthetic (photoheterotrophic) minimal medium",
+    "n_records": 2
+   },
+   {
+    "medium": "Minimal medium according to Kueng (1982)",
+    "n_records": 2
+   },
+   {
+    "medium": "Chemically defined medium (without yeast extract)",
+    "n_records": 2
+   }
+  ],
+  [
+   {
+    "medium": "complex medium",
+    "n_records": 2
+   },
+   {
+    "medium": "methanol minimal medium",
+    "n_records": 2
+   },
+   {
+    "medium": "defined amino-acid (synthetic complex) medium, salt-saturated (~4 M NaCl)",
+    "n_records": 2
+   },
+   {
+    "medium": "Paenibacillus-Scenedesmus (PS) medium",
+    "n_records": 2
+   },
+   {
+    "medium": "7H9 complete medium (+10% OADC)",
+    "n_records": 2
+   },
+   {
+    "medium": "Defined (chemically defined) medium: 20 amino acids, minerals and vitamins (glucose-limited)",
+    "n_records": 2
+   },
+   {
+    "medium": "Defined autotrophic medium (Supplementary Table S4, per ref 23); cysteine-HCl reducing agent",
+    "n_records": 2
+   },
+   {
+    "medium": "Tryptone broth",
+    "n_records": 1
+   },
+   {
+    "medium": "succinate-based medium (photosynthetic growth); exact medium (standard succinate medium vs M2SF two-carbon medium) not specified for this parameter",
+    "n_records": 1
+   },
+   {
+    "medium": "Hayflick rich medium (cited: Yus et al, 2009)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "King's Broth (King's B Medium)",
+    "n_records": 1
+   },
+   {
+    "medium": "RS-1 growth medium (RGM), gassed with 10% hydrogen balanced with nitrogen",
+    "n_records": 1
+   },
+   {
+    "medium": "RS-1 growth medium (RGM), nitrogen headspace",
+    "n_records": 1
+   },
+   {
+    "medium": "modified Hayflick medium",
+    "n_records": 1
+   },
+   {
+    "medium": "ATCC 1161 medium",
+    "n_records": 1
+   },
+   {
+    "medium": "JW1 medium with all carbon sources and vitamins (chemoorganoheterotrophic positive control)",
+    "n_records": 1
+   },
+   {
+    "medium": "Synthetic marine sulfate-reducer medium, pH 7.4, methane headspace",
+    "n_records": 1
+   },
+   {
+    "medium": "rich media (unspecified)",
+    "n_records": 1
+   },
+   {
+    "medium": "HEPES-buffered Minimal Essential Media (MEM-HEPES) + 50% human serum",
+    "n_records": 1
+   },
+   {
+    "medium": "HEPES-buffered Minimal Essential Media (MEM-HEPES) + 50% Phosphate Buffered Saline (negative control)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "HEPES-buffered Minimal Essential Media (MEM-HEPES) + 50% human urine",
+    "n_records": 1
+   },
+   {
+    "medium": "sterile (0.2 \u00b5m filtered, microwave-sterilized) Pond-1 water",
+    "n_records": 1
+   },
+   {
+    "medium": "Natural crystalliser pond brine (Bra\u00e7 del Port, Alicante, Spain)",
+    "n_records": 1
+   },
+   {
+    "medium": "ATGN (defined minimal medium)",
+    "n_records": 1
+   },
+   {
+    "medium": "JW5 (carbon-replete)",
+    "n_records": 1
+   },
+   {
+    "medium": "JW5 lacking supplemental carbon sources",
+    "n_records": 1
+   },
+   {
+    "medium": "Modified SOT (Spirulina-Ogawa-Terui) medium, partial NaHCO3->Na2CO3 replacement, photoautotrophic airlift photobioreactor culture",
+    "n_records": 1
+   },
+   {
+    "medium": "sterile growth medium in chemostat vessel (composition not detailed in main text; designed to mimic human distal colon per cited ref [30])",
+    "n_records": 1
+   },
+   {
+    "medium": "Glucose-limited minimal medium",
+    "n_records": 1
+   },
+   {
+    "medium": "lactate + sulfate medium (D. vulgaris grown on lactate and sulfate; values from Noguera et al 1998)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "Anaerobic defined mineral medium (set up as in ref 15), amended with chloroform + H2",
+    "n_records": 1
+   },
+   {
+    "medium": "Anaerobic defined mineral medium (ref 15), amended with CF + H2 (Mode 1 CF dechlorination)",
+    "n_records": 1
+   },
+   {
+    "medium": "CDM (chemically defined medium; CDM35/CDM47 series, amino-acid supplemented)",
+    "n_records": 1
+   },
+   {
+    "medium": "NMS2 (nitrate mineral salts) medium",
+    "n_records": 1
+   },
+   {
+    "medium": "minimal medium with glucose as sole carbon source",
+    "n_records": 1
+   },
+   {
+    "medium": "minimal medium with galactose as sole carbon source",
+    "n_records": 1
+   },
+   {
+    "medium": "BG11 medium (+ antibiotics)",
+    "n_records": 1
+   },
+   {
+    "medium": "S medium (defined)",
+    "n_records": 1
+   },
+   {
+    "medium": "TS medium (defined)",
+    "n_records": 1
+   },
+   {
+    "medium": "CH medium (casein hydrolysate, rich)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "CHG medium (casein hydrolysate + glucose, rich)",
+    "n_records": 1
+   },
+   {
+    "medium": "Mueller-Hinton broth (MHB)",
+    "n_records": 1
+   },
+   {
+    "medium": "CDMPC (chemically defined medium for prolonged cultivation) + fructose",
+    "n_records": 1
+   },
+   {
+    "medium": "CDMPC (chemically defined medium for prolonged cultivation) + galactose",
+    "n_records": 1
+   },
+   {
+    "medium": "Gas fermentation medium (CO-only substrate)",
+    "n_records": 1
+   },
+   {
+    "medium": "Methanogenic minimal medium (methanol as primary substrate); model minimal medium per Wolin et al. 1963",
+    "n_records": 1
+   },
+   {
+    "medium": "Methanogenic minimal medium (acetate as primary substrate)",
+    "n_records": 1
+   },
+   {
+    "medium": "Methanogenic minimal medium (H2/CO2 80:20 v/v as primary substrate)",
+    "n_records": 1
+   },
+   {
+    "medium": "Methanogenic minimal medium (pyruvate as primary substrate)",
+    "n_records": 1
+   },
+   {
+    "medium": "Modified CMRL 1066 + 20% fetal bovine serum (Sf1Ep rabbit epithelial cell coculture, Edmondson et al. 2018)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "BG-11 M medium",
+    "n_records": 1
+   },
+   {
+    "medium": "Rich defined medium (RDM) + glucose",
+    "n_records": 1
+   },
+   {
+    "medium": "TY medium",
+    "n_records": 1
+   },
+   {
+    "medium": "CYMG medium",
+    "n_records": 1
+   },
+   {
+    "medium": "Mineral/basal medium with PVC film as sole energy and organic carbon source (composition not stated in text)",
+    "n_records": 1
+   },
+   {
+    "medium": "Anaerobic medium (isoprene as electron acceptor); composition not stated in this paper (see cited source)",
+    "n_records": 1
+   },
+   {
+    "medium": "BG11 (freshwater); f/2 (marine); YBCII (Trichodesmium)",
+    "n_records": 1
+   },
+   {
+    "medium": "AMP1 / ASW-Pro99 / FSW-Pro99",
+    "n_records": 1
+   },
+   {
+    "medium": "In planta symbiotic condition \u2014 bacteroid inside root nodule of wild soybean Glycine soja W05 (no defined culture medium; constraint-based model iCC541)",
+    "n_records": 1
+   },
+   {
+    "medium": "In planta symbiotic condition \u2014 bacteroid inside root nodule of cultivated soybean Glycine max C08 (no defined culture medium; constraint-based model iCC541)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "Human colonic organoid (colonoid) natively formed mucus, no exogenous nutrients (bacteria inoculated in a salt solution)",
+    "n_records": 1
+   },
+   {
+    "medium": "In planta (nitrogen-fixing zone III nodule bacteroid); not a defined culture medium",
+    "n_records": 1
+   },
+   {
+    "medium": "HEPES-buffered synthetic Crenarchaeota medium (SCM)",
+    "n_records": 1
+   },
+   {
+    "medium": "in planta - root nodules of Sesbania rostrata",
+    "n_records": 1
+   },
+   {
+    "medium": "Xylem-sap-mimicking minimal medium with L-glutamine as sole carbon source (FBA condition 'close to experimental'); experimental growth rate originates from optimized synthetic medium in Leite et al. ref 19",
+    "n_records": 1
+   },
+   {
+    "medium": "Growth medium (glucose + amino acids) vs non-growth medium (no glucose/amino acids), in sealed Hungate tubes",
+    "n_records": 1
+   },
+   {
+    "medium": "Minimal glucose medium (anaerobic) - values cited from Hoffart et al. 2017",
+    "n_records": 1
+   },
+   {
+    "medium": "CDM35-lactose (chemically defined medium; also CDM42-lactose)",
+    "n_records": 1
+   },
+   {
+    "medium": "Mueller-Hinton (MH) medium",
+    "n_records": 1
+   },
+   {
+    "medium": "Reinforced clostridial medium",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "N-free medium (nitrogen-free selective medium for diazotroph isolation)",
+    "n_records": 1
+   },
+   {
+    "medium": "Custom nutrient-depleting marine medium (Supplementary Data 16) + 0.1 mmol/l 15N-labelled sodium nitrate as sole electron acceptor",
+    "n_records": 1
+   },
+   {
+    "medium": "JMM minimal medium, autotrophic (H2/CO2/O2), ambient CO2",
+    "n_records": 1
+   },
+   {
+    "medium": "JMM minimal medium, autotrophic (H2/CO2/O2), 10% CO2",
+    "n_records": 1
+   },
+   {
+    "medium": "Lake Rotsee water (natural lake water, oxycline)",
+    "n_records": 1
+   },
+   {
+    "medium": "Lake Zug water (natural lake water, 160 m anoxic depth)",
+    "n_records": 1
+   },
+   {
+    "medium": "Lake Zug water (natural lake water, 160 m depth) + low O2",
+    "n_records": 1
+   },
+   {
+    "medium": "Lake Zug water (natural lake water, 160 m depth) + high O2",
+    "n_records": 1
+   },
+   {
+    "medium": "Lake Rotsee / Lake Zug water (natural lake water)",
+    "n_records": 1
+   },
+   {
+    "medium": "EBPR sequencing batch reactor (SBR2), acetate-fed synthetic wastewater",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "EBPR sequencing batch reactor (SBR1), glucose-fed synthetic wastewater",
+    "n_records": 1
+   },
+   {
+    "medium": "Human decidua tissue (ex vivo infection model)",
+    "n_records": 1
+   },
+   {
+    "medium": "riboflavin fermentation medium (composition in Supplementary Method 1; not in full text)",
+    "n_records": 1
+   },
+   {
+    "medium": "autotrophic minimal medium (H2/CO2)",
+    "n_records": 1
+   },
+   {
+    "medium": "activated sludge biomass amended with 13C-labelled substrates (in situ incubation)",
+    "n_records": 1
+   },
+   {
+    "medium": "Anaerobic defined bicarbonate-buffered mineral salts medium (composition per ref 24, Holland et al.)",
+    "n_records": 1
+   },
+   {
+    "medium": "Starch-based fermentation medium (recombinant alkaline amylase production; composition not stated in this paper)",
+    "n_records": 1
+   },
+   {
+    "medium": "Starch-based fermentation medium (recombinant alpha-amylase production; composition not stated in this paper)",
+    "n_records": 1
+   },
+   {
+    "medium": "CDM (chemically defined medium)",
+    "n_records": 1
+   },
+   {
+    "medium": "OBGM, OBGM/PBS (1:1), or OBGM/T. denticola conditioned medium (1:1)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "chemically defined medium without yeast extract (Valgepea et al. 2017a)",
+    "n_records": 1
+   },
+   {
+    "medium": "C+Y medium, pH 7.8 (with ZnCl2 for ClpX expression)",
+    "n_records": 1
+   },
+   {
+    "medium": "iM9 mineral (minimal) medium + glucose",
+    "n_records": 1
+   },
+   {
+    "medium": "iM9 mineral (minimal) medium + toluene",
+    "n_records": 1
+   },
+   {
+    "medium": "Poor (minimal) medium (specific composition in supplementary Table S1)",
+    "n_records": 1
+   },
+   {
+    "medium": "MS (mineral salts) medium",
+    "n_records": 1
+   },
+   {
+    "medium": "CDM (chemically defined medium) + glucose",
+    "n_records": 1
+   },
+   {
+    "medium": "CDM (chemically defined medium) + galactose",
+    "n_records": 1
+   },
+   {
+    "medium": "CDM (chemically defined medium) + N-acetyl-D-glucosamine",
+    "n_records": 1
+   },
+   {
+    "medium": "CDM (chemically defined medium) + mannose",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "photoautotrophic condition-specific GEM (constraints from Yan et al., 2012)",
+    "n_records": 1
+   },
+   {
+    "medium": "acetate photomixotrophy condition-specific GEM (constraints from Yan et al., 2012)",
+    "n_records": 1
+   },
+   {
+    "medium": "glucose photomixotrophy condition-specific GEM (constraints from Yan et al., 2012)",
+    "n_records": 1
+   },
+   {
+    "medium": "Mineral salt (MS) medium (+ neomycin)",
+    "n_records": 1
+   },
+   {
+    "medium": "mineral medium (Picone et al. 2020); resting methanol-grown cells resuspended for activity assay",
+    "n_records": 1
+   },
+   {
+    "medium": "Media A+",
+    "n_records": 1
+   },
+   {
+    "medium": "GBF (diluted municipal wastewater sidestream; NH4+/phosphate-rich)",
+    "n_records": 1
+   },
+   {
+    "medium": "Media A+ at 27 C",
+    "n_records": 1
+   },
+   {
+    "medium": "2xYT",
+    "n_records": 1
+   },
+   {
+    "medium": "high-CO2 (bicarbonate-enriched) autotrophic photobioreactor medium (composition not restated in this paper; cited from Young et al. 2011)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "3% CO2-enriched autotrophic medium (composition not restated in this paper; cited from Yu King Hing et al. 2019)",
+    "n_records": 1
+   },
+   {
+    "medium": "Inorganic nitrite (IN)-medium (nitrite-oxidizing chemoautotroph)",
+    "n_records": 1
+   },
+   {
+    "medium": "Modified BG-11 medium",
+    "n_records": 1
+   },
+   {
+    "medium": "BG11 medium",
+    "n_records": 1
+   },
+   {
+    "medium": "BG11 medium (dark, nitrogen-limiting)",
+    "n_records": 1
+   },
+   {
+    "medium": "ASP-2 medium (nitrogen deprivation)",
+    "n_records": 1
+   },
+   {
+    "medium": "heterotrophic glucose medium (not specified in this paper; cited experiment)",
+    "n_records": 1
+   },
+   {
+    "medium": "RRNCO medium + acetate; initial pCO 0.10 atm",
+    "n_records": 1
+   },
+   {
+    "medium": "RRNCO medium + acetate; initial pCO 0.20 atm",
+    "n_records": 1
+   },
+   {
+    "medium": "RRNCO medium + acetate; initial pCO 0.40 atm",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "RRNCO medium + acetate; initial pCO 0.50 atm",
+    "n_records": 1
+   },
+   {
+    "medium": "RRNCO medium + acetate; initial pCO 0.60 atm (optimal)",
+    "n_records": 1
+   },
+   {
+    "medium": "RRNCO medium + acetate; initial pCO 0.75 atm",
+    "n_records": 1
+   },
+   {
+    "medium": "RRNCO medium + acetate; initial pCO 1.00 atm (inhibitory)",
+    "n_records": 1
+   },
+   {
+    "medium": "RRNCO medium + acetate; fed-batch constant pCO 0.60 atm",
+    "n_records": 1
+   },
+   {
+    "medium": "RRNCO medium + acetate; fed-batch dynamic pCO 0.1->0.75 atm (enriching gas flow)",
+    "n_records": 1
+   },
+   {
+    "medium": "RRNCO medium + acetate; fed-batch dynamic pCO 0.1->2 atm (increasing working pressure)",
+    "n_records": 1
+   },
+   {
+    "medium": "Minimum medium (MM)",
+    "n_records": 1
+   },
+   {
+    "medium": "PETC medium (gas-to-liquid ratio 3.0; 40 mL culture volume)",
+    "n_records": 1
+   },
+   {
+    "medium": "PETC medium (gas-to-liquid ratio 6.9; 20 mL culture volume)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "PETC medium (gas-to-liquid ratio 14.8; 10 mL culture volume)",
+    "n_records": 1
+   },
+   {
+    "medium": "RM medium (serum bottle, medium comparison)",
+    "n_records": 1
+   },
+   {
+    "medium": "PETC medium (serum bottle, reference strain comparison)",
+    "n_records": 1
+   },
+   {
+    "medium": "Sodium carbonate / NaCl soda mineral medium with thiosulfate",
+    "n_records": 1
+   },
+   {
+    "medium": "glycerol + yeast extract",
+    "n_records": 1
+   },
+   {
+    "medium": "glycerol + beef extract",
+    "n_records": 1
+   },
+   {
+    "medium": "glycerol + fish meal + corn steep liquor",
+    "n_records": 1
+   },
+   {
+    "medium": "stoichiometrically defined medium (batch + fed-batch feed)",
+    "n_records": 1
+   },
+   {
+    "medium": "Xylose-limited chemostat with excess sodium formate and CO2-enriched air",
+    "n_records": 1
+   },
+   {
+    "medium": "Glucose-based minimal medium (composition not stated in review)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "Glucose-based medium with CO2 (composition not stated in review)",
+    "n_records": 1
+   },
+   {
+    "medium": "Glucose-based medium with optimized CO2 partial pressure (composition not stated in review)",
+    "n_records": 1
+   },
+   {
+    "medium": "ASM-1",
+    "n_records": 1
+   },
+   {
+    "medium": "ASM-1 with Daphnia gessneri-conditioned medium (infochemicals)",
+    "n_records": 1
+   },
+   {
+    "medium": "Autotrophic H2/CO2 gas mixture (modeling; experimental reference values from Novak et al. 2021)",
+    "n_records": 1
+   },
+   {
+    "medium": "BG11 medium (Stanier et al., 1971)",
+    "n_records": 1
+   },
+   {
+    "medium": "synthetic (minimal) medium containing glucose",
+    "n_records": 1
+   },
+   {
+    "medium": "standard BG-11",
+    "n_records": 1
+   },
+   {
+    "medium": "CGXII defined minimal medium (with fresh protocatechuic acid iron chelator)",
+    "n_records": 1
+   },
+   {
+    "medium": "CGXII defined minimal medium",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "CGXII minimal medium WITHOUT glucose (carbon-source negative control)",
+    "n_records": 1
+   },
+   {
+    "medium": "Defined medium supplemented with full Wolfe's vitamins (Fig.1 defined medium)",
+    "n_records": 1
+   },
+   {
+    "medium": "Defined medium supplemented with biotin and vitamin B12 only (Fig.3)",
+    "n_records": 1
+   },
+   {
+    "medium": "Minimal LC300 growth medium (MLGM) with soluble starch",
+    "n_records": 1
+   },
+   {
+    "medium": "dual (carbon, nitrogen) limited defined chemostat medium (composition not given in this paper; cited from ref [2])",
+    "n_records": 1
+   },
+   {
+    "medium": "in silico minimal medium (acetate + H2 + CO2 + chlorinated ethene electron acceptor + Cl- + SO4)",
+    "n_records": 1
+   },
+   {
+    "medium": "continuous-culture medium (fructose as carbon source)",
+    "n_records": 1
+   },
+   {
+    "medium": "minimal medium with methanol as sole carbon source (composition not stated)",
+    "n_records": 1
+   },
+   {
+    "medium": "xylose-limited then pyruvate/CO2 medium (composition not stated)",
+    "n_records": 1
+   },
+   {
+    "medium": "formate-based autotrophic medium (composition not stated)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "Glucose-limited chemostat medium (composition not restated)",
+    "n_records": 1
+   },
+   {
+    "medium": "25% AFEX-pretreated switchgrass hydrolysate (7% glucan-loading ASGH diluted to 25% with water)",
+    "n_records": 1
+   },
+   {
+    "medium": "50% AFEX-pretreated switchgrass hydrolysate (7% ASGH diluted to 50%)",
+    "n_records": 1
+   },
+   {
+    "medium": "100% (undiluted) AFEX-pretreated switchgrass hydrolysate (7% ASGH)",
+    "n_records": 1
+   },
+   {
+    "medium": "BG-11 (NO3- as sole nitrogen source)",
+    "n_records": 1
+   },
+   {
+    "medium": "minimal medium with acetate as sole carbon source (base not specified)",
+    "n_records": 1
+   },
+   {
+    "medium": "CGXII minimal medium (with D-glucose as sole carbon source)",
+    "n_records": 1
+   },
+   {
+    "medium": "0.5x VNSS (V\u00e4\u00e4t\u00e4nen nine-salt solution)",
+    "n_records": 1
+   },
+   {
+    "medium": "syngas-fermentation medium (chemostat; composition from Diender et al. ref [10])",
+    "n_records": 1
+   },
+   {
+    "medium": "CO/acetate chemostat medium (composition from Diender et al. ref [10])",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "acetate-containing medium (sodium acetate)",
+    "n_records": 1
+   },
+   {
+    "medium": "corn stover hydrolysate-based medium",
+    "n_records": 1
+   },
+   {
+    "medium": "xylose medium (xylose as carbon source)",
+    "n_records": 1
+   },
+   {
+    "medium": "tryptophan production medium (not specified)",
+    "n_records": 1
+   },
+   {
+    "medium": "4HPAA production medium (gradient 15-35 g/L 4HPAA)",
+    "n_records": 1
+   },
+   {
+    "medium": "Ammonium Mineral Salts (AMS) medium",
+    "n_records": 1
+   },
+   {
+    "medium": "Terrific broth",
+    "n_records": 1
+   },
+   {
+    "medium": "complex TM medium (supplemented with all 20 amino acids)",
+    "n_records": 1
+   },
+   {
+    "medium": "Formate medium, batch (composition not stated in this paper)",
+    "n_records": 1
+   },
+   {
+    "medium": "Formate-limited defined medium, chemostat (composition not stated in this paper)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "McNA medium (chemically defined H2/CO2 medium)",
+    "n_records": 1
+   },
+   {
+    "medium": "Photo-autotrophic medium (CO2 as carbon source, nitrate as N source; full composition not stated, from Dechatiwongse et al. 2015)",
+    "n_records": 1
+   },
+   {
+    "medium": "Photo-heterotrophic medium (glycerol as additional carbon source replacing CO2; nitrate as limiting N source; full composition not stated, from Dechatiwongse et al. 2015)",
+    "n_records": 1
+   },
+   {
+    "medium": "IMP-CDM",
+    "n_records": 1
+   },
+   {
+    "medium": "IMP2-CDM",
+    "n_records": 1
+   },
+   {
+    "medium": "IMP2-CDM-AA (amino acids as in MSS-CDM)",
+    "n_records": 1
+   },
+   {
+    "medium": "LCMSSB (20-liter scale-down industrial fermentation medium)",
+    "n_records": 1
+   },
+   {
+    "medium": "SS (Stainer-Scholte minimal medium)",
+    "n_records": 1
+   },
+   {
+    "medium": "IMP2-CDM (H3PO4 pH control)",
+    "n_records": 1
+   },
+   {
+    "medium": "J-Broth (JB)",
+    "n_records": 1
+   }
+  ],
+  [
+   {
+    "medium": "Chemostat cells in sealed tubes, Ar atmosphere",
+    "n_records": 1
+   },
+   {
+    "medium": "Wolfe's medium (methanol substrate)",
+    "n_records": 1
+   },
+   {
+    "medium": "Wolfe's medium (acetate substrate)",
+    "n_records": 1
+   },
+   {
+    "medium": "Wolfe's medium (CO substrate)",
+    "n_records": 1
+   },
+   {
+    "medium": "Defined autotrophic medium (Supplementary Table S4, per ref 23); cysteine-HCl as reducing agent",
+    "n_records": 1
+   }
+  ]
+ ]
+}
