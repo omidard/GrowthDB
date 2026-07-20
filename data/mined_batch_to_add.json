@@ -1,0 +1,133 @@
+{
+ "pending_media_for_media_repo": [
+  {
+   "medium_name": "Minimal medium according to Kueng (1982)",
+   "pmcid": "PMC5102984",
+   "composition": [],
+   "is_defined": true,
+   "status": "mined_defined_minimal"
+  },
+  {
+   "medium_name": "Synthetic wastewater medium for EBPR sequencing batch reactor (per Garcia Martin)",
+   "pmcid": "PMC5148189",
+   "composition": [],
+   "is_defined": true,
+   "status": "mined_defined_minimal"
+  },
+  {
+   "medium_name": "Methanogenic minimal medium (methanol as primary substrate)",
+   "pmcid": "PMC1681478",
+   "composition": [
+    {
+     "name": "methanol",
+     "amount": null,
+     "unit": null
+    },
+    {
+     "name": "p-aminobenzoic acid (pABA)",
+     "amount": null,
+     "unit": null
+    },
+    {
+     "name": "nicotinic acid",
+     "amount": null,
+     "unit": null
+    },
+    {
+     "name": "metals",
+     "amount": null,
+     "unit": null
+    },
+    {
+     "name": "phosphate",
+     "amount": null,
+     "unit": null
+    },
+    {
+     "name": "sulfur",
+     "amount": null,
+     "unit": null
+    },
+    {
+     "name": "nitrogen",
+     "amount": null,
+     "unit": null
+    }
+   ],
+   "is_defined": true,
+   "status": "mined_partial_unmapped"
+  },
+  {
+   "medium_name": "Chemically defined growth medium (Baart et al., ref 27)",
+   "pmcid": "PMC6171317",
+   "composition": [],
+   "is_defined": true,
+   "status": "mined_defined_minimal"
+  },
+  {
+   "medium_name": "Defined anaerobic gas-fermentation medium (composition per refs 19,20)",
+   "pmcid": "PMC11370222",
+   "composition": [],
+   "is_defined": true,
+   "status": "mined_defined_minimal"
+  },
+  {
+   "medium_name": "minimal medium with methanol as sole carbon source",
+   "pmcid": "PMC9864036",
+   "composition": [],
+   "is_defined": true,
+   "status": "mined_defined_minimal"
+  },
+  {
+   "medium_name": "Formate-limited defined medium, chemostat",
+   "pmcid": "PMC12923902",
+   "composition": [],
+   "is_defined": true,
+   "status": "mined_defined_minimal"
+  },
+  {
+   "medium_name": "Defined autotrophic medium (Supplementary Table S4, per ref 23); cysteine-HCl reduced",
+   "pmcid": "PMC9032146",
+   "composition": [
+    {
+     "name": "NH4Cl",
+     "amount": 3.3,
+     "unit": "g L-1"
+    },
+    {
+     "name": "Cysteine hydrochloride",
+     "amount": null,
+     "unit": null
+    }
+   ],
+   "is_defined": true,
+   "status": "mined_defined"
+  },
+  {
+   "medium_name": "Defined autotrophic medium (Supplementary Table S4, per ref 23)",
+   "pmcid": "PMC9032146",
+   "composition": [
+    {
+     "name": "NH4Cl",
+     "amount": 3.3,
+     "unit": "g L-1"
+    }
+   ],
+   "is_defined": true,
+   "status": "mined_defined"
+  },
+  {
+   "medium_name": "Xylem-sap-mimicking minimal medium with L-glutamine as sole carbon source",
+   "pmcid": "PMC7112962",
+   "composition": [
+    {
+     "name": "L-glutamine",
+     "amount": 1,
+     "unit": "mmol\u00b7h^-1\u00b7g(DW)^-1 (in silico uptake rate)"
+    }
+   ],
+   "is_defined": true,
+   "status": "mined_defined"
+  }
+ ]
+}
