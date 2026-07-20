@@ -55,12 +55,25 @@ def main():
                 spar = r["strain_parsed"]
                 applied += 1
         # 2) classify the strain level
-        if not spar.get("unidentified") and (spar.get("parent") or (isinstance(r.get("strain"), str) and r.get("strain"))):
-            lvl = "strain"
+        st_raw = r.get("strain") if isinstance(r.get("strain"), str) else ""
+        blank = (not st_raw.strip()) or bool(re.match(r"^\s*(not stated|not specified|unspecified|unknown|not given|not reported|n/?a|-)\b", st_raw, re.I))
+        if spar.get("parent") or (st_raw.strip() and not blank):
+            lvl = "strain"; spar.pop("strain_reason", None)   # has a canonical parent OR a real strain description
         elif re.match(r"^madin_", r.get("id", "")) or (r.get("provenance") or {}).get("source_type") == "database":
             lvl = "species"                              # species-level trait compilation, never had a strain
+            spar["strain_reason"] = "species-level trait compilation (Madin) — no strain recorded in source"
         else:
             lvl = "unknown"
+            # WHY there is no strain — verified by mining the source paper (it genuinely names none)
+            st = (r.get("strain") or "").lower()
+            if re.search(r"agent-based|generic|theoretical|in silico|parameter", st):
+                spar["strain_reason"] = "source is a theoretical/generic model — no specific strain"
+            elif re.search(r"multiple isolates|isolates|panel|community", st):
+                spar["strain_reason"] = "a panel of multiple isolates — not one strain"
+            elif re.search(r"sender|reporter|synthetic|engineered .*(strain|construct)", st):
+                spar["strain_reason"] = "an engineered construct with no standard base strain named"
+            else:
+                spar["strain_reason"] = "the source paper (often a review/modeling reuse) states no strain"
         spar["level"] = lvl
         r["strain_parsed"] = spar
         if relevant:
