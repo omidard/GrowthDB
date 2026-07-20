@@ -64,6 +64,23 @@ RECIPES = [
      "status": "partial_complex", "note": "R2A low-nutrient medium — yeast extract/peptone/casamino + glucose/starch/pyruvate; not fully defined"},
     {"pat": r"chopped meat", "carbon": [], "ions": [],
      "status": "partial_complex", "note": "Chopped-meat carbohydrate broth — meat particles + complex; not chemically defined"},
+    # --- BATCH 3 (standard published recipes) ---
+    {"pat": r"BG-?11", "carbon": ["hco3"], "status": "defined",
+     "ions": ions(["no3", "k", "pi", "mg2", "so4", "ca2", "cit", "fe3", "hco3", "na1", "cl"],
+                  ["mn2", "zn2", "mobd", "cu2", "cobalt2"]),
+     "note": "BG-11 cyanobacterial defined medium (Stanier/Rippka 1971); photoautotroph, C=CO2/bicarbonate"},
+    {"pat": r"CGXII|CgXII", "carbon": ["glc__D"], "status": "defined",
+     "ions": ions(["nh4", "so4", "pi", "k", "mg2", "ca2", "cl", "fe2", "btn"], ["mn2", "zn2", "cu2", "ni2"]),
+     "note": "CGXII Corynebacterium defined minimal medium (Keilhauer 1993); glucose C source + biotin + protocatechuate"},
+    {"pat": r"\bMCGC\b", "carbon": ["glc__D"], "status": "defined",
+     "ions": ions(["nh4", "so4", "pi", "k", "mg2", "ca2", "cl", "fe2"], ["mn2", "zn2", "cu2"]),
+     "note": "MCGC Corynebacterium minimal medium; glucose C source"},
+    {"pat": r"Balch medium", "carbon": ["co2", "h2"], "status": "defined",
+     "ions": ions(BASE_N_NH4, ["hco3"], TRACE, VIT),
+     "note": "Balch medium (methanogen/anaerobe mineral+trace+vitamin base, carbonate-buffered); C/energy H2/CO2 unless the record states otherwise"},
+    {"pat": r"Wolfe'?s (?:vitamin|mineral)|defined medium supplemented with full wolfe", "carbon": [], "status": "defined",
+     "ions": ions(BASE_N_NH4, TRACE, VIT),
+     "note": "defined mineral medium with Wolfe's vitamins + trace elements"},
 ]
 
 def exch(bigg, lb):
