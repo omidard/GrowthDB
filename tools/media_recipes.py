@@ -47,6 +47,23 @@ RECIPES = [
      "status": "needs_source", "note": "name too generic; exact recipe not stated"},
     {"pat": r"Payne'?s medium", "carbon": [], "ions": [],
      "status": "needs_source", "note": "Payne et al. 1960 recipe not transcribed here; verify before use"},
+    # --- BATCH 2 ---
+    {"pat": r"syngas|gas fermentation", "carbon": ["co", "co2", "h2"], "ions": ions(BASE_N_NH4, TRACE, VIT),
+     "status": "defined", "note": "syngas (CO/CO2/H2) acetogen fermentation medium; mineral+trace+vitamin base"},
+    {"pat": r"\bSCFM\b|synthetic cystic fibrosis", "carbon": ["glc__D", "lac__L"], "status": "defined",
+     "ions": ions(["nh4", "pi", "so4", "k", "na1", "cl", "mg2", "ca2", "fe3"],
+                  ["ala__L", "arg__L", "asp__L", "cys__L", "glu__L", "gly", "his__L", "ile__L", "leu__L",
+                   "lys__L", "met__L", "phe__L", "pro__L", "ser__L", "thr__L", "trp__L", "tyr__L", "val__L", "orn"]),
+     "note": "Synthetic CF medium (Palmer et al. 2007): 18 amino acids + glucose + L-lactate + salts; defined"},
+    {"pat": r"\bRDM\b|rich defined medium|EZ rich", "carbon": ["glc__D"], "status": "defined",
+     "ions": ions(["nh4", "pi", "so4", "k", "na1", "cl", "mg2", "ca2", "fe2"], VIT,
+                  ["ala__L", "arg__L", "asn__L", "asp__L", "cys__L", "gln__L", "glu__L", "gly", "his__L", "ile__L",
+                   "leu__L", "lys__L", "met__L", "phe__L", "pro__L", "ser__L", "thr__L", "trp__L", "tyr__L", "val__L"]),
+     "note": "EZ Rich Defined Medium (Teknova; Neidhardt MOPS base + amino acids + vitamins + glucose); defined"},
+    {"pat": r"\bR2A\b", "carbon": ["glc__D", "pyr", "cellb"], "ions": ["pi", "so4", "k", "mg2"],
+     "status": "partial_complex", "note": "R2A low-nutrient medium — yeast extract/peptone/casamino + glucose/starch/pyruvate; not fully defined"},
+    {"pat": r"chopped meat", "carbon": [], "ions": [],
+     "status": "partial_complex", "note": "Chopped-meat carbohydrate broth — meat particles + complex; not chemically defined"},
 ]
 
 def exch(bigg, lb):

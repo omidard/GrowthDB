@@ -40,11 +40,14 @@ def carbon_c(b):
 def named_carbon(name):
     """The carbon source stated in a medium name, mapped to (bigg, exchange), or None."""
     cands = re.findall(r"\(([^)]+)\)", name)
-    cands += re.findall(r"([A-Za-z][A-Za-z\- ]{2,20})\s+(?:as (?:the )?(?:sole )?(?:carbon|c) source|minimal|as carbon)", name, re.I)
-    cands += re.findall(r"(?:with|on|,)\s+([A-Za-z][A-Za-z\- ]{2,20})\b", name)
+    cands += re.findall(r"([A-Za-z][A-Za-z\- ]{2,20})\s+(?:as (?:the )?(?:sole )?(?:carbon|c|energy) source|minimal|as carbon)", name, re.I)
+    cands += re.findall(r"([A-Za-z][A-Za-z\-]{2,18})[- ](?:limited|fed|grown|restricted|based)\b", name, re.I)   # 'glucose-limited'
+    cands += re.findall(r"(?:with|on|,|\+)\s+([A-Za-z][A-Za-z\- ]{2,20})\b", name)
     cands = [name.split()[0]] + cands
     for c in cands:
-        c = c.strip()
+        c = re.sub(r"[- ]?(limited|fed|grown|restricted|based|only|medium|minimal)\b", "", c.strip(), flags=re.I).strip()
+        if len(c) < 3:
+            continue
         h = MAP.map(name=c)
         if h and h.get("in_biggr") and h.get("bigg_metabolite"):
             b = h["bigg_metabolite"]
