@@ -1,0 +1,2767 @@
+{
+ "pending_media_for_media_repo": [
+  {
+   "medium_name": "Minimal malate medium",
+   "pmcid": "PMC9016547",
+   "composition": [
+    {
+     "name": "K2SO4",
+     "amount": "1",
+     "unit": "g/l"
+    },
+    {
+     "name": "K2HPO4",
+     "amount": "13.5",
+     "unit": "g/l"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "4.7",
+     "unit": "g/l"
+    },
+    {
+     "name": "MgSO4\u00b77H2O",
+     "amount": "0.1",
+     "unit": "g/l"
+    },
+    {
+     "name": "NH4Cl",
+     "amount": "10",
+     "unit": "mM"
+    },
+    {
+     "name": "L-malate",
+     "amount": "0.2",
+     "unit": "%"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "JW5 (carbon-replete)",
+   "pmcid": "PMC12113158",
+   "composition": [
+    {
+     "name": "NH4Cl (ammonium)",
+     "amount": "5",
+     "unit": "\u03bcM"
+    },
+    {
+     "name": "KH2PO4 (phosphate)",
+     "amount": "6.5",
+     "unit": "\u03bcM"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "JW5 lacking supplemental carbon sources",
+   "pmcid": "PMC12113158",
+   "composition": [
+    {
+     "name": "NH4Cl (ammonium)",
+     "amount": "5",
+     "unit": "\u03bcM"
+    },
+    {
+     "name": "KH2PO4 (phosphate)",
+     "amount": "6.5",
+     "unit": "\u03bcM"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "Chemostat growth medium (human distal colon model, per McDonald et al.)",
+   "pmcid": "PMC4638026",
+   "composition": [
+    {
+     "name": "peptone water",
+     "amount": "2",
+     "unit": "g/L"
+    },
+    {
+     "name": "yeast extract",
+     "amount": "2",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaHCO3",
+     "amount": "2",
+     "unit": "g/L"
+    },
+    {
+     "name": "CaCl2",
+     "amount": "0.01",
+     "unit": "g/L"
+    },
+    {
+     "name": "pectin (from citrus)",
+     "amount": "2",
+     "unit": "g/L"
+    },
+    {
+     "name": "xylan (from beechwood)",
+     "amount": "2",
+     "unit": "g/L"
+    },
+    {
+     "name": "arabinogalactan",
+     "amount": "2",
+     "unit": "g/L"
+    },
+    {
+     "name": "starch (from wheat, unmodified)",
+     "amount": "5",
+     "unit": "g/L"
+    },
+    {
+     "name": "casein",
+     "amount": "3",
+     "unit": "g/L"
+    },
+    {
+     "name": "inulin (from Dahlia tubers)",
+     "amount": "1",
+     "unit": "g/L"
+    },
+    {
+     "name": "bile salts",
+     "amount": "0.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "0.1",
+     "unit": "g/L"
+    },
+    {
+     "name": "L-cysteine HCl",
+     "amount": "0.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "K2HPO4",
+     "amount": "0.04",
+     "unit": "g/L"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "0.04",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgSO4",
+     "amount": "0.01",
+     "unit": "g/L"
+    },
+    {
+     "name": "hemin",
+     "amount": "0.005",
+     "unit": "g/L"
+    },
+    {
+     "name": "menadione",
+     "amount": "0.001",
+     "unit": "g/L"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "lactate + sulfate medium (B3m medium; D. vulgaris grown on lactate and sulfate)",
+   "pmcid": "PMC1847946",
+   "composition": [
+    {
+     "name": "NaCl",
+     "amount": "0.25",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "5.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "0.1",
+     "unit": "g/L"
+    },
+    {
+     "name": "NH4Cl",
+     "amount": "1.0",
+     "unit": "g/L"
+    },
+    {
+     "name": "KCl",
+     "amount": "0.1",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2SO4",
+     "amount": "1.4",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2 PIPES",
+     "amount": "1.04",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaHCO3",
+     "amount": "25",
+     "unit": "mM"
+    },
+    {
+     "name": "K2HPO4",
+     "amount": "5.75",
+     "unit": "mM"
+    },
+    {
+     "name": "resazurine",
+     "amount": "0.001",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2S\u00b79H2O",
+     "amount": "0.078",
+     "unit": "g/L"
+    },
+    {
+     "name": "lactate",
+     "amount": "30",
+     "unit": "mM"
+    },
+    {
+     "name": "Thauer's vitamins solution",
+     "amount": "1",
+     "unit": "ml/L"
+    },
+    {
+     "name": "trace minerals solution",
+     "amount": "1",
+     "unit": "ml/L"
+    },
+    {
+     "name": "biotin (in Thauer's vitamins stock)",
+     "amount": "0.02",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "folic acid (in Thauer's vitamins stock)",
+     "amount": "0.02",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "pyridoxine HCl (in Thauer's vitamins stock)",
+     "amount": "0.1",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "thiamine HCl (in Thauer's vitamins stock)",
+     "amount": "0.05",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "riboflavin (in Thauer's vitamins stock)",
+     "amount": "0.05",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "nicotinic acid (in Thauer's vitamins stock)",
+     "amount": "0.05",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "DL pantothenic acid (in Thauer's vitamins stock)",
+     "amount": "0.05",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "p-aminobenzoic acid (in Thauer's vitamins stock)",
+     "amount": "0.05",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "vitamin B12 (in Thauer's vitamins stock)",
+     "amount": "0.01",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "FeCl2\u00b74H2O (in trace minerals stock)",
+     "amount": "1.0",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "MnCl2\u00b74H2O (in trace minerals stock)",
+     "amount": "0.5",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "CoCl2\u00b74H2O (in trace minerals stock)",
+     "amount": "0.3",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "ZnCl2 (in trace minerals stock)",
+     "amount": "0.2",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "Na2MoO4\u00b74H2O (in trace minerals stock)",
+     "amount": "0.05",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "H3BO3 (in trace minerals stock)",
+     "amount": "0.02",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "NiSO4\u00b76H2O (in trace minerals stock)",
+     "amount": "0.1",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "CuCl2\u00b72H2O (in trace minerals stock)",
+     "amount": "0.002",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "Na2SeO3\u00b75H2O (in trace minerals stock)",
+     "amount": "0.006",
+     "unit": "g/L stock"
+    },
+    {
+     "name": "Na2WO4\u00b72H2O (in trace minerals stock)",
+     "amount": "0.008",
+     "unit": "g/L stock"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "Mineral salts nitrifier medium (chemostat feed, as previously described, ref 56)",
+   "pmcid": "PMC5864417",
+   "composition": [
+    {
+     "name": "(NH4)2SO4",
+     "amount": "2.5",
+     "unit": "mM"
+    },
+    {
+     "name": "MgSO4",
+     "amount": "0.75",
+     "unit": "mM"
+    },
+    {
+     "name": "CaCl2",
+     "amount": "0.1",
+     "unit": "mM"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "12.5",
+     "unit": "mM"
+    },
+    {
+     "name": "NaH2PO4\u00b7H2O",
+     "amount": "1.25",
+     "unit": "mM"
+    },
+    {
+     "name": "Na2CO3",
+     "amount": "2.3",
+     "unit": "mM"
+    },
+    {
+     "name": "FeCl3",
+     "amount": "10",
+     "unit": "\u00b5M"
+    },
+    {
+     "name": "EDTA",
+     "amount": "16.7",
+     "unit": "\u00b5M"
+    },
+    {
+     "name": "CuSO4",
+     "amount": "1",
+     "unit": "\u00b5M"
+    },
+    {
+     "name": "Na2MoO4\u00b72H2O",
+     "amount": "0.6",
+     "unit": "\u00b5M"
+    },
+    {
+     "name": "MnCl2\u00b74H2O",
+     "amount": "1.59",
+     "unit": "\u00b5M"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.6",
+     "unit": "\u00b5M"
+    },
+    {
+     "name": "ZnSO4\u00b77H2O",
+     "amount": "0.96",
+     "unit": "\u00b5M"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "CYMG medium",
+   "pmcid": "PMC11557832",
+   "composition": [
+    {
+     "name": "Casein peptone",
+     "amount": "8",
+     "unit": "g L-1"
+    },
+    {
+     "name": "Yeast extract",
+     "amount": "4",
+     "unit": "g L-1"
+    },
+    {
+     "name": "MgCl2\u00b72H2O",
+     "amount": "4.06",
+     "unit": "g L-1"
+    },
+    {
+     "name": "glycerol",
+     "amount": "5",
+     "unit": "mL L-1"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "MSpitz9 defined medium",
+   "pmcid": "PMC11472175",
+   "composition": [
+    {
+     "name": "(NH4)2SO4",
+     "amount": "1",
+     "unit": "g/l"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "CDM35-lactose (chemically defined medium; also CDM42-lactose)",
+   "pmcid": "PMC10090948",
+   "composition": [
+    {
+     "name": "lactose",
+     "amount": "4",
+     "unit": "% (w/v)"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "Custom nutrient-depleting marine medium (Supplementary Data 16) + 0.1 mmol/l 15N-labelled sodium nitrate as sole electron acceptor",
+   "pmcid": "PMC13187470",
+   "composition": [
+    {
+     "name": "sodium nitrate (15N-labelled)",
+     "amount": "0.1",
+     "unit": "mmol/l"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Lake Rotsee water (natural lake water, oxycline)",
+   "pmcid": "PMC5563964",
+   "composition": [
+    {
+     "name": "CH4 (13C-labeled + 12C-methane, 50 at% 13C, in water phase)",
+     "amount": "~1.8",
+     "unit": "mmol/L"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Lake Zug water (natural lake water, 160 m anoxic depth)",
+   "pmcid": "PMC5563964",
+   "composition": [
+    {
+     "name": "CH4 (13C-labeled 99 at%, ~20% labeling percentage + 12C-methane to 2 bar overpressure)",
+     "amount": "2 bar overpressure (~20% 13C labeling)",
+     "unit": "bar"
+    },
+    {
+     "name": "15NO3- (nitrate, from sterile anoxic 100 mmol/L stock; amended set only)",
+     "amount": "50",
+     "unit": "\u00b5mol/L"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Lake Zug water (natural lake water, 160 m depth) + low O2",
+   "pmcid": "PMC5563964",
+   "composition": [
+    {
+     "name": "O2 (from injected sterile air)",
+     "amount": "~80",
+     "unit": "\u00b5mol/L"
+    },
+    {
+     "name": "CH4 (13C-labeled + 12C-methane, 2 bar overpressure)",
+     "amount": "2 bar overpressure",
+     "unit": "bar"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Lake Zug water (natural lake water, 160 m depth) + high O2",
+   "pmcid": "PMC5563964",
+   "composition": [
+    {
+     "name": "O2 (from injected sterile air)",
+     "amount": "~200",
+     "unit": "\u00b5mol/L"
+    },
+    {
+     "name": "CH4 (13C-labeled + 12C-methane, 2 bar overpressure)",
+     "amount": "2 bar overpressure",
+     "unit": "bar"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Starch-based fermentation medium (recombinant alkaline amylase production; composition not stated in this paper)",
+   "pmcid": "PMC9794813",
+   "composition": [
+    {
+     "name": "starch",
+     "amount": "0.2",
+     "unit": "% (w/v)"
+    },
+    {
+     "name": "amino acid (single, added individually)",
+     "amount": "20",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "Starch-based fermentation medium (recombinant alpha-amylase production; composition not stated in this paper)",
+   "pmcid": "PMC9794813",
+   "composition": [
+    {
+     "name": "starch",
+     "amount": "0.2",
+     "unit": "% (w/v)"
+    },
+    {
+     "name": "amino acid (single, added individually)",
+     "amount": "20",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "minimal salt medium, glucose+xylose+arabinose, nitrogen (ammonia)-depleted",
+   "pmcid": "PMC4405896",
+   "composition": [
+    {
+     "name": "(NH4)2SO4",
+     "amount": "1.00",
+     "unit": "g/L"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "1.60",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2HPO4\u00b72H2O",
+     "amount": "6.60",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na3-(Citrate)3",
+     "amount": "0.65",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgSO4",
+     "amount": "1",
+     "unit": "mM (1 mL/L of 1 M)"
+    },
+    {
+     "name": "D-glucose",
+     "amount": "8.20",
+     "unit": "g/L"
+    },
+    {
+     "name": "D-xylose",
+     "amount": "5.95",
+     "unit": "g/L"
+    },
+    {
+     "name": "L-arabinose",
+     "amount": "0.85",
+     "unit": "g/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "0.50",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "FeCl3\u00b76H2O",
+     "amount": "16.70",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "ZnSO4\u00b77H2O",
+     "amount": "0.18",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "CuSO4\u00b75H2O",
+     "amount": "0.16",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "MnSO4\u00b74H2O",
+     "amount": "0.15",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.18",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "Na-EDTA",
+     "amount": "20.10",
+     "unit": "g/L stock (1 mL/L)"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "minimal medium with glucose+xylose+arabinose (shake flask)",
+   "pmcid": "PMC4405896",
+   "composition": [
+    {
+     "name": "(NH4)2SO4",
+     "amount": "5.00",
+     "unit": "g/L"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "1.60",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2HPO4\u00b72H2O",
+     "amount": "6.60",
+     "unit": "g/L"
+    },
+    {
+     "name": "(NH4)2-H-Citrate",
+     "amount": "0.50",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgSO4",
+     "amount": "1",
+     "unit": "mM (1 mL/L of 1 M)"
+    },
+    {
+     "name": "D-glucose",
+     "amount": "1.66",
+     "unit": "g/L (equal-mix; or 5.00 g/L as sole sugar)"
+    },
+    {
+     "name": "D-xylose",
+     "amount": "1.66",
+     "unit": "g/L (equal-mix; or 5.00 g/L as sole sugar)"
+    },
+    {
+     "name": "L-arabinose",
+     "amount": "1.66",
+     "unit": "g/L (equal-mix; or 5.00 g/L as sole sugar)"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "0.50",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "FeCl3\u00b76H2O",
+     "amount": "16.70",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "ZnSO4\u00b77H2O",
+     "amount": "0.18",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "CuSO4\u00b75H2O",
+     "amount": "0.16",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "MnSO4\u00b74H2O",
+     "amount": "0.15",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.18",
+     "unit": "g/L stock (1 mL/L)"
+    },
+    {
+     "name": "Na-EDTA",
+     "amount": "20.10",
+     "unit": "g/L stock (1 mL/L)"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "C+Y medium, pH 7.8 (with ZnCl2 for ClpX expression)",
+   "pmcid": "PMC12211083",
+   "composition": [
+    {
+     "name": "ZnCl2",
+     "amount": "200",
+     "unit": "\u00b5M"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Poor (minimal) medium (M9 minimal medium plus the \u03a3 set of amino acids and 0.2% glucose)",
+   "pmcid": "PMC7064777",
+   "composition": [
+    {
+     "name": "glucose",
+     "amount": "0.2",
+     "unit": "% (w/v)"
+    },
+    {
+     "name": "aspartate (D)",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "glutamate (E)",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "isoleucine (I)",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "leucine (L)",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "valine (V)",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "phenylalanine (F)",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "histidine (H)",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "serine (S)",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "threonine (T)",
+     "amount": "",
+     "unit": ""
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "defined freshwater medium (cited from ref 51)",
+   "pmcid": "PMC2755013",
+   "composition": [
+    {
+     "name": "acetate",
+     "amount": "10",
+     "unit": "mM"
+    },
+    {
+     "name": "lactate",
+     "amount": "0.1",
+     "unit": "%"
+    },
+    {
+     "name": "glycolate",
+     "amount": "10",
+     "unit": "mM"
+    },
+    {
+     "name": "citrate",
+     "amount": "10",
+     "unit": "mM"
+    },
+    {
+     "name": "glucose",
+     "amount": "0.1",
+     "unit": "%"
+    },
+    {
+     "name": "mannose",
+     "amount": "0.1",
+     "unit": "%"
+    },
+    {
+     "name": "sucrose",
+     "amount": "0.1",
+     "unit": "%"
+    },
+    {
+     "name": "cellobiose",
+     "amount": "0.1",
+     "unit": "%"
+    },
+    {
+     "name": "fumarate",
+     "amount": "30",
+     "unit": "mM"
+    },
+    {
+     "name": "ferric citrate",
+     "amount": "56",
+     "unit": "mM"
+    },
+    {
+     "name": "Fe(III)NTA",
+     "amount": "5",
+     "unit": "mM"
+    },
+    {
+     "name": "nitrate",
+     "amount": "20",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "MRS (de Man, Rogosa, and Sharpe) medium",
+   "pmcid": "PMC12563682",
+   "composition": [
+    {
+     "name": "proteose peptone"
+    },
+    {
+     "name": "beef or meat extract"
+    },
+    {
+     "name": "yeast extract"
+    },
+    {
+     "name": "dextrose (glucose)"
+    },
+    {
+     "name": "polysorbate 80 (Tween 80)"
+    },
+    {
+     "name": "sodium acetate"
+    },
+    {
+     "name": "ammonium citrate"
+    },
+    {
+     "name": "magnesium sulfate"
+    },
+    {
+     "name": "manganese sulfate"
+    },
+    {
+     "name": "dipotassium hydrogen phosphate"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Low osmolarity defined (LOD) medium",
+   "pmcid": "PMC4511240",
+   "composition": [
+    {
+     "name": "maltose or cellobiose",
+     "amount": "0.5",
+     "unit": "% w/v"
+    },
+    {
+     "name": "uracil",
+     "amount": "40",
+     "unit": "\u03bcM"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "mineral medium (Picone et al. 2020) supplemented with 50 mM methanol",
+   "pmcid": "PMC9003020",
+   "composition": [
+    {
+     "name": "methanol",
+     "amount": "50",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "SOT medium",
+   "pmcid": "PMC4671677",
+   "composition": [
+    {
+     "name": "NaHCO3",
+     "amount": "16.8",
+     "unit": "g/L"
+    },
+    {
+     "name": "K2HPO4",
+     "amount": "0.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaNO3",
+     "amount": "2.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "K2SO4",
+     "amount": "1.0",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "1.0",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgSO4\u00b77H2O",
+     "amount": "0.2",
+     "unit": "g/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "0.04",
+     "unit": "g/L"
+    },
+    {
+     "name": "FeSO4\u00b77H2O",
+     "amount": "0.01",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2EDTA",
+     "amount": "0.08",
+     "unit": "g/L"
+    },
+    {
+     "name": "A5 solution",
+     "amount": "1.0",
+     "unit": "mL/L"
+    },
+    {
+     "name": "H3BO3 (in A5 solution)",
+     "amount": "2.86",
+     "unit": "g/L"
+    },
+    {
+     "name": "MnSO4\u00b77H2O (in A5 solution)",
+     "amount": "2.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "ZnSO4\u00b77H2O (in A5 solution)",
+     "amount": "0.222",
+     "unit": "g/L"
+    },
+    {
+     "name": "CuSO4\u00b75H2O (in A5 solution)",
+     "amount": "0.079",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2MoO4\u00b72H2O (in A5 solution)",
+     "amount": "0.021",
+     "unit": "g/L"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "RRNCO medium + acetate",
+   "pmcid": "PMC8343937",
+   "composition": [
+    {
+     "name": "acetate",
+     "amount": "15",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Minimal medium with formic acid (sodium formate) and CO2 as sole carbon sources",
+   "pmcid": "PMC8224422",
+   "composition": [
+    {
+     "name": "sodium formate",
+     "amount": "30",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "Xylose-limited chemostat with excess sodium formate and CO2-enriched air",
+   "pmcid": "PMC8224422",
+   "composition": [
+    {
+     "name": "sodium formate",
+     "amount": "30",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "Autotrophic H2/CO2 gas mixture (modeling; experimental reference values from Novak et al. 2021)",
+   "pmcid": "PMC13279740",
+   "composition": [
+    {
+     "name": "H2",
+     "amount": "120",
+     "unit": "mmol gDW-1 h-1 (max specific uptake rate bound)"
+    },
+    {
+     "name": "CO2",
+     "amount": "60",
+     "unit": "mmol gDW-1 h-1 (max specific uptake rate bound)"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "MM (DSMZ medium 81, modified) + fructose + 500 mM 2,3-butanediol",
+   "pmcid": "PMC11290209",
+   "composition": [
+    {
+     "name": "ferric ammonium citrate",
+     "amount": "2.5",
+     "unit": "mg (in solution C; modified from 50 mg)"
+    },
+    {
+     "name": "NaHCO3",
+     "amount": "50",
+     "unit": "mg (additional)"
+    },
+    {
+     "name": "fructose",
+     "amount": "20",
+     "unit": "mM (added for heterotrophic growth)"
+    },
+    {
+     "name": "2,3-butanediol",
+     "amount": "500",
+     "unit": "mM (added for substrate/product inhibition experiments; varied concentrations tested)"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "synthetic (minimal) medium containing glucose",
+   "pmcid": "PMC4101513",
+   "composition": [
+    {
+     "name": "Na2HPO4 \u00b7 12H2O",
+     "amount": "17.1",
+     "unit": "g/L"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "3",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "0.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "NH4Cl",
+     "amount": "2",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgSO4 \u00b7 7H2O",
+     "amount": "123",
+     "unit": "mg/L"
+    },
+    {
+     "name": "FeSO4 \u00b7 7H2O",
+     "amount": "2.78",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CaCl2 \u00b7 2H2O",
+     "amount": "14.7",
+     "unit": "mg/L"
+    },
+    {
+     "name": "thiamine-hydrochloride",
+     "amount": "10",
+     "unit": "mg/L"
+    },
+    {
+     "name": "glucose",
+     "amount": "5",
+     "unit": "g/L"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "M199 basal medium (phosphate-buffered, +NTA)",
+   "pmcid": "PMC3995885",
+   "composition": [
+    {
+     "name": "Gibco M199 basal medium powder (without NaCO3)",
+     "amount": "as indicated by supplier",
+     "unit": ""
+    },
+    {
+     "name": "NTA (nitrilotriacetic acid) solution in 0.6 M NaOH",
+     "amount": "16 mL of 0.25 mM",
+     "unit": "mM"
+    },
+    {
+     "name": "sodium potassium phosphate buffer (NaH2PO4/K2HPO4, pH 7.0)",
+     "amount": "25 mL of 1.5 M",
+     "unit": "M"
+    },
+    {
+     "name": "ultrapure water",
+     "amount": "filled up to 1",
+     "unit": "L"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "Defined anaerobic medium (ref 45) supplemented with homoxylan (tobacco stalk)",
+   "pmcid": "PMC4300822",
+   "composition": [
+    {
+     "name": "KH2PO4",
+     "amount": "1.50",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "NH4Cl",
+     "amount": "0.91",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2CO3",
+     "amount": "5.0",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "0.11",
+     "unit": "g/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "0.082",
+     "unit": "g/L"
+    },
+    {
+     "name": "FeSO4\u00b77H2O",
+     "amount": "0.026",
+     "unit": "g/L"
+    },
+    {
+     "name": "MnCl2\u00b74H2O",
+     "amount": "0.032",
+     "unit": "g/L"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.0024",
+     "unit": "g/L"
+    },
+    {
+     "name": "ZnCl2",
+     "amount": "0.0022",
+     "unit": "g/L"
+    },
+    {
+     "name": "yeast extract",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "3-phenylpropionic acid",
+     "amount": "0.004",
+     "unit": "g/L"
+    },
+    {
+     "name": "resazurin",
+     "amount": "0.002",
+     "unit": "g/L"
+    },
+    {
+     "name": "vitamin mix",
+     "amount": "12.5",
+     "unit": "mL/L"
+    },
+    {
+     "name": "volatile fatty acid mix",
+     "amount": "8.4",
+     "unit": "mL/L"
+    },
+    {
+     "name": "cysteine HCl",
+     "amount": "0.63",
+     "unit": "g/L"
+    },
+    {
+     "name": "homoxylan (tobacco stalk)",
+     "amount": "not stated",
+     "unit": ""
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Defined anaerobic medium (ref 45) supplemented with 4-O-methylglucuronoxylan (larchwood)",
+   "pmcid": "PMC4300822",
+   "composition": [
+    {
+     "name": "KH2PO4",
+     "amount": "1.50",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "NH4Cl",
+     "amount": "0.91",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2CO3",
+     "amount": "5.0",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "0.11",
+     "unit": "g/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "0.082",
+     "unit": "g/L"
+    },
+    {
+     "name": "FeSO4\u00b77H2O",
+     "amount": "0.026",
+     "unit": "g/L"
+    },
+    {
+     "name": "MnCl2\u00b74H2O",
+     "amount": "0.032",
+     "unit": "g/L"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.0024",
+     "unit": "g/L"
+    },
+    {
+     "name": "ZnCl2",
+     "amount": "0.0022",
+     "unit": "g/L"
+    },
+    {
+     "name": "yeast extract",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "3-phenylpropionic acid",
+     "amount": "0.004",
+     "unit": "g/L"
+    },
+    {
+     "name": "resazurin",
+     "amount": "0.002",
+     "unit": "g/L"
+    },
+    {
+     "name": "vitamin mix",
+     "amount": "12.5",
+     "unit": "mL/L"
+    },
+    {
+     "name": "volatile fatty acid mix",
+     "amount": "8.4",
+     "unit": "mL/L"
+    },
+    {
+     "name": "cysteine HCl",
+     "amount": "0.63",
+     "unit": "g/L"
+    },
+    {
+     "name": "4-O-methylglucuronoxylan (larchwood)",
+     "amount": "not stated",
+     "unit": ""
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Defined anaerobic medium (ref 45) supplemented with glucomannan",
+   "pmcid": "PMC4300822",
+   "composition": [
+    {
+     "name": "KH2PO4",
+     "amount": "1.50",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "NH4Cl",
+     "amount": "0.91",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2CO3",
+     "amount": "5.0",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "0.11",
+     "unit": "g/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "0.082",
+     "unit": "g/L"
+    },
+    {
+     "name": "FeSO4\u00b77H2O",
+     "amount": "0.026",
+     "unit": "g/L"
+    },
+    {
+     "name": "MnCl2\u00b74H2O",
+     "amount": "0.032",
+     "unit": "g/L"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.0024",
+     "unit": "g/L"
+    },
+    {
+     "name": "ZnCl2",
+     "amount": "0.0022",
+     "unit": "g/L"
+    },
+    {
+     "name": "yeast extract",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "3-phenylpropionic acid",
+     "amount": "0.004",
+     "unit": "g/L"
+    },
+    {
+     "name": "resazurin",
+     "amount": "0.002",
+     "unit": "g/L"
+    },
+    {
+     "name": "vitamin mix",
+     "amount": "12.5",
+     "unit": "mL/L"
+    },
+    {
+     "name": "volatile fatty acid mix",
+     "amount": "8.4",
+     "unit": "mL/L"
+    },
+    {
+     "name": "cysteine HCl",
+     "amount": "0.63",
+     "unit": "g/L"
+    },
+    {
+     "name": "glucomannan",
+     "amount": "not stated",
+     "unit": ""
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Defined anaerobic medium (ref 45) supplemented with lichenan",
+   "pmcid": "PMC4300822",
+   "composition": [
+    {
+     "name": "KH2PO4",
+     "amount": "1.50",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "NH4Cl",
+     "amount": "0.91",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2CO3",
+     "amount": "5.0",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "0.11",
+     "unit": "g/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "0.082",
+     "unit": "g/L"
+    },
+    {
+     "name": "FeSO4\u00b77H2O",
+     "amount": "0.026",
+     "unit": "g/L"
+    },
+    {
+     "name": "MnCl2\u00b74H2O",
+     "amount": "0.032",
+     "unit": "g/L"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.0024",
+     "unit": "g/L"
+    },
+    {
+     "name": "ZnCl2",
+     "amount": "0.0022",
+     "unit": "g/L"
+    },
+    {
+     "name": "yeast extract",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "3-phenylpropionic acid",
+     "amount": "0.004",
+     "unit": "g/L"
+    },
+    {
+     "name": "resazurin",
+     "amount": "0.002",
+     "unit": "g/L"
+    },
+    {
+     "name": "vitamin mix",
+     "amount": "12.5",
+     "unit": "mL/L"
+    },
+    {
+     "name": "volatile fatty acid mix",
+     "amount": "8.4",
+     "unit": "mL/L"
+    },
+    {
+     "name": "cysteine HCl",
+     "amount": "0.63",
+     "unit": "g/L"
+    },
+    {
+     "name": "lichenan",
+     "amount": "not stated",
+     "unit": ""
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Defined anaerobic medium (ref 45) supplemented with soy polysaccharides",
+   "pmcid": "PMC4300822",
+   "composition": [
+    {
+     "name": "KH2PO4",
+     "amount": "1.50",
+     "unit": "g/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "NH4Cl",
+     "amount": "0.91",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2CO3",
+     "amount": "5.0",
+     "unit": "g/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "0.11",
+     "unit": "g/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "0.082",
+     "unit": "g/L"
+    },
+    {
+     "name": "FeSO4\u00b77H2O",
+     "amount": "0.026",
+     "unit": "g/L"
+    },
+    {
+     "name": "MnCl2\u00b74H2O",
+     "amount": "0.032",
+     "unit": "g/L"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.0024",
+     "unit": "g/L"
+    },
+    {
+     "name": "ZnCl2",
+     "amount": "0.0022",
+     "unit": "g/L"
+    },
+    {
+     "name": "yeast extract",
+     "amount": "1.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "3-phenylpropionic acid",
+     "amount": "0.004",
+     "unit": "g/L"
+    },
+    {
+     "name": "resazurin",
+     "amount": "0.002",
+     "unit": "g/L"
+    },
+    {
+     "name": "vitamin mix",
+     "amount": "12.5",
+     "unit": "mL/L"
+    },
+    {
+     "name": "volatile fatty acid mix",
+     "amount": "8.4",
+     "unit": "mL/L"
+    },
+    {
+     "name": "cysteine HCl",
+     "amount": "0.63",
+     "unit": "g/L"
+    },
+    {
+     "name": "soy polysaccharides",
+     "amount": "not stated",
+     "unit": ""
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "Defined medium supplemented with biotin and vitamin B12 only (Fig.3)",
+   "pmcid": "PMC10689506",
+   "composition": [
+    {
+     "name": "K2HPO4",
+     "amount": "9",
+     "unit": "mM"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "0.7",
+     "unit": "mM"
+    },
+    {
+     "name": "(NH4)2SO4",
+     "amount": "32.5",
+     "unit": "mM"
+    },
+    {
+     "name": "NaCl",
+     "amount": "13",
+     "unit": "mM"
+    },
+    {
+     "name": "CaCl2",
+     "amount": "0.45",
+     "unit": "mM"
+    },
+    {
+     "name": "Biotin",
+     "amount": "0.4",
+     "unit": "uM"
+    },
+    {
+     "name": "Vitamin B12",
+     "amount": "3.7",
+     "unit": "nM"
+    },
+    {
+     "name": "FeSO4",
+     "amount": "36",
+     "unit": "uM"
+    },
+    {
+     "name": "Wolfe's minerals",
+     "amount": "10",
+     "unit": "mL/L"
+    },
+    {
+     "name": "D-glucose",
+     "amount": "10",
+     "unit": "g/L"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "Minimal LC300 growth medium (MLGM) with soluble starch",
+   "pmcid": "PMC10689506",
+   "composition": [
+    {
+     "name": "K2HPO4",
+     "amount": "9",
+     "unit": "mM"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "0.7",
+     "unit": "mM"
+    },
+    {
+     "name": "(NH4)2SO4",
+     "amount": "32.5",
+     "unit": "mM"
+    },
+    {
+     "name": "NaCl",
+     "amount": "13",
+     "unit": "mM"
+    },
+    {
+     "name": "Nitrilotriacetic acid",
+     "amount": "1",
+     "unit": "mM"
+    },
+    {
+     "name": "MOPS (for shake flask cultivations)",
+     "amount": "50",
+     "unit": "mM"
+    },
+    {
+     "name": "MgCl2",
+     "amount": "15",
+     "unit": "mM"
+    },
+    {
+     "name": "CaCl2",
+     "amount": "0.45",
+     "unit": "mM"
+    },
+    {
+     "name": "Biotin",
+     "amount": "0.4",
+     "unit": "uM"
+    },
+    {
+     "name": "Vitamin B12",
+     "amount": "3.7",
+     "unit": "nM"
+    },
+    {
+     "name": "FeSO4",
+     "amount": "36",
+     "unit": "uM"
+    },
+    {
+     "name": "Wolfe's minerals",
+     "amount": "10",
+     "unit": "mL/L"
+    },
+    {
+     "name": "soluble starch",
+     "note": "carbon source per medium name; concentration not separately itemized in the paper"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "in silico minimal medium (acetate + H2 + CO2 + chlorinated ethene electron acceptor + Cl- + SO4)",
+   "pmcid": "PMC2930330",
+   "composition": [
+    {
+     "name": "acetate (ac)"
+    },
+    {
+     "name": "Vitamin B12 / cobalamin (cbl1)"
+    },
+    {
+     "name": "chloride (cl)"
+    },
+    {
+     "name": "carbon dioxide (co2)"
+    },
+    {
+     "name": "proton (h)"
+    },
+    {
+     "name": "hydrogen (h2)"
+    },
+    {
+     "name": "water (h2o)"
+    },
+    {
+     "name": "dichlorobenzene (dcb)"
+    },
+    {
+     "name": "ethene (etl)"
+    },
+    {
+     "name": "tetrachloroethene (pce)"
+    },
+    {
+     "name": "hexachlorobenzene (hcb)"
+    },
+    {
+     "name": "ammonium (nh4)"
+    },
+    {
+     "name": "inorganic phosphate (pi)"
+    },
+    {
+     "name": "sulphate (so4)"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "continuous-culture medium (fructose as carbon source)",
+   "pmcid": "PMC2852388",
+   "composition": [
+    {
+     "name": "fructose",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "sodium citrate tribasic dihydrate",
+     "amount": "3",
+     "unit": "g/L"
+    },
+    {
+     "name": "ammonium sulfate",
+     "amount": "1.3",
+     "unit": "g/L"
+    },
+    {
+     "name": "potassium phosphate monobasic",
+     "amount": "1.43",
+     "unit": "g/L"
+    },
+    {
+     "name": "potassium phosphate dibasic",
+     "amount": "1.8",
+     "unit": "g/L"
+    },
+    {
+     "name": "calcium chloride dihydrate",
+     "amount": "0.13",
+     "unit": "g/L"
+    },
+    {
+     "name": "glycerol-2-phosphate disodium",
+     "amount": "6",
+     "unit": "g/L"
+    },
+    {
+     "name": "yeast extract",
+     "amount": "4.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "magnesium chloride hexahydrate",
+     "amount": "2.6",
+     "unit": "g/L"
+    },
+    {
+     "name": "ferrous sulfate heptahydrate",
+     "amount": "1.1",
+     "unit": "mg/L"
+    },
+    {
+     "name": "cystein-HCl",
+     "amount": "0.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "MOPS buffer",
+     "amount": "50",
+     "unit": "mM"
+    },
+    {
+     "name": "resazurin",
+     "amount": "0.1",
+     "unit": "%"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "0.5x VNSS (V\u00e4\u00e4t\u00e4nen nine-salt solution)",
+   "pmcid": "PMC8788688",
+   "composition": [
+    {
+     "name": "bacteriological peptone",
+     "amount": "1",
+     "unit": "g/L"
+    },
+    {
+     "name": "yeast extract",
+     "amount": "0.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "D-glucose",
+     "amount": "0.5",
+     "unit": "g/L"
+    },
+    {
+     "name": "FeSO4\u00b77H2O",
+     "amount": "0.01",
+     "unit": "g/L"
+    },
+    {
+     "name": "Na2HPO4",
+     "amount": "0.01",
+     "unit": "g/L"
+    }
+   ],
+   "is_defined": false,
+   "status": "partial_complex"
+  },
+  {
+   "medium_name": "methanol minimal medium",
+   "pmcid": "PMC3495640",
+   "composition": [
+    {
+     "name": "methanol",
+     "amount": "15",
+     "unit": "mM"
+    },
+    {
+     "name": "succinate",
+     "amount": "3.5",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "DMEM (DMEM-F12, Sigma-Aldrich)",
+   "pmcid": "PMC3438133",
+   "composition": [
+    {
+     "name": "glucose",
+     "amount": "4500",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-glutamine",
+     "amount": "",
+     "unit": ""
+    },
+    {
+     "name": "NaHCO3",
+     "amount": "18",
+     "unit": "mM"
+    },
+    {
+     "name": "HEPES",
+     "amount": "25",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  },
+  {
+   "medium_name": "IMP-CDM",
+   "pmcid": "PMC5648915",
+   "composition": [
+    {
+     "name": "L-Proline",
+     "amount": "882",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na-L-glutamate",
+     "amount": "18677",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Cysteine HCl",
+     "amount": "4",
+     "unit": "mg/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "73",
+     "unit": "mg/L"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "500",
+     "unit": "mg/L"
+    },
+    {
+     "name": "KCl",
+     "amount": "200",
+     "unit": "mg/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "1000",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "20",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Fe(III)-citrate\u00b73H2O",
+     "amount": "20",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CuCl2\u00b72H2O",
+     "amount": "1.28",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.42",
+     "unit": "mg/L"
+    },
+    {
+     "name": "ZnCl2",
+     "amount": "10",
+     "unit": "mg/L"
+    },
+    {
+     "name": "MOPS",
+     "amount": "2500",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Ascorbic acid",
+     "amount": "623",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Reduced glutathione",
+     "amount": "233",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Niacin",
+     "amount": "6",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Dimethyl-\u03b2-cyclodextrin",
+     "amount": "1000",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na acetate",
+     "amount": "409",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Alanine",
+     "amount": "304",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Aspartic acid",
+     "amount": "524",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Glutamic acid",
+     "amount": "3475",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Histidine",
+     "amount": "32",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Glycine",
+     "amount": "149",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Isoleucine",
+     "amount": "244",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Leucine",
+     "amount": "438",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Lysine HCl",
+     "amount": "393",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Methionine",
+     "amount": "116",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Phenylalanine",
+     "amount": "234",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Serine",
+     "amount": "187",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Tyrosine",
+     "amount": "34",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Valine",
+     "amount": "399",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Thiamine-HCl",
+     "amount": "10",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Biotin",
+     "amount": "0.2",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Riboflavin",
+     "amount": "0.3",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Calcium pantothenate",
+     "amount": "4",
+     "unit": "mg/L"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "IMP2-CDM",
+   "pmcid": "PMC5648915",
+   "composition": [
+    {
+     "name": "L-Proline",
+     "amount": "882",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na-L-glutamate",
+     "amount": "18677",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na2S2O3\u00b75H2O",
+     "amount": "2.83",
+     "unit": "mg/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "73",
+     "unit": "mg/L"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "500",
+     "unit": "mg/L"
+    },
+    {
+     "name": "KCl",
+     "amount": "200",
+     "unit": "mg/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "1000",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "20",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Fe(III)-citrate\u00b73H2O",
+     "amount": "20",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CuCl2\u00b72H2O",
+     "amount": "1.28",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.42",
+     "unit": "mg/L"
+    },
+    {
+     "name": "ZnCl2",
+     "amount": "10",
+     "unit": "mg/L"
+    },
+    {
+     "name": "MOPS",
+     "amount": "2500",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Ascorbic acid",
+     "amount": "623",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Reduced glutathione",
+     "amount": "233",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Niacin",
+     "amount": "6",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Dimethyl-\u03b2-cyclodextrin",
+     "amount": "1000",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na acetate",
+     "amount": "409",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Alanine",
+     "amount": "304",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Aspartic acid",
+     "amount": "524",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Glutamic acid",
+     "amount": "3475",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Histidine",
+     "amount": "32",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Glycine",
+     "amount": "149",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Isoleucine",
+     "amount": "244",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Leucine",
+     "amount": "438",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Lysine HCl",
+     "amount": "393",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Methionine",
+     "amount": "116",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Phenylalanine",
+     "amount": "234",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Serine",
+     "amount": "187",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Tyrosine",
+     "amount": "34",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Valine",
+     "amount": "399",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Thiamine-HCl",
+     "amount": "10",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Biotin",
+     "amount": "0.2",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Riboflavin",
+     "amount": "0.3",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Calcium pantothenate",
+     "amount": "4",
+     "unit": "mg/L"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "IMP2-CDM-AA (amino acids as in MSS-CDM)",
+   "pmcid": "PMC5648915",
+   "composition": [
+    {
+     "name": "L-Proline",
+     "amount": "1040",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na-L-glutamate",
+     "amount": "18677",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na2S2O3\u00b75H2O",
+     "amount": "2.83",
+     "unit": "mg/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "73",
+     "unit": "mg/L"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "500",
+     "unit": "mg/L"
+    },
+    {
+     "name": "KCl",
+     "amount": "200",
+     "unit": "mg/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "1000",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "20",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Fe(III)-citrate\u00b73H2O",
+     "amount": "20",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CuCl2\u00b72H2O",
+     "amount": "1.28",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.42",
+     "unit": "mg/L"
+    },
+    {
+     "name": "ZnCl2",
+     "amount": "10",
+     "unit": "mg/L"
+    },
+    {
+     "name": "MOPS",
+     "amount": "2500",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Ascorbic acid",
+     "amount": "623",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Reduced glutathione",
+     "amount": "233",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Niacin",
+     "amount": "6",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Dimethyl-\u03b2-cyclodextrin",
+     "amount": "1000",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na acetate",
+     "amount": "409",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Alanine",
+     "amount": "312",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Aspartic acid",
+     "amount": "436",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Glutamic acid",
+     "amount": "3475",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Histidine",
+     "amount": "188",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Glycine",
+     "amount": "163",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Isoleucine",
+     "amount": "288",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Leucine",
+     "amount": "484",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Lysine HCl",
+     "amount": "600",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Methionine",
+     "amount": "156",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Phenylalanine",
+     "amount": "250",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Serine",
+     "amount": "230",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Tyrosine",
+     "amount": "67",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Valine",
+     "amount": "456",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Thiamine-HCl",
+     "amount": "10",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Biotin",
+     "amount": "0.2",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Riboflavin",
+     "amount": "0.3",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Calcium pantothenate",
+     "amount": "4",
+     "unit": "mg/L"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "IMP2-CDM (H3PO4 pH control)",
+   "pmcid": "PMC5648915",
+   "composition": [
+    {
+     "name": "L-Proline",
+     "amount": "882",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na-L-glutamate",
+     "amount": "18677",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na2S2O3\u00b75H2O",
+     "amount": "2.83",
+     "unit": "mg/L"
+    },
+    {
+     "name": "NaCl",
+     "amount": "73",
+     "unit": "mg/L"
+    },
+    {
+     "name": "KH2PO4",
+     "amount": "500",
+     "unit": "mg/L"
+    },
+    {
+     "name": "KCl",
+     "amount": "200",
+     "unit": "mg/L"
+    },
+    {
+     "name": "MgCl2\u00b76H2O",
+     "amount": "1000",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CaCl2\u00b72H2O",
+     "amount": "20",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Fe(III)-citrate\u00b73H2O",
+     "amount": "20",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CuCl2\u00b72H2O",
+     "amount": "1.28",
+     "unit": "mg/L"
+    },
+    {
+     "name": "CoCl2\u00b76H2O",
+     "amount": "0.42",
+     "unit": "mg/L"
+    },
+    {
+     "name": "ZnCl2",
+     "amount": "10",
+     "unit": "mg/L"
+    },
+    {
+     "name": "MOPS",
+     "amount": "2500",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Ascorbic acid",
+     "amount": "623",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Reduced glutathione",
+     "amount": "233",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Niacin",
+     "amount": "6",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Dimethyl-\u03b2-cyclodextrin",
+     "amount": "1000",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Na acetate",
+     "amount": "409",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Alanine",
+     "amount": "304",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Aspartic acid",
+     "amount": "524",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Glutamic acid",
+     "amount": "3475",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Histidine",
+     "amount": "32",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Glycine",
+     "amount": "149",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Isoleucine",
+     "amount": "244",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Leucine",
+     "amount": "438",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Lysine HCl",
+     "amount": "393",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Methionine",
+     "amount": "116",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Phenylalanine",
+     "amount": "234",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Serine",
+     "amount": "187",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Tyrosine",
+     "amount": "34",
+     "unit": "mg/L"
+    },
+    {
+     "name": "L-Valine",
+     "amount": "399",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Thiamine-HCl",
+     "amount": "10",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Biotin",
+     "amount": "0.2",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Riboflavin",
+     "amount": "0.3",
+     "unit": "mg/L"
+    },
+    {
+     "name": "Calcium pantothenate",
+     "amount": "4",
+     "unit": "mg/L"
+    }
+   ],
+   "is_defined": true,
+   "status": "partial_unmapped"
+  },
+  {
+   "medium_name": "Chemostat cells in sealed tubes, Ar atmosphere",
+   "pmcid": "PMC3419522",
+   "composition": [
+    {
+     "name": "NH4Cl",
+     "amount": "0.75",
+     "unit": "mM"
+    },
+    {
+     "name": "FeCl3",
+     "amount": "0.03",
+     "unit": "mM"
+    },
+    {
+     "name": "K2HPO4",
+     "amount": "0.75",
+     "unit": "mM"
+    }
+   ],
+   "is_defined": true,
+   "status": "defined"
+  }
+ ]
+}
