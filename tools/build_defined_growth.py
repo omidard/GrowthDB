@@ -198,7 +198,7 @@ def main():
         if not slug or not os.path.exists(f):
             continue
         d = json.load(open(f))
-        d["carbon_growth"] = [{"substrate": r["substrate"], "bigg": r["bigg"], "exchange": r["exchange"],
+        d["carbon_growth"] = [{"strain": r["strain"], "substrate": r["substrate"], "bigg": r["bigg"], "exchange": r["exchange"],
                                 "base": r["base_family"], "medium": r["base_medium"], "media_id": r["media_id"],
                                 "media_url": r["media_url"], "mu": r["growth_rate_per_h"], "oxygen": r["oxygen"],
                                 "confidence": r["confidence"], "citation": r["citation"], "doi": r["doi"]} for r in recs]
