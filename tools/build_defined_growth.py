@@ -143,7 +143,8 @@ def extract(rec):
     for b, cand, ex, conf in carbons[:6]:
         out.append({
             "organism": rec.get("organism"), "gtdb_species": rec.get("gtdb_species"),
-            "strain": rec.get("strain"), "substrate": cand, "bigg": b, "exchange": ex, "confidence": conf,
+            "strain": rec.get("strain"), "strain_parent": (rec.get("strain_parsed") or {}).get("parent"),
+            "substrate": cand, "bigg": b, "exchange": ex, "confidence": conf,
             "base_family": base_family(name), "base_medium": name[:80], "media_id": med.get("media_id"),
             "media_url": med.get("media_url"),
             "growth_rate_per_h": rec.get("growth_rate_per_h"), "doubling_time_h": rec.get("doubling_time_h"),
@@ -198,7 +199,7 @@ def main():
         if not slug or not os.path.exists(f):
             continue
         d = json.load(open(f))
-        d["carbon_growth"] = [{"strain": r["strain"], "substrate": r["substrate"], "bigg": r["bigg"], "exchange": r["exchange"],
+        d["carbon_growth"] = [{"strain": r["strain"], "strain_parent": r.get("strain_parent"), "substrate": r["substrate"], "bigg": r["bigg"], "exchange": r["exchange"],
                                 "base": r["base_family"], "medium": r["base_medium"], "media_id": r["media_id"],
                                 "media_url": r["media_url"], "mu": r["growth_rate_per_h"], "oxygen": r["oxygen"],
                                 "confidence": r["confidence"], "citation": r["citation"], "doi": r["doi"]} for r in recs]

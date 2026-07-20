@@ -135,37 +135,75 @@ def canonical_parent(strain_str, organism):
     return None
 
 
+def parent_key(name):
+    """A GENERAL, registry-independent grouping key: two surface forms of the SAME strain collapse
+    regardless of spacing / hyphens / dots / case / 'str.'/'substr.'/'K-12' prefixes. This is what
+    stops 'NCM3722' vs 'NCM 3722', 'str. SolV' vs 'SolV', 'EA2' vs 'Ea2', 'DH5-alpha' vs 'DH5alpha'
+    from ever being two strains, even for strains not in the registry."""
+    s = (name or "").lower()
+    s = re.sub(r"^(str\.?|substr\.?|strain|substrain)\s+", "", s)
+    s = re.sub(r"\bk[\s\-]?12\b", "", s)
+    s = re.sub(r"\(unspecified derivative\)", "", s)
+    s = re.sub(r"\balpha\b", "a", s)                     # DH5alpha == DH5a
+    return re.sub(r"[^a-z0-9]", "", s)                   # drop spaces/hyphens/dots/^ etc.
+
+
 def main():
     gr = json.load(open(GR))
-    changed = 0; before = collections.Counter(); after = collections.Counter()
-    ecoli_before = set(); ecoli_after = set()
+    rel = [r for r in gr if r.get("growth_rate_per_h") is not None or r.get("uptake_rates") or r.get("secretion_rates")]
+    # pass 1: raw canonical parent per record
     for r in gr:
-        relevant = r.get("growth_rate_per_h") is not None or r.get("uptake_rates") or r.get("secretion_rates")
         spar = r.get("strain_parsed") or {}
         org = r.get("gtdb_species") or r.get("species") or r.get("organism")
-        old = spar.get("parent")
-        new = canonical_parent(r.get("strain") if isinstance(r.get("strain"), str) else None, org)
-        if new != old:
-            spar["parent_raw"] = old
-            spar["parent"] = new
-            r["strain_parsed"] = spar
-            if relevant:
-                changed += 1
+        spar["parent_raw"] = spar.get("parent")
+        spar["parent"] = canonical_parent(r.get("strain") if isinstance(r.get("strain"), str) else None, org)
+        r["strain_parsed"] = spar
+    # pass 2: unify every parent that shares a key to ONE canonical display (registry name wins,
+    # else the most common surface form) — so equivalent forms are byte-identical everywhere
+    reg_names = set()
+    for reg in REGISTRY.values():
+        reg_names.update(reg.keys())
+    key_forms = collections.defaultdict(collections.Counter)
+    for r in gr:
+        p = (r.get("strain_parsed") or {}).get("parent")
+        if p:
+            key_forms[parent_key(p)][p] += 1
+    canon_by_key = {}
+    for k, forms in key_forms.items():
+        reg_hit = [f for f in forms if f in reg_names]
+        canon_by_key[k] = reg_hit[0] if reg_hit else forms.most_common(1)[0][0]
+    before = collections.Counter(); after = collections.Counter()
+    ecoli_before = set(); ecoli_after = set()
+    for r in gr:
+        spar = r.get("strain_parsed") or {}
+        p = spar.get("parent")
+        if p:
+            k = parent_key(p); spar["pkey"] = k; spar["parent"] = canon_by_key[k]
+        r["strain_parsed"] = spar
+        relevant = r.get("growth_rate_per_h") is not None or r.get("uptake_rates") or r.get("secretion_rates")
         if relevant:
-            if old:
-                before[old] += 1
-            if new:
-                after[new] += 1
-            if org and "coli" in org.lower():
-                if old:
-                    ecoli_before.add(old)
-                if new:
-                    ecoli_after.add(new)
-    print("parents changed:", changed)
-    print("distinct parents (all organisms):  before %d -> after %d" % (len([p for p in before]), len([p for p in after])))
+            if spar.get("parent_raw"):
+                before[spar["parent_raw"]] += 1
+            if spar.get("parent"):
+                after[spar["parent"]] += 1
+            org = (r.get("gtdb_species") or r.get("species") or r.get("organism") or "")
+            if "coli" in org.lower():
+                if spar.get("parent_raw"):
+                    ecoli_before.add(spar["parent_raw"])
+                if spar.get("parent"):
+                    ecoli_after.add(spar["parent"])
+    # verify: no two distinct parents share a key
+    coll = collections.defaultdict(set)
+    for r in rel:
+        p = (r.get("strain_parsed") or {}).get("parent")
+        if p:
+            coll[parent_key(p)].add(p)
+    residual = {k: v for k, v in coll.items() if len(v) > 1}
+    print("distinct parents (all organisms):  before %d -> after %d" % (len(before), len(after)))
     print("distinct E. coli parents:          before %d -> after %d" % (len(ecoli_before), len(ecoli_after)))
+    print("residual key COLLISIONS (should be 0):", len(residual), residual if residual else "")
     print("\ntop canonical parents after:")
-    for p, n in after.most_common(18):
+    for p, n in after.most_common(15):
         print(f"  {n:4d}  {p}")
     if WRITE:
         json.dump(gr, open(GR, "w"), separators=(",", ":"))

@@ -42,8 +42,14 @@ with gzip.open(os.path.join(REPO,"data","phenotypes_full.json.gz"),"rt") as f:
 
 os.makedirs(os.path.join(REPO,"data","species"),exist_ok=True)
 def comp_rec(r):
-    c=r.get("conditions",{}); med=r.get("medium",{}); p=r.get("provenance",{})
-    return {"id":r["id"],"strain":r.get("strain"),"mu":r.get("growth_rate_per_h"),"td":r.get("doubling_time_h"),
+    c=r.get("conditions",{}); med=r.get("medium",{}); p=r.get("provenance",{}); sp=r.get("strain_parsed") or {}
+    ko=[g for op in (sp.get("genotype") or []) if op.get("op")=="del" for g in (op.get("genes") or [])]
+    return {"id":r["id"],"strain":r.get("strain"),
+        # canonical grouping parent + genotype so the browser groups a strain's whole family (wild type +
+        # derivatives) under ONE strain instead of splitting 'MG1655' from 'K-12 MG1655'
+        "strain_parent":sp.get("parent"),"pkey":sp.get("pkey"),"is_wt":sp.get("is_wt"),
+        "ko":ko or None,"level":sp.get("level"),"lvlwhy":sp.get("strain_reason"),
+        "mu":r.get("growth_rate_per_h"),"td":r.get("doubling_time_h"),
         "mode":c.get("culture_mode"),"cdet":c.get("culture_detail"),"ox":c.get("oxygen"),"T":c.get("temperature_C"),
         "pH":c.get("pH"),"optT":c.get("optimum_temperature_C"),"optpH":c.get("optimum_pH"),"dil":c.get("dilution_rate_per_h"),
         "oxdet":c.get("aeration_detail"),"agit":c.get("agitation"),"meta_methods":(r.get("provenance") or {}).get("metadata_from_methods"),

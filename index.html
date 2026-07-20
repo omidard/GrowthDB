@@ -158,8 +158,9 @@
     </div>
 
     <div class="panel" id="p-strains" style="display:none;border:2px solid #dfe6f5">
-      <div style="font-weight:700">Data by strain <span class="note">— <b id="strain-count">0</b> strains. Growth physiology is strain-specific: pick a strain to see exactly which media, conditions and compounds were measured for it (the detail tables below filter to it). Validate a GEM against its own strain's data.</span></div>
-      <table id="strain-tbl" class="table table-sm table-hover mt-2" style="width:100%"><thead><tr><th>Strain</th><th>Records</th><th>µ</th><th>Defined-growth</th><th>Media</th><th>Measured compounds (BiGG exchanges)</th></tr></thead><tbody></tbody></table>
+      <div style="font-weight:700">Data by strain <span class="note">— <b id="strain-count">0</b> strains (a strain and its wild-type + knockout derivatives grouped under one canonical parent: <i>MG1655</i> unifies “MG1655”, “K-12 MG1655”, “ATCC 47076”…). Pick a strain to see exactly which media, conditions and compounds were measured for it. Validate a GEM against its own strain's data.</span></div>
+      <div id="strain-foot" class="note" style="margin-top:2px"></div>
+      <table id="strain-tbl" class="table table-sm table-hover mt-2" style="width:100%"><thead><tr><th>Strain (parent)</th><th>Records</th><th>µ</th><th>Defined-growth</th><th>Media</th><th>Measured compounds (BiGG exchanges)</th></tr></thead><tbody></tbody></table>
       <div class="note">Click a strain row to filter, or use the selector above. “All strains” restores the species overview.</div>
     </div>
 
@@ -188,24 +189,42 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;',
 const fx=v=>v==null?'':(typeof v==='number'?(Math.abs(v)!==0&&Math.abs(v)<0.01?v.toExponential(2):(+v.toFixed(3)+'')):esc(v));
 const OXC={aerobic:'#2c7fb8',anaerobic:'#c0392b',facultative:'#8e44ad',microaerophilic:'#d68910',not_stated:'#95a5a6'};
 let SPIDX=[], sptable, CUR=null, rectable, phtable, cgtable, straintable, charts={}, CUR_STRAIN='';
-function _recs(){return (CUR&&CUR.growth_records||[]).filter(r=>!CUR_STRAIN||r.strain===CUR_STRAIN);}
-function _cgrow(){return (CUR&&CUR.carbon_growth||[]).filter(r=>!CUR_STRAIN||(r.strain||'')===CUR_STRAIN);}
+// canonical grouping key: the parsed parent strain (MG1655 unifies 'MG1655','K-12 MG1655','ATCC 47076'…).
+// Falls back to the raw strain ONLY for a real strain description that lacks a clean parent (e.g. an LTEE
+// evolved clone) — never for species-level (Madin) or genuinely strain-less records, so no bogus
+// '(strain not stated)' strain ever appears.
+function _pk(r){ if(r.strain_parent) return r.strain_parent;
+  if(r.strain&&String(r.strain).trim()&&r.level!=='unknown'&&r.level!=='species') return String(r.strain).trim().slice(0,60);
+  return null; }
+function _recs(){return (CUR&&CUR.growth_records||[]).filter(r=>!CUR_STRAIN||(_pk(r)||'')===CUR_STRAIN);}
+function _cgrow(){return (CUR&&CUR.carbon_growth||[]).filter(r=>!CUR_STRAIN||(_pk(r)||'')===CUR_STRAIN);}
 function setStrain(v){CUR_STRAIN=v;document.getElementById('strain-scope').textContent=v||'all strains (species overview)';const rs=document.getElementById('rec-scope');if(rs)rs.textContent=v||'all strains';drawMuT(CUR);buildRecTable(CUR);buildCarbonGrowth(CUR);const ss=document.getElementById('strain-sel');if(ss&&ss.value!==(v||''))ss.value=v||'';}
 function strainStats(sp){
-  const by={};
-  const bump=s=>{const k=s||'(strain not stated)';return by[k]=by[k]||{strain:k,recs:0,mu:0,cg:0,media:new Set(),ex:new Set()};};
-  (sp.growth_records||[]).forEach(r=>{const b=bump(r.strain);b.recs++;if(r.mu!=null)b.mu++;if(r.media)b.media.add(r.media);(r.up||[]).concat(r.sec||[]).forEach(x=>{if(x.exchange)b.ex.add(x.exchange);});});
-  (sp.carbon_growth||[]).forEach(r=>{const b=bump(r.strain);b.cg++;if(r.exchange)b.ex.add(r.exchange);});
-  return Object.values(by).sort((a,b)=>(b.recs+b.cg)-(a.recs+a.cg));
+  const by={}; let spLevel=0, noStrain=0, why=null;
+  const bump=k=>by[k]=by[k]||{strain:k,recs:0,mu:0,cg:0,media:new Set(),ex:new Set(),wt:0,ko:new Set()};
+  (sp.growth_records||[]).forEach(r=>{const k=_pk(r);
+    if(!k){ if(r.level==='species')spLevel++; else {noStrain++;if(!why)why=r.lvlwhy;} return; }
+    const b=bump(k);b.recs++;if(r.mu!=null)b.mu++;if(r.media)b.media.add(r.media);
+    if(r.is_wt)b.wt++;(r.ko||[]).forEach(g=>b.ko.add(g));
+    (r.up||[]).concat(r.sec||[]).forEach(x=>{if(x.exchange)b.ex.add(x.exchange);});});
+  (sp.carbon_growth||[]).forEach(r=>{const k=_pk(r);if(!k)return;const b=bump(k);b.cg++;if(r.exchange)b.ex.add(r.exchange);});
+  const arr=Object.values(by).sort((a,b)=>(b.recs+b.cg)-(a.recs+a.cg));
+  arr._spLevel=spLevel;arr._noStrain=noStrain;arr._why=why;
+  return arr;
 }
 function buildStrainClusters(sp){
   const st=strainStats(sp); const panel=document.getElementById('p-strains');
-  if(st.length<=1){panel.style.display='none';return;} panel.style.display='block';
+  if(st.length<1){panel.style.display='none';return;} panel.style.display='block';
   document.getElementById('strain-count').textContent=st.length;
+  // honest footnote: species-level references + genuinely strain-less records are NOT shown as strains
+  const fn=document.getElementById('strain-foot');
+  if(fn){const bits=[];if(st._spLevel)bits.push(`<b>${st._spLevel}</b> species-level µ reference${st._spLevel>1?'s':''} (Madin trait synthesis — no strain, shown in the species overview above)`);if(st._noStrain)bits.push(`<b>${st._noStrain}</b> record${st._noStrain>1?'s':''} whose source states no strain${st._why?' ('+esc(st._why)+')':''}`);fn.innerHTML=bits.length?'Not shown as strains: '+bits.join('; ')+'.':'';}
   if(straintable){straintable.destroy();$('#strain-tbl tbody').empty();}
   straintable=$('#strain-tbl').DataTable({data:st,pageLength:10,deferRender:true,order:[[1,'desc']],
-    createdRow:(row,d)=>{row.classList.add('rowlink');row.onclick=()=>{setStrain(d.strain==='(strain not stated)'?'':d.strain);$('#strain-tbl tbody tr').removeClass('table-active');row.classList.add('table-active');document.getElementById('p-strains').scrollIntoView({behavior:'smooth',block:'start'});};},
-    columns:[{data:'strain',render:d=>`<b>${esc((d||'').slice(0,60))}</b>`},{data:'recs'},{data:'mu',render:d=>d||''},{data:'cg',render:d=>d||''},
+    createdRow:(row,d)=>{row.classList.add('rowlink');row.onclick=()=>{setStrain(d.strain);$('#strain-tbl tbody tr').removeClass('table-active');row.classList.add('table-active');document.getElementById('p-strains').scrollIntoView({behavior:'smooth',block:'start'});};},
+    columns:[{data:'strain',render:d=>`<b>${esc((d||'').slice(0,60))}</b>`},
+      {data:null,render:d=>d.recs+(d.ko.size?` <span class="note">${d.wt} WT · ${d.ko.size} KO gene${d.ko.size>1?'s':''}</span>`:'')},
+      {data:'mu',render:d=>d||''},{data:'cg',render:d=>d||''},
       {data:null,render:d=>d.media.size},
       {data:null,render:d=>{const e=[...d.ex].slice(0,10).map(x=>`<code style="font-size:.6rem">${esc(x)}</code>`).join(' ');return e+(d.ex.size>10?' <span class="note">+'+(d.ex.size-10)+'</span>':'')||'<span class="note">none mapped</span>';}}],
     language:{search:'Find strain:',info:'_START_–_END_ of _TOTAL_ strains'}});
@@ -265,7 +284,7 @@ async function openSpecies(slug){
   window.scrollTo(0,0);
   // strains
   CUR_STRAIN='';
-  const strainCounts={}; sp.growth_records.forEach(r=>{if(r.strain)strainCounts[r.strain]=(strainCounts[r.strain]||0)+1;});
+  const strainCounts={}; sp.growth_records.forEach(r=>{const k=_pk(r);if(k)strainCounts[k]=(strainCounts[k]||0)+1;});
   const strains=Object.entries(strainCounts).sort((a,b)=>b[1]-a[1]);
   const ssel=document.getElementById('strain-sel');
   ssel.innerHTML='<option value="">All strains (species overview)</option>'+strains.map(([s,n])=>`<option value="${esc(s)}">${esc(s.slice(0,70))} (${n})</option>`).join('');
