@@ -147,7 +147,7 @@
     <div class="panel" id="p-over" style="display:none"><div style="font-weight:700;margin-bottom:.2rem">Overflow metabolism <span class="note">— byproduct secretion qP vs µ</span></div><div class="chartbox"><canvas id="c-over"></canvas></div></div>
 
     <div class="panel" id="p-spec" style="display:none">
-      <div class="d-flex justify-content-between align-items-center mb-1"><div style="font-weight:700">Substrate-utilisation spectrum <span class="note">— for validating model growth calls</span></div><button class="btn btn-outline-success btn-dl" id="btn-ex" onclick="copyExch()">⧉ Copy utilizable BiGG exchanges</button></div>
+      <div class="d-flex justify-content-between align-items-center mb-1"><div style="font-weight:700">Substrate-utilisation spectrum <span class="note">— GROWTH evidence only (assimilation / Biolog PM / sole-substrate growth; fermentation-acid and enzyme assays excluded). Use for validating whether the model can grow on each substrate.</span></div><button class="btn btn-outline-success btn-dl" id="btn-ex" onclick="copyExch()">⧉ Copy utilizable BiGG exchanges</button></div>
       <div class="row"><div class="col-md-6"><div class="note mb-1" style="color:#1a7f4b;font-weight:600">Grows on (<span id="np-pos">0</span>)</div><div id="spec-pos" style="max-height:170px;overflow:auto"></div></div>
       <div class="col-md-6"><div class="note mb-1" style="color:#c0392b;font-weight:600">Does not grow on (<span id="np-neg">0</span>)</div><div id="spec-neg" style="max-height:170px;overflow:auto"></div></div></div>
     </div>
@@ -164,7 +164,7 @@
 
     <div class="panel" id="ph-panel">
       <div class="d-flex justify-content-between align-items-center mb-2"><div style="font-weight:700">Substrate phenotypes <span class="note">— packaged by assay medium; pick a medium to see every substrate tested on it</span></div><button class="btn btn-outline-secondary btn-dl" onclick="dlPhenos()">⬇ CSV</button></div>
-      <div class="d-flex gap-2 align-items-center mb-2 flex-wrap"><label class="note mb-0">Platform:</label><select id="ph-plat" class="form-select form-select-sm" style="width:auto"><option value="">All assays</option><option value="Biolog PM">Biolog PM only</option><option value="Biolog/PM (literature)">Biolog (literature)</option><option value="BacDive metabolite utilization">BacDive</option></select><label class="note mb-0 ms-2">Medium / assay:</label><select id="ph-med" class="form-select form-select-sm" style="width:auto;max-width:480px"></select><span id="ph-gsum" class="note"></span></div>
+      <div class="d-flex gap-2 align-items-center mb-2 flex-wrap"><label class="note mb-0">Evidence:</label><select id="ph-ptype" class="form-select form-select-sm" style="width:auto"><option value="">All evidence</option><option value="growth">Growth on substrate</option><option value="acid_production">Fermentation (acid from)</option><option value="enzyme">Enzyme / activity assay</option><option value="growth+acid">Growth + acid (mixed)</option></select><label class="note mb-0 ms-2">Platform:</label><select id="ph-plat" class="form-select form-select-sm" style="width:auto"><option value="">All assays</option><option value="Biolog PM">Biolog PM only</option><option value="Biolog/PM (literature)">Biolog (literature)</option><option value="BacDive metabolite utilization">BacDive</option></select><label class="note mb-0 ms-2">Medium / assay:</label><select id="ph-med" class="form-select form-select-sm" style="width:auto;max-width:480px"></select><span id="ph-gsum" class="note"></span></div>
       <table id="phtbl" class="table table-striped table-hover" style="width:100%"><thead><tr><th>Substrate</th><th>Exchange</th><th>Category</th><th>Call</th><th>Strains(n)</th><th>Sources</th></tr></thead><tbody></tbody></table>
     </div>
   </div>
@@ -305,7 +305,8 @@ function drawOverflow(sp){
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:10},boxWidth:10}}},scales:{x:{title:{display:true,text:'µ (h⁻¹)'}},y:{title:{display:true,text:'qP secretion (mmol/gDW/h)'}}}}});
 }
 function renderSpectrum(sp){
-  const pos=sp.phenotypes.filter(p=>p.phenotype==='positive'),neg=sp.phenotypes.filter(p=>p.phenotype==='negative');
+  const gp=sp.phenotypes.filter(p=>p.ptype==='growth'||p.ptype==='growth+acid');   // GROWTH evidence only — exclude acid-production / enzyme assays
+  const pos=gp.filter(p=>p.phenotype==='positive'),neg=gp.filter(p=>p.phenotype==='negative');
   const panel=document.getElementById('p-spec'); if(!pos.length&&!neg.length){panel.style.display='none';return;} panel.style.display='block';
   const pill=(p,cl)=>`<span class="sub-pill${cl}" title="${esc(p.exchange||'unmapped')}">${esc(p.substrate)}${p.exchange?' <code style="font-size:.65rem">'+esc(p.exchange)+'</code>':''}</span>`;
   document.getElementById('spec-pos').innerHTML=pos.map(p=>pill(p,'')).join('')||'<span class="note">none</span>';
@@ -329,13 +330,17 @@ function buildPhTable(sp){
   sel.innerHTML=groups.map((g,i)=>`<option value="${i}">${esc(g.label)} — ${g.n} substrates (${g.n_pos}+ / ${g.n_neg}−)</option>`).join('');
   sel.onchange=()=>renderPhGroup(sp,+sel.value);
   const plat=document.getElementById('ph-plat'); plat.onchange=()=>renderPhGroup(sp,+sel.value);
+  const pty=document.getElementById('ph-ptype'); pty.onchange=()=>renderPhGroup(sp,+sel.value);
   renderPhGroup(sp,0);
 }
 function renderPhGroup(sp,i){
   const g=(sp.phenotype_groups||[])[i]||{calls:sp.phenotypes,base_medium:''};
   const pf=document.getElementById('ph-plat').value;
-  let calls=pf?g.calls.filter(c=>c.platform===pf):g.calls;
-  document.getElementById('ph-gsum').innerHTML=(g.base_medium?`<b>base medium:</b> ${esc(g.base_medium)}`:'')+(pf?` · <b>${calls.length}</b> ${esc(pf)} calls`:'');
+  const pt=document.getElementById('ph-ptype').value;
+  let calls=g.calls;
+  if(pt)calls=calls.filter(c=>(c.ptype||'other')===pt);
+  if(pf)calls=calls.filter(c=>c.platform===pf);
+  document.getElementById('ph-gsum').innerHTML=(g.base_medium?`<b>base medium:</b> ${esc(g.base_medium)}`:'')+` · <b>${calls.length}</b> calls`+(pt?` · ${esc(pt.replace('_',' '))}`:'')+(pf?` · ${esc(pf)}`:'');
   if(phtable){phtable.destroy();$('#phtbl tbody').empty();}
   const phc={positive:'#1a7f4b',negative:'#c0392b',variable:'#6b7684'};
   phtable=$('#phtbl').DataTable({data:calls,pageLength:15,deferRender:true,order:[[4,'desc']],
@@ -349,9 +354,12 @@ function dlPhenos(){if(!CUR)return;csv(CUR.phenotypes,[['species',_=>CUR.species
 
 function fluxTable(arr,title){if(!arr||!arr.length)return '';return `<h6 style="font-size:.85rem;margin-top:.6rem">${title}</h6><table class="table table-sm" style="font-size:.8rem"><thead><tr><th>Compound</th><th>Exchange</th><th>Rate</th><th>Units</th><th>Method</th></tr></thead><tbody>`+arr.map(f=>`<tr><td>${esc(f.compound)}</td><td>${f.exchange?'<code>'+esc(f.exchange)+'</code>'+(f.exchange_ns&&f.exchange_ns!=='bigg'?' <span style="font-size:.6rem;color:#8a6d3b;background:#fcf3d9;padding:0 4px;border-radius:5px">'+esc(f.exchange_ns)+'</span>':''):'<span style=color:#bbb>unmapped</span>'}</td><td>${fx(f.rate)}</td><td>${esc(f.units||'')}</td><td>${esc(f.method||'')}</td></tr>`).join('')+'</tbody></table>';}
 function cobraStr(r){
-  const up=(r.up||[]).filter(f=>f.exchange&&f.rate!=null),sec=(r.sec||[]).filter(f=>f.exchange&&f.rate!=null);
-  let s=`# GrowthDB · ${CUR?CUR.species:''}${r.strain?' '+r.strain:''}\n# medium: ${r.medium||'n/a'} · ${r.mode||''} ${r.ox||''} ${r.T!=null?r.T+'°C':''} ${r.pH!=null?'pH'+r.pH:''}\n# µ = ${r.mu!=null?fx(r.mu)+' /h':'n/a'}\n`;
-  if(!up.length&&!sec.length) return s+'# (no measured exchange rates for this record)';
+  // only biomass-SPECIFIC (mmol/gDW/h) rates are valid FBA bounds
+  const up=(r.up||[]).filter(f=>f.exchange&&f.rate!=null&&f.flux_usable),sec=(r.sec||[]).filter(f=>f.exchange&&f.rate!=null&&f.flux_usable);
+  const dropped=(r.up||[]).concat(r.sec||[]).filter(f=>f.exchange&&f.rate!=null&&!f.flux_usable).length;
+  let s=`# GrowthDB · ${CUR?CUR.species:''}${r.strain?' '+r.strain:''}\n# medium: ${r.medium||'n/a'} · ${r.mode||''} ${r.ox||''} ${r.T!=null?r.T+'°C':''} ${r.pH!=null?'pH'+r.pH:''}\n# µ = ${r.mu!=null?fx(r.mu)+' /h'+(r.mu_usable===false?' (FLAGGED: '+(r.mu_qc||'')+')':''):'n/a'}\n`;
+  if(dropped)s+=`# ${dropped} rate(s) omitted — not biomass-specific (mmol/gDW/h), so not valid FBA bounds\n`;
+  if(!up.length&&!sec.length) return s+'# (no flux-usable exchange rates for this record)';
   s+='constraints = {\n';
   up.forEach(f=>{s+=`    "${f.exchange}": (${(-Math.abs(f.rate)).toFixed(3)}, 1000),   # ${esc(f.compound)} uptake\n`;});
   sec.forEach(f=>{s+=`    "${f.exchange}": (-1000, ${Math.abs(f.rate).toFixed(3)}),   # ${esc(f.compound)} secretion\n`;});
