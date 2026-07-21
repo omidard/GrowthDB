@@ -24,7 +24,10 @@ SPECIES_DIR = os.path.join(ROOT, "data", "species")
 MEDIA_REPO = "/data/media_curate"
 WRITE = "--write" in sys.argv
 
-MINERALS = ["pi", "so4", "cl", "na1", "k", "nh4", "mg2", "ca2", "fe2", "fe3", "mn2", "zn2", "cu2", "cobalt2", "mobd", "ni2", "h2o", "h"]
+# complete defined-minimal mineral + trace set (must include the trace cofactors real defined media
+# supply — cobalamin/B12, selenium, tungsten, CO2 — or models needing them return no growth)
+MINERALS = ["pi", "so4", "cl", "na1", "k", "nh4", "mg2", "ca2", "fe2", "fe3", "mn2", "zn2", "cu2", "cobalt2",
+            "mobd", "ni2", "h2o", "h", "co2", "cbl1", "sel", "slnt", "tungs"]
 VITAMINS = ["thm", "ribflv", "nac", "pnto__R", "pydxn", "fol", "btn", "4abz", "cbl1", "lipoate", "5mthf"]
 
 # defined-minimal base media (exchanges; the tested substrate is added at validation time).
