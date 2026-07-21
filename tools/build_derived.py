@@ -5,7 +5,7 @@ qS-vs-µ chemostat relation, overflow-metabolism byproducts (qP vs µ), cardinal
 temperature, oxygen preference, and the substrate-utilization spectrum for GEM validation."""
 import json, os, glob
 from collections import defaultdict, Counter
-REPO="/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/growthdb_work/repo"
+REPO=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CARBON={"EX_glc__D_e":"glucose","EX_glyc_e":"glycerol","EX_ac_e":"acetate","EX_succ_e":"succinate",
  "EX_lac__L_e":"lactate","EX_xyl__D_e":"xylose","EX_fru_e":"fructose","EX_gal_e":"galactose",
  "EX_malt_e":"maltose","EX_glcn_e":"gluconate","EX_pyr_e":"pyruvate","EX_cit_e":"citrate",
@@ -76,10 +76,12 @@ for f in glob.glob(os.path.join(REPO,"data","species","*.json")):
             overflow.append({"exchange":ex,"slope":round(fp["slope"],3),"n":len(pts),
                 "points":[{"mu":round(m,4),"qP":round(q,3)} for m,q in pts]})
     if overflow: d["overflow_products"]=sorted(overflow,key=lambda x:-x["slope"]); n_over+=1
-    # substrate utilization spectrum (for GEM validation)
+    # substrate utilization spectrum (for GEM validation). utilizable_exchanges must be GROWTH-type only
+    # (substrate as sole C source) — NOT acid-production/enzyme assays, which are not growth-on-X.
     pos=[p for p in phs if p.get("phenotype")=="positive"]; neg=[p for p in phs if p.get("phenotype")=="negative"]
     d["n_substrates_positive"]=len(pos); d["n_substrates_negative"]=len(neg)
-    d["utilizable_exchanges"]=sorted({p["exchange"] for p in pos if p.get("exchange")})
+    grow_pos=[p for p in pos if (p.get("assay_type") or "growth") in ("growth","growth_uncertain") and p.get("category")=="carbon"]
+    d["utilizable_exchanges"]=sorted({p["exchange"] for p in grow_pos if p.get("exchange")})
     if pos: d["substrate_categories"]=dict(Counter(p.get("category") for p in pos))
     sh["derived"]=d
     json.dump(sh,open(f,"w"),separators=(",",":"))
